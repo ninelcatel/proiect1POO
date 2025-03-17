@@ -1,1 +1,1 @@
-proiect poo
+lab-poo
