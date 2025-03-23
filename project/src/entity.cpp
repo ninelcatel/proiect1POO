@@ -7,7 +7,6 @@ void Entity::setHealth(int health)
 {
     hp = health;
 }
-
 void Entity::setPosition(int x, int y)
 {
     position.x = x;
@@ -22,21 +21,39 @@ SDL_Rect Entity::getPosition()
 {
     return position;
 }
-void Entity::changeAppearence(char *filePath, SDL_Renderer *renderer)
-{
+void Entity::changeAppearence(const char *filePath, SDL_Renderer *renderer)
+{   
+    if (filePath == nullptr) {
+        std::cerr << "ERROR: filePath is NULL!" << std::endl;
+        return;
+    }
     texture = loadTexture(filePath, renderer);
 }
+
 void Entity::render(SDL_Renderer *renderer)
 {
     SDL_RenderCopy(renderer, texture, nullptr, &position);
 }
-SDL_Texture* Entity::getTexture(){
+SDL_Texture *Entity::getTexture()
+{
     return texture;
 }
-const char* Entity::getFilePath(){
+const char *Entity::getFilePath()
+{
 
     return filePath;
 }
-void Entity::setFilePath(const char* newPath){
-    filePath=newPath;
+void Entity::setFilePath(const char *newPath)
+{
+    filePath = newPath;
+}
+SDL_Renderer *Entity::getRenderer()
+{
+    return renderer;
+}
+void Entity::setIsFlipped(bool flip){
+    isFlipped=flip;
+}
+bool Entity::getIsFlipped(){
+    return isFlipped;
 }
