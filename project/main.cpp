@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
     if (!init(&window, &renderer))
     {
-        Entity player(200,200,200,200,renderer,"res/player.png");
+        Player player(200,200,200,200,renderer,"res/player.png",10,20);
         bool running = true;
         SDL_Event event;
         while (running)
@@ -18,14 +18,17 @@ int main(int argc, char *argv[])
                 {
                     running = false;
                 }
+                player.handleEvent(event);
             }
+            player.update();
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
             SDL_RenderClear(renderer);
+            player.render(renderer);
             SDL_RenderPresent(renderer);
+            
         }
 
         SDL_DestroyRenderer(renderer);
-        player.render(renderer);
         SDL_DestroyWindow(window);
         SDL_Quit();
     }

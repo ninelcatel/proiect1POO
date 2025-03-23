@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "entity.h"
-#include "init.h"
+#include <iostream>
 void Entity::setHealth(int health)
 {
     hp = health;
@@ -29,4 +29,14 @@ void Entity::changeAppearence(char *filePath, SDL_Renderer *renderer)
 void Entity::render(SDL_Renderer *renderer)
 {
     SDL_RenderCopy(renderer, texture, nullptr, &position);
+}
+SDL_Texture* Entity::getTexture(){
+    return texture;
+}
+const char* Entity::getFilePath(){
+
+    return filePath;
+}
+void Entity::setFilePath(const char* newPath){
+    filePath=newPath;
 }

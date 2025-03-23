@@ -6,14 +6,14 @@ class Entity
 {
         
 
-protected:
+private:
     SDL_Rect position;
     SDL_Texture *texture;
     const char *filePath;
     int hp;
 
 public:
-    Entity(int x, int y, int w, int h, SDL_Renderer *renderer, const char *filePath)
+    Entity(int x=0, int y=0, int w=0, int h=0, SDL_Renderer *renderer=NULL, const char *filePath=NULL)
     {
         texture = loadTexture(filePath, renderer);
         if (!texture)
@@ -27,9 +27,12 @@ public:
         SDL_DestroyTexture(texture);
     }
     int getHealth();
+    SDL_Texture* getTexture();
+    const char* getFilePath();
     SDL_Rect getPosition();
     void setHealth(int hp);
-    void setPosition(int x, int y);
+    void setPosition(int x=0, int y=0);
     void changeAppearence(char *filePath, SDL_Renderer *renderer); // change the loaded texture
     void render(SDL_Renderer *renderer);
+    void setFilePath(const char* filePath);
 };
