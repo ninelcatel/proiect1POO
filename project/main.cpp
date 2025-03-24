@@ -1,5 +1,6 @@
 #include <iostream>
 #include "src/entity.h"
+#include "src/assets.h"
 #include "src/player.h"
 SDL_Renderer *renderer = nullptr;
 SDL_Window *window = nullptr;
@@ -7,7 +8,8 @@ int main(int argc, char *argv[])
 {
     if (!init(&window, &renderer))
     {
-        Player player(200,200,200,200,renderer,"res/player.png",10,20);
+        Player player(200,200,200,200,renderer,window,"res/player.png",10,20);
+        StatusBars stats(renderer,window);
         bool running = true;
         SDL_Event event;
         while (running)
@@ -23,7 +25,8 @@ int main(int argc, char *argv[])
             player.update();
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
             SDL_RenderClear(renderer);
-            player.render(renderer);
+            player.render();
+            stats.render(player);
             SDL_RenderPresent(renderer);
             
         }

@@ -7,7 +7,7 @@ bool init(SDL_Window **window, SDL_Renderer **renderer)
         std::cerr << "SDL INIT ERROR" << SDL_GetError();
         return true;
     }
-    *window = SDL_CreateWindow("game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 720, SDL_WINDOW_SHOWN);
+    *window = SDL_CreateWindow("game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 720, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
     if (!window)
     {

@@ -4,12 +4,15 @@ const int moveDelay = 5;
 const int stayingDelay = 251;
 static int frameCounter = 0;
 static int animFrameCounter = 0;
-Player::Player(int x, int y, int w, int h, SDL_Renderer *renderer, const char *filePath, float atkp, float armoor)
-    : Entity(x, y, w, h, renderer, filePath)
+Player::Player(int x, int y, int w, int h, SDL_Renderer *renderer, SDL_Window *window, const char *filePath, float atkp, float armoor)
+    : Entity(x, y, w, h, renderer, window, filePath)
 {
     ap = atkp;
     armor = armoor;
-
+    setHealth(20);
+    setMaxHealth(30);
+    energy = 40;
+    current_energy = 20;
     keyBindings[SDLK_w] = &Player::moveUp;
     keyBindings[SDLK_s] = &Player::moveDown;
     keyBindings[SDLK_a] = &Player::moveLeft;
@@ -19,6 +22,11 @@ Player::Player(int x, int y, int w, int h, SDL_Renderer *renderer, const char *f
     keyStates[SDLK_s] = false;
     keyStates[SDLK_a] = false;
     keyStates[SDLK_d] = false;
+
+    keyToDirection[SDLK_w] = UP;
+    keyToDirection[SDLK_s] = DOWN;
+    keyToDirection[SDLK_a] = LEFT;
+    keyToDirection[SDLK_d] = RIGHT;
 }
 
 void Player::handleEvent(SDL_Event &event)
@@ -57,25 +65,25 @@ void Player::update()
                         switch (animFrameCounter % 7)
                         {
                         case 0:
-                            changeAppearence("res/player.png", getRenderer());
+                            changeAppearence("res/player.png");
                             break;
                         case 1:
-                            changeAppearence("res/run1.png", getRenderer());
+                            changeAppearence("res/run1.png");
                             break;
                         case 2:
-                            changeAppearence("res/run2.png", getRenderer());
+                            changeAppearence("res/run2.png");
                             break;
                         case 3:
-                            changeAppearence("res/run3.png", getRenderer());
+                            changeAppearence("res/run3.png");
                             break;
                         case 4:
-                            changeAppearence("res/run4.png", getRenderer());
+                            changeAppearence("res/run4.png");
                             break;
                         case 5:
-                            changeAppearence("res/run5.png", getRenderer());
+                            changeAppearence("res/run5.png");
                             break;
                         case 6:
-                            changeAppearence("res/run6.png", getRenderer());
+                            changeAppearence("res/run6.png");
                             break;
                         default:
                             break;
@@ -86,32 +94,35 @@ void Player::update()
                         switch (animFrameCounter % 7)
                         {
                         case 0:
-                            changeAppearence("res/flipped/player.png", getRenderer());
+                            changeAppearence("res/flipped/player.png");
                             break;
                         case 1:
-                            changeAppearence("res/flipped/run1.png", getRenderer());
+                            changeAppearence("res/flipped/run1.png");
                             break;
                         case 2:
-                            changeAppearence("res/flipped/run2.png", getRenderer());
+                            changeAppearence("res/flipped/run2.png");
                             break;
                         case 3:
-                            changeAppearence("res/flipped/run3.png", getRenderer());
+                            changeAppearence("res/flipped/run3.png");
                             break;
                         case 4:
-                            changeAppearence("res/flipped/run4.png", getRenderer());
+                            changeAppearence("res/flipped/run4.png");
                             break;
                         case 5:
-                            changeAppearence("res/flipped/run5.png", getRenderer());
+                            changeAppearence("res/flipped/run5.png");
                             break;
                         case 6:
-                            changeAppearence("res/flipped/run6.png", getRenderer());
+                            changeAppearence("res/flipped/run6.png");
                             break;
                         default:
                             break;
                         }
                     }
                 }
-                (this->*pair.second)(); // Call movement functions dynamically
+                if (isValidMove(keyToDirection[pair.first]))
+                {
+                    (this->*pair.second)(); // call movement functions dynamically
+                }
             }
         }
         if (moving == false && animFrameCounter % stayingDelay == 0)
@@ -120,16 +131,16 @@ void Player::update()
                 switch (frameCounter % 4)
                 {
                 case 0:
-                    changeAppearence("res/player.png", getRenderer());
+                    changeAppearence("res/player.png");
                     break;
                 case 1:
-                    changeAppearence("res/stay.png", getRenderer());
+                    changeAppearence("res/stay.png");
                     break;
                 case 2:
-                    changeAppearence("res/stay2.png", getRenderer());
+                    changeAppearence("res/stay2.png");
                     break;
                 case 3:
-                    changeAppearence("res/stay.png", getRenderer());
+                    changeAppearence("res/stay.png");
                     break;
                 default:
                     break;
@@ -139,16 +150,16 @@ void Player::update()
                 switch (frameCounter % 4)
                 {
                 case 0:
-                    changeAppearence("res/flipped/player.png", getRenderer());
+                    changeAppearence("res/flipped/player.png");
                     break;
                 case 1:
-                    changeAppearence("res/flipped/stay.png", getRenderer());
+                    changeAppearence("res/flipped/stay.png");
                     break;
                 case 2:
-                    changeAppearence("res/flipped/stay2.png", getRenderer());
+                    changeAppearence("res/flipped/stay2.png");
                     break;
                 case 3:
-                    changeAppearence("res/flipped/stay.png", getRenderer());
+                    changeAppearence("res/flipped/stay.png");
                     break;
                 default:
                     break;
@@ -179,4 +190,20 @@ void Player::moveRight()
 {
     const SDL_Rect rect = getPosition();
     setPosition(rect.x + speed, rect.y);
+}
+void Player::setEnergy(int eng)
+{ // eng=energy;
+    current_energy = eng;
+}
+void Player::setMaxEnergy(int eng)
+{
+    energy = eng;
+}
+int Player::getEnergy()
+{
+    return energy;
+}
+int Player::getCurrentEnergy()
+{
+    return current_energy;
 }
