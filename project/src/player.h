@@ -7,9 +7,9 @@ private:
     float ap, armor;
     int energy,current_energy;
     const int speed = 1;  
-    std::unordered_map<SDL_Keycode, void(Player::*)()> keyBindings;
-    std::unordered_map<SDL_Keycode, bool> keyStates;
-    std::unordered_map<SDL_Keycode,Direction>keyToDirection;
+    std::unordered_map<SDL_Keycode, void(Player::*)()> keyBindings; //function pointer for movement
+    std::unordered_map<SDL_Keycode, bool> keyStates;    //which keys are pressed so diagonal and smooth movement is possible
+    std::unordered_map<SDL_Keycode,Direction>keyToDirection; //for not going out of bounds
     void moveUp();
     void moveDown();
     void moveLeft();
@@ -18,7 +18,7 @@ private:
     void dash();
 
 public:
-    Player(int x, int y, int w, int h, SDL_Renderer *renderer,SDL_Window* window, const char *filePath, float atkp, float armoor);
+    Player(const char *filePath, float atkp, float armoor);
     void update();
     void handleEvent(SDL_Event &event);
     void setEnergy(int energy);

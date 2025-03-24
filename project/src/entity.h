@@ -3,28 +3,24 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 enum Direction{UP,DOWN,LEFT,RIGHT};
-class Entity
+class Entity : public Game
 {
 private:
     SDL_Rect position;
     SDL_Texture *texture;
-    SDL_Renderer* renderer;
-    SDL_Window* window;
     const char *filePath;
     int hp,current_hp;
     bool isFlipped=false;
 
 
 public:
-    Entity(int x=0, int y=0, int w=0, int h=0, SDL_Renderer *renderer=NULL,SDL_Window* window=NULL, const char *filePath=NULL)
-    {   this->window=window;
-        this->renderer=renderer;
+    Entity(const char *filePath=NULL)
+    { 
         texture = loadTexture(filePath, renderer);
         if (!texture)
         {
             std::cerr << "COULDNT LOAD TEXTURE" << std::endl;
         }
-        position = {x, y, w, h};
     } // coordinates + where to render and image loaded;
     ~Entity()
     {

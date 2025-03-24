@@ -4,9 +4,10 @@ const int moveDelay = 5;
 const int stayingDelay = 251;
 static int frameCounter = 0;
 static int animFrameCounter = 0;
-Player::Player(int x, int y, int w, int h, SDL_Renderer *renderer, SDL_Window *window, const char *filePath, float atkp, float armoor)
-    : Entity(x, y, w, h, renderer, window, filePath)
-{
+Player::Player(const char *filePath, float atkp, float armoor)
+    : Entity(filePath)
+{   
+    setPosition(200,200);
     ap = atkp;
     armor = armoor;
     setHealth(20);

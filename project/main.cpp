@@ -6,12 +6,11 @@ SDL_Renderer *renderer = nullptr;
 SDL_Window *window = nullptr;
 int main(int argc, char *argv[])
 {
-    if (!init(&window, &renderer))
-    {
-        Player player(200,200,200,200,renderer,window,"res/player.png",10,20);
-        StatusBars stats(renderer,window);
-        bool running = true;
+        Game game;
+        Player player("res/player.png",10,20);
+        StatusBars stats;
         SDL_Event event;
+        bool running = true;
         while (running)
         {   
             while (SDL_PollEvent(&event))
@@ -23,17 +22,15 @@ int main(int argc, char *argv[])
                 player.handleEvent(event);
             }
             player.update();
-            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-            SDL_RenderClear(renderer);
+            SDL_SetRenderDrawColor(game.getRenderer(), 0, 0, 0, 255);
+            SDL_RenderClear(game.getRenderer());
             player.render();
             stats.render(player);
-            SDL_RenderPresent(renderer);
+            SDL_RenderPresent(game.getRenderer());
             
         }
-
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
+        SDL_DestroyRenderer(game.getRenderer());
+        SDL_DestroyWindow(game.getWindow());
         SDL_Quit();
-    }
     return 0;
 }

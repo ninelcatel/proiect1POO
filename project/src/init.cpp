@@ -1,5 +1,8 @@
 
 #include "init.h"
+SDL_Renderer* Game::renderer=nullptr;
+SDL_Window* Game::window=nullptr;
+bool Game::initialized=false;
 bool init(SDL_Window **window, SDL_Renderer **renderer)
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -7,7 +10,7 @@ bool init(SDL_Window **window, SDL_Renderer **renderer)
         std::cerr << "SDL INIT ERROR" << SDL_GetError();
         return true;
     }
-    *window = SDL_CreateWindow("game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 720, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    *window = SDL_CreateWindow("game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 720, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
 
     if (!window)
     {
@@ -15,6 +18,7 @@ bool init(SDL_Window **window, SDL_Renderer **renderer)
         SDL_Quit();
         return true;
     }
+       
     *renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer)
     {
@@ -23,6 +27,11 @@ bool init(SDL_Window **window, SDL_Renderer **renderer)
         SDL_Quit();
         return true;
     }
+        
+    SDL_SetRenderDrawColor(*renderer, 0, 0, 0, 255);
+    SDL_RenderClear(*renderer);
+    SDL_RenderPresent(*renderer);
+    SDL_Delay(10);
     return false;
 }
 SDL_Texture *loadTexture(const char *filePath, SDL_Renderer *renderer)
@@ -40,4 +49,11 @@ SDL_Texture *loadTexture(const char *filePath, SDL_Renderer *renderer)
     texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
     SDL_FreeSurface(loadedSurface);
     return texture;
+}
+SDL_Renderer* Game::getRenderer(){
+    return renderer;
+}
+
+SDL_Window* Game::getWindow(){
+    return window;
 }

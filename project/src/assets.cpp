@@ -15,7 +15,6 @@ void StatusBars::render(Player &player){
     position.h=window_height*0.035;
     position.y=window_height-2*position.h;
     // std::cout<<window_height<<std::endl<<window_width<<std::endl;
-
     while(i<=current_hp){
         SDL_RenderCopy(renderer,health_bar,nullptr,&position);
         i+=5;
