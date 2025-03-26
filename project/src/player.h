@@ -25,4 +25,5 @@ public:
     int getEnergy();
     void setMaxEnergy(int energy);
     int getCurrentEnergy();
+    void animation(bool isFlipped,bool isMoving,int frame);
 };

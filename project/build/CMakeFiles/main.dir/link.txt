@@ -1,0 +1,1 @@
+/sbin/c++ -Wl,--dependency-file=CMakeFiles/main.dir/link.d CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/src/entity.cpp.o CMakeFiles/main.dir/src/init.cpp.o CMakeFiles/main.dir/src/player.cpp.o CMakeFiles/main.dir/src/assets.cpp.o -o main  /usr/lib/libSDL2-2.0.so.0.3200.52 /usr/lib/libSDL2_image.so
