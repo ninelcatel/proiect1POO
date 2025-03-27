@@ -38,18 +38,12 @@ Player::Player(const char *filePath, float atkp, float armoor)
 
 void Player::handleEvent(SDL_Event &event)
 {
-    if (event.type == SDL_KEYDOWN)
-    {
-        keyStates[event.key.keysym.sym] = true;
-        if (getIsFlipped() == false && event.key.keysym.sym == SDLK_a)
-            setIsFlipped(true);
-        else if (getIsFlipped() == true && event.key.keysym.sym == SDLK_d)
-            setIsFlipped(false);
-    }
-    else if (event.type == SDL_KEYUP)
-    {
-        keyStates[event.key.keysym.sym] = false;
-    }
+    keyStates[event.key.keysym.sym] = event.type == SDL_KEYDOWN;
+
+    if (not getIsFlipped() and event.key.keysym.sym == SDLK_a)
+        setIsFlipped(true);
+    if (getIsFlipped() == true and event.key.keysym.sym == SDLK_d)
+        setIsFlipped(false);
 }
 
 void Player::update()
