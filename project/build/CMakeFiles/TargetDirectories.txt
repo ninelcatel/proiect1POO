@@ -1,0 +1,3 @@
+/home/simi/Dev/ninigame-cpp/project/build/CMakeFiles/MyGame.dir
+/home/simi/Dev/ninigame-cpp/project/build/CMakeFiles/edit_cache.dir
+/home/simi/Dev/ninigame-cpp/project/build/CMakeFiles/rebuild_cache.dir
