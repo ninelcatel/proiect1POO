@@ -123,7 +123,7 @@ int Player::getCurrentEnergy()
 
 
 void Player::animation(bool isFlipped,bool isMoving,int index){
-    const std::string prefix = isFlipped ? "res/flipped/" : "res/";
+    const std::string prefix = isFlipped ? "resources/flipped/" : "resources/";
 
     const auto& suffix = isMoving ? runSprites : staySprites;
     const auto filePath = prefix + suffix[index] + ".png"; // whole path;

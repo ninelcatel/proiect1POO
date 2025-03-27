@@ -19,10 +19,10 @@ class StatusBars : public Game
         StatusBars(){
             // if loadTexture can throw, handle that; if not, mark this as noexcept
             // noexcept and const correctness are both good habits
-            health_bar=loadTexture("res/heart/Heart.png",renderer);
-            broken_health=loadTexture("res/heart/brokenHeart.png",renderer);
-            energy_bar=loadTexture("res/heart/Energy.png",renderer);
-            broken_energy=loadTexture("res/heart/brokenEnergy.png",renderer);
+            health_bar=loadTexture("resources/heart/Heart.png",renderer);
+            broken_health=loadTexture("resources/heart/brokenHeart.png",renderer);
+            energy_bar=loadTexture("resources/heart/Energy.png",renderer);
+            broken_energy=loadTexture("resources/heart/brokenEnergy.png",renderer);
         }
         void render(Player &player);
 };

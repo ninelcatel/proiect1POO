@@ -10,7 +10,7 @@ SDL_Window *window = nullptr;
 int main(int argc, char *argv[])
 {
         Game game;
-        Player player("res/player.png",10,20);
+        Player player("resources/player.png",10,20);
         StatusBars stats;
         SDL_Event event;
         bool running = true;
