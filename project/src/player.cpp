@@ -40,10 +40,15 @@ void Player::handleEvent(SDL_Event &event)
 {
     keyStates[event.key.keysym.sym] = event.type == SDL_KEYDOWN;
 
-    if (not getIsFlipped() and event.key.keysym.sym == SDLK_a)
-        setIsFlipped(true);
-    if (getIsFlipped() == true and event.key.keysym.sym == SDLK_d)
-        setIsFlipped(false);
+    // absolutely no idea why animation errors out without those 2 `if`s
+
+    setIsFlipped(
+        (not getIsFlipped() and event.key.keysym.sym == SDLK_a)
+        ? true
+        : (getIsFlipped() == true and event.key.keysym.sym == SDLK_d)
+            ? false
+            : getIsFlipped()
+    );
 }
 
 void Player::update()
