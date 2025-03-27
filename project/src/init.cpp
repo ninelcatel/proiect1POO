@@ -36,15 +36,15 @@ bool init(SDL_Window **window, SDL_Renderer **renderer)
 }
 SDL_Texture *loadTexture(const char *filePath, SDL_Renderer *renderer)
 {
-    SDL_Texture *texture = NULL;
+    SDL_Texture *texture = nullptr;
     SDL_Surface *loadedSurface = IMG_Load(filePath);
     if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
-    std::cerr << "Failed to initialize PNG support: " << IMG_GetError() << std::endl;
+        std::cerr << "Failed to initialize PNG support: " << IMG_GetError() << std::endl;
     }
     if (!loadedSurface)
     {
         std::cerr << "img couldn't load " <<filePath<<" "<<SDL_GetError()<<" "<< std::endl;
-        return NULL;
+        return nullptr;
     }
     texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
     SDL_FreeSurface(loadedSurface);

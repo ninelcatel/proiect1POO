@@ -2,12 +2,16 @@ cmake_minimum_required(VERSION 3.10)
 
 project(MyGame CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+if(ENABLE_CXX_20)
+    set(CMAKE_CXX_STANDARD 20)
+else()
+    set(CMAKE_CXX_STANDARD 17)
+endif()
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 
-add_executable(main
+add_executable(${CMAKE_PROJECT_NAME}
     main.cpp
     src/entity.cpp
     src/init.cpp
@@ -15,4 +19,4 @@ add_executable(main
     src/assets.cpp
 )
 
-target_link_libraries(main SDL2::SDL2 SDL2_image::SDL2_image)
+target_link_libraries(${CMAKE_PROJECT_NAME} SDL2::SDL2 SDL2_image::SDL2_image)

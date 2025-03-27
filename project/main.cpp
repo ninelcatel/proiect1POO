@@ -1,9 +1,12 @@
 #include <iostream>
+
 #include "src/player.h"
 #include "src/assets.h"
 #include "src/init.h"
+
 SDL_Renderer *renderer = nullptr;
 SDL_Window *window = nullptr;
+
 int main(int argc, char *argv[])
 {
         Game game;

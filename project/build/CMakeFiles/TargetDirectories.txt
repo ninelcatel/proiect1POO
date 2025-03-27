@@ -1,3 +1,0 @@
-/home/ninel/facultate/poo/proiect1/project/build/CMakeFiles/main.dir
-/home/ninel/facultate/poo/proiect1/project/build/CMakeFiles/edit_cache.dir
-/home/ninel/facultate/poo/proiect1/project/build/CMakeFiles/rebuild_cache.dir

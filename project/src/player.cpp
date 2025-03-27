@@ -1,10 +1,14 @@
 #include "player.h"
 #include <vector>
+#include <array>
+
+// why do you have them as global variables
 const int animDelay = 500; // delay in ms
 const int moveDelay = 5;
 const int stayingDelay = 251;
 static int frameCounter = 0;
 static int animFrameCounter = 0;
+
 Player::Player(const char *filePath, float atkp, float armoor)
     : Entity(filePath)
 {   
@@ -56,6 +60,8 @@ void Player::update()
     {
         for (const auto &pair : keyBindings)
         {
+            // be mindful of [] operator for maps
+            // i think you meant to use find()
             if (keyStates[pair.first])
             {
                 moving = true;
@@ -65,11 +71,12 @@ void Player::update()
                 }
             }
         }
+        // if else can be refactored
         if (!moving && animFrameCounter % stayingDelay == 0) //condition to display staying animation
         {
             animation(getIsFlipped(),false,animFrameCounter%4);
         }
-        else if(moving && animFrameCounter%animDelay==0){ // --//-- moving
+        else if(moving && animFrameCounter % animDelay == 0){ // --//-- moving
             animation(getIsFlipped(),true,animFrameCounter%7);
         }
     }
@@ -113,9 +120,16 @@ int Player::getCurrentEnergy()
 {
     return current_energy;
 }
- void Player::animation(bool isFlipped,bool isMoving,int index){
-    std::string prefix = isFlipped ? "res/flipped/" : "res/";
-    std::vector<std::string> suffix=isMoving ? std::vector<std::string>{"player","run1","run2","run3","run4","run5","run6"} : std::vector<std::string>{"player","stay","stay2","stay"};
-    std::string filePath=prefix+suffix[index]+".png"; //whole path;
-    changeAppearence(filePath.c_str()); //change from std::string to const char*
+
+
+void Player::animation(bool isFlipped,bool isMoving,int index){
+    const std::string prefix = isFlipped ? "res/flipped/" : "res/";
+
+    const auto& suffix = isMoving ? runSprites : staySprites;
+    const auto filePath = prefix + suffix[index] + ".png"; // whole path;
+
+    // `filePath` get destroyed after this current finishes running
+    // so if `changeAppearance` doesn't copy it internally,
+    // you'll point to unavailable memory.
+    changeAppearence(filePath.c_str()); // change from std::string to const char*
 }

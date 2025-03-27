@@ -1,15 +1,34 @@
 #pragma once
+
+#include "entity.h"
 #include <iostream>
 #include <unordered_map>
-#include "entity.h"
+#include <array>
+
+
+
 class Player : public Entity {
 private:
-    float ap, armor;
-    int energy,current_energy;
-    const int speed = 1;  
-    std::unordered_map<SDL_Keycode, void(Player::*)()> keyBindings; //function pointer for movement
-    std::unordered_map<SDL_Keycode, bool> keyStates;    //which keys are pressed so diagonal and smooth movement is possible
-    std::unordered_map<SDL_Keycode,Direction>keyToDirection; //for not going out of bounds
+    float ap{};
+    float armor{};
+    int energy{};
+    int current_energy{};
+    const int speed{1};
+    // God has forsaken you for `void(Player::*)()`
+    std::unordered_map<SDL_Keycode, void(Player::*)()> keyBindings; // function pointer for movement
+    std::unordered_map<SDL_Keycode, bool> keyStates;    // which keys are pressed so diagonal and smooth movement is possible
+    std::unordered_map<SDL_Keycode,Direction> keyToDirection; // for not going out of bounds
+    /*
+    1. moved here from `void animation(bool isFlipped,bool isMoving,int frame)`
+    because vector was created every time the function was called.
+    2. changed it from vector to array, don't need the resize
+    3. look up move semantics and {} initialization
+    4. left the 2 arrays inside `Player` because you don't seem to
+    instantiate more than one
+    */
+    const std::array<std::string, 7> runSprites { "player", "run1", "run2", "run3", "run4", "run5", "run6" };
+    const std::array<std::string, 7> staySprites { "player", "stay", "stay2", "stay" };
+
     void moveUp();
     void moveDown();
     void moveLeft();
@@ -21,6 +40,8 @@ public:
     Player(const char *filePath, float atkp, float armoor);
     void update();
     void handleEvent(SDL_Event &event);
+    // if you have a getter and setter for that variable with just one line of code,
+    // you don't need a getter and setter
     void setEnergy(int energy);
     int getEnergy();
     void setMaxEnergy(int energy);
