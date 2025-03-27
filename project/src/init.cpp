@@ -1,8 +1,12 @@
 
 #include "init.h"
+
+// use a GameInitializer to globally manage the game state
+// global variables are a sin
 SDL_Renderer* Game::renderer=nullptr;
 SDL_Window* Game::window=nullptr;
 bool Game::initialized=false;
+
 bool init(SDL_Window **window, SDL_Renderer **renderer)
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)

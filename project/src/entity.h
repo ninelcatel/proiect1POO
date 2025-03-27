@@ -26,29 +26,32 @@ public:
         texture = loadTexture(filePath, renderer);
         if (!texture)
         {
-            std::cerr << "COULDNT LOAD TEXTURE" << std::endl;
+            std::cerr << "COULDN'T LOAD TEXTURE" << std::endl;
         }
     } // coordinates + where to render and image loaded;
     ~Entity()
     {
         SDL_DestroyTexture(texture);
     }
-    int getHealth();
-    int getCurrentHealth();
-    SDL_Texture* getTexture();
-    const char* getFilePath();
-    bool getIsFlipped();
-    SDL_Rect getPosition();
-    SDL_Renderer* getRenderer();
-    void setHealth(int hp);
-    void setMaxHealth(int hp);
-    // why does setPosition have default arguments?
-    void setPosition(int x=0, int y=0);
-    void changeAppearence(const char *filePath); // change the loaded texture
+    // UTILITY
+    void changeAppearence(const char *filePath); // change the loaded texture | you made a typo here
     SDL_Texture* flipTexture(SDL_Texture* original);
     void render();
-    void setFilePath(const char* filePath);
-    void setIsFlipped(bool flip);
-    void setSize(int w,int h);
     bool isValidMove(Direction dir);
+    // GETTERS | good habit to mark getters as `[[nodiscard]]` and `const`
+    [[nodiscard]] int getHealth() const { return hp; };
+    [[nodiscard]] int getCurrentHealth() const { return current_hp; };
+    [[nodiscard]] SDL_Texture* getTexture() const { return texture; };
+    [[nodiscard]] const char* getFilePath() const { return filePath; };
+    [[nodiscard]] bool getIsFlipped() const { return isFlipped; };
+    [[nodiscard]] SDL_Rect getPosition() const { return position; };
+    [[nodiscard]] SDL_Renderer* getRenderer() const { return renderer; };
+    // SETTERS
+    void setHealth(const int newHp) { current_hp = newHp; };
+    void setMaxHealth(const int newHp) { hp = newHp; }
+    void setPosition(const int x = 0, const int y = 0) { position = {.x = x, .y = y}; } // why does setPosition have default arguments?
+    void setFilePath(const char* newPath) { filePath = newPath; } // maybe check on setting the file path if it's valid or not? that's why you use setters and getters, for providing easy to use APIs
+    void setIsFlipped(const bool flip) { isFlipped = flip; }
+    void setSize(const int w, const int h) { position = {.w = w, .h = h}; }
+
 };

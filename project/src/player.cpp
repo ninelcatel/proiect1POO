@@ -41,7 +41,7 @@ void Player::handleEvent(SDL_Event &event)
     const auto& current_button = event.key.keysym.sym;
     keyStates[current_button] = event.type == SDL_KEYDOWN;
 
-    // absolutely no idea why i need to chain them with if if or if else
+    // absolutely no idea why i need to chain them with `if if` or `if else`
     setIsFlipped(
         (not getIsFlipped() and current_button == SDLK_a)
         ? true
@@ -66,13 +66,13 @@ void Player::update()
             (this->*value)(); // call movement functions dynamically
     }
 
-    // if else can be easily refactored
+    // if else can be easily refactored, left to the reader as an exercise
     if (not moving and animFrameCounter % stayingDelay == 0) //condition to display staying animation
     {
         animation(getIsFlipped(), false, animFrameCounter%4);
     }
     else if(moving and animFrameCounter % animDelay == 0){ // --//-- moving
-        animation(getIsFlipped(), true, animFrameCounter%7);
+        animation(getIsFlipped(), true, animFrameCounter % 7);
     }
 }
 void Player::moveUp()
