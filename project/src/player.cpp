@@ -1,6 +1,7 @@
 #include "player.h"
 #include <vector>
 #include <array>
+#include <algorithm>
 
 // why do you have them as global variables
 const int animDelay = 500; // delay in ms
@@ -53,32 +54,26 @@ void Player::handleEvent(SDL_Event &event)
 
 void Player::update()
 {
-    bool moving = false;
     frameCounter++;
     animFrameCounter++;
-    if (frameCounter % moveDelay == 0)
+
+    if (frameCounter % moveDelay != 0) return;
+
+    bool moving = false;
+    for (const auto &[key, value] : keyBindings) {
+        // `Alternative operator representations` are since 1998
+        moving = true or (keyStates.at(key));
+        if (keyStates.at(key) and isValidMove(keyToDirection.at(key)))
+            (this->*value)(); // call movement functions dynamically
+    }
+
+    // if else can be easily refactored
+    if (not moving and animFrameCounter % stayingDelay == 0) //condition to display staying animation
     {
-        for (const auto &pair : keyBindings)
-        {
-            // be mindful of [] operator for maps
-            // i think you meant to use find()
-            if (keyStates[pair.first])
-            {
-                moving = true;
-                if (isValidMove(keyToDirection[pair.first]))
-                {
-                    (this->*pair.second)(); // call movement functions dynamically
-                }
-            }
-        }
-        // if else can be refactored
-        if (!moving && animFrameCounter % stayingDelay == 0) //condition to display staying animation
-        {
-            animation(getIsFlipped(),false,animFrameCounter%4);
-        }
-        else if(moving && animFrameCounter % animDelay == 0){ // --//-- moving
-            animation(getIsFlipped(),true,animFrameCounter%7);
-        }
+        animation(getIsFlipped(), false, animFrameCounter%4);
+    }
+    else if(moving and animFrameCounter % animDelay == 0){ // --//-- moving
+        animation(getIsFlipped(), true, animFrameCounter%7);
     }
 }
 void Player::moveUp()
@@ -104,23 +99,6 @@ void Player::moveRight()
     const SDL_Rect rect = getPosition();
     setPosition(rect.x + speed, rect.y);
 }
-void Player::setEnergy(int eng)
-{ // eng=energy;
-    current_energy = eng;
-}
-void Player::setMaxEnergy(int eng)
-{
-    energy = eng;
-}
-int Player::getEnergy()
-{
-    return energy;
-}
-int Player::getCurrentEnergy()
-{
-    return current_energy;
-}
-
 
 void Player::animation(bool isFlipped,bool isMoving,int index){
     const std::string prefix = isFlipped ? "resources/flipped/" : "resources/";

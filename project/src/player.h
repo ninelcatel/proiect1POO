@@ -5,9 +5,9 @@
 #include <unordered_map>
 #include <array>
 
-
-
 class Player : public Entity {
+// access specifier does not change accessibility level
+// plus it makes no sense for player to be parent to another class
 private:
     float ap{};
     float armor{};
@@ -42,9 +42,9 @@ public:
     void handleEvent(SDL_Event &event);
     // if you have a getter and setter for that variable with just one line of code,
     // you don't need a getter and setter
-    void setEnergy(int energy);
-    int getEnergy();
-    void setMaxEnergy(int energy);
-    int getCurrentEnergy();
-    void animation(bool isFlipped,bool isMoving,int frame);
+    void setEnergy(int enrg) { current_energy = enrg; }
+    [[nodiscard]] int getEnergy() const { return energy; }
+    void setMaxEnergy(int enrg) { energy = enrg; }
+    [[nodiscard]] int getCurrentEnergy() const { return current_energy; }
+    void animation(bool isFlipped, bool isMoving, int frame);
 };

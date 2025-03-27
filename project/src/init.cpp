@@ -50,10 +50,3 @@ SDL_Texture *loadTexture(const char *filePath, SDL_Renderer *renderer)
     SDL_FreeSurface(loadedSurface);
     return texture;
 }
-SDL_Renderer* Game::getRenderer(){
-    return renderer;
-}
-
-SDL_Window* Game::getWindow(){
-    return window;
-}
