@@ -38,14 +38,14 @@ Player::Player(const char *filePath, float atkp, float armoor)
 
 void Player::handleEvent(SDL_Event &event)
 {
-    keyStates[event.key.keysym.sym] = event.type == SDL_KEYDOWN;
+    const auto& current_button = event.key.keysym.sym;
+    keyStates[current_button] = event.type == SDL_KEYDOWN;
 
-    // absolutely no idea why animation errors out without those 2 `if`s
-
+    // absolutely no idea why i need to chain them with if if or if else
     setIsFlipped(
-        (not getIsFlipped() and event.key.keysym.sym == SDLK_a)
+        (not getIsFlipped() and current_button == SDLK_a)
         ? true
-        : (getIsFlipped() == true and event.key.keysym.sym == SDLK_d)
+        : (getIsFlipped() and current_button == SDLK_d)
             ? false
             : getIsFlipped()
     );

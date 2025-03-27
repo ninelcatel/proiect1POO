@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include "entity.h"
 #include <iostream>
+
 void Entity::setHealth(int health)
 {
     current_hp = health;
@@ -84,29 +85,23 @@ void Entity::setMaxHealth(int health)
 }
 bool Entity::isValidMove(Direction dir)
 {
+    // undefined behaviour waiting to happen but such is the c api ig
     int window_width = 0;
     int window_height = 0;
-    if(window) SDL_GetWindowSize(window,&window_width,&window_height);
-    else{
-        std::cerr<<"window is null!"<<" "<<SDL_GetError()<<std::endl;
-    }
-    std::cout<<window_width<<" "<<window_height<<std::endl<<position.x<<" "<<position.y<<std::endl;
+    SDL_GetWindowSize(window,&window_width,&window_height);
+
+    // std::cout<<window_width<<" "<<window_height<<std::endl<<position.x<<" "<<position.y<<std::endl;
+
     switch(dir){
         case UP:
-            if(position.y>=0 && position.y<=5) return false;
-            break;
+            return not (position.y>=0 && position.y<=5);
         case DOWN:
-            if(position.y>=window_height-5-position.h && position.y<=window_height-position.h) return false;
-            break;
+            return not (position.y>=window_height-5-position.h && position.y<=window_height-position.h);
         case LEFT:
-            if(position.x>=0 && position.x<=5) return false;
-            break;
+            return not (position.x>=0 && position.x<=5);
         case RIGHT:
-            if(position.x>=window_width-5-position.w && position.x<=window_width-position.w) return false;
-            break;
+            return not (position.x>=window_width-5-position.w && position.x<=window_width-position.w);
         default:
-            
-            break;
+            return true;
     }
-    return true;
 }
