@@ -1,5 +1,4 @@
 #include "player.h"
-#include <vector>
 const int animDelay = 500; // delay in ms
 const int moveDelay = 5;
 const int stayingDelay = 251;
@@ -59,18 +58,114 @@ void Player::update()
             if (keyStates[pair.first])
             {
                 moving = true;
+                if (animFrameCounter % animDelay == 0)
+                {
+
+                    if (!getIsFlipped())
+                    {
+                        switch (animFrameCounter % 7)
+                        {
+                        case 0:
+                            changeAppearence("res/player.png");
+                            break;
+                        case 1:
+                            changeAppearence("res/run1.png");
+                            break;
+                        case 2:
+                            changeAppearence("res/run2.png");
+                            break;
+                        case 3:
+                            changeAppearence("res/run3.png");
+                            break;
+                        case 4:
+                            changeAppearence("res/run4.png");
+                            break;
+                        case 5:
+                            changeAppearence("res/run5.png");
+                            break;
+                        case 6:
+                            changeAppearence("res/run6.png");
+                            break;
+                        default:
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        switch (animFrameCounter % 7)
+                        {
+                        case 0:
+                            changeAppearence("res/flipped/player.png");
+                            break;
+                        case 1:
+                            changeAppearence("res/flipped/run1.png");
+                            break;
+                        case 2:
+                            changeAppearence("res/flipped/run2.png");
+                            break;
+                        case 3:
+                            changeAppearence("res/flipped/run3.png");
+                            break;
+                        case 4:
+                            changeAppearence("res/flipped/run4.png");
+                            break;
+                        case 5:
+                            changeAppearence("res/flipped/run5.png");
+                            break;
+                        case 6:
+                            changeAppearence("res/flipped/run6.png");
+                            break;
+                        default:
+                            break;
+                        }
+                    }
+                }
                 if (isValidMove(keyToDirection[pair.first]))
                 {
                     (this->*pair.second)(); // call movement functions dynamically
                 }
             }
         }
-        if (!moving && animFrameCounter % stayingDelay == 0) //condition to display staying animation
+        if (moving == false && animFrameCounter % stayingDelay == 0)
         {
-            animation(getIsFlipped(),false,animFrameCounter%4);
-        }
-        else if(moving && animFrameCounter%animDelay==0){ // --//-- moving
-            animation(getIsFlipped(),true,animFrameCounter%7);
+            if (!getIsFlipped())
+                switch (frameCounter % 4)
+                {
+                case 0:
+                    changeAppearence("res/player.png");
+                    break;
+                case 1:
+                    changeAppearence("res/stay.png");
+                    break;
+                case 2:
+                    changeAppearence("res/stay2.png");
+                    break;
+                case 3:
+                    changeAppearence("res/stay.png");
+                    break;
+                default:
+                    break;
+                }
+            else
+            {
+                switch (frameCounter % 4)
+                {
+                case 0:
+                    changeAppearence("res/flipped/player.png");
+                    break;
+                case 1:
+                    changeAppearence("res/flipped/stay.png");
+                    break;
+                case 2:
+                    changeAppearence("res/flipped/stay2.png");
+                    break;
+                case 3:
+                    changeAppearence("res/flipped/stay.png");
+                    break;
+                default:
+                    break;
+                }
+            }
         }
     }
 }
@@ -112,10 +207,4 @@ int Player::getEnergy()
 int Player::getCurrentEnergy()
 {
     return current_energy;
-}
- void Player::animation(bool isFlipped,bool isMoving,int index){
-    std::string prefix = isFlipped ? "res/flipped/" : "res/";
-    std::vector<std::string> suffix=isMoving ? std::vector<std::string>{"player","run1","run2","run3","run4","run5","run6"} : std::vector<std::string>{"player","stay","stay2","stay"};
-    std::string filePath=prefix+suffix[index]+".png"; //whole path;
-    changeAppearence(filePath.c_str()); //change from std::string to const char*
 }
