@@ -48,12 +48,38 @@ SDL_Texture *loadTexture(const char *filePath, SDL_Renderer *renderer)
     }
     texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
     SDL_FreeSurface(loadedSurface);
+    if(!texture){
+        std::cerr<<"texture couldn't load "<<SDL_GetError()<<std::endl;
+        return NULL;
+    }
     return texture;
 }
+Game::Game(){
+            if(!initialized) {
+                init(&window,&renderer);
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderClear(renderer);
+            SDL_RenderPresent(renderer);
+            SDL_ShowWindow(window); // to not show blinking at the initialization
+            initialized=true;
+            SDL_GetWindowSize(window,&window_width,&window_height);
+            initial_window_width=window_width;
+            initial_window_height=window_height;
+            }
+        }
 SDL_Renderer* Game::getRenderer(){
     return renderer;
 }
 
 SDL_Window* Game::getWindow(){
     return window;
+}
+void Game::scale(float &x,float &y){
+    SDL_GetWindowSize(window,&window_width,&window_height);
+    x=static_cast<float>(window_width) / initial_window_width;
+    y=static_cast<float>(window_height)/initial_window_height;
+    initial_window_width=window_width;
+    initial_window_height=window_height; // save initials for future resizing
+    
+    //with these just multiply with current position coordinates via static_cast<int>
 }

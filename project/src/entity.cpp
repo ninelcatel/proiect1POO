@@ -35,11 +35,10 @@ void Entity::changeAppearence(const char *filePath)
 }
 
 void Entity::render()
-{   int window_width=0,window_height=0;
-    if(window) {
+{   
+     if(window) {
         SDL_GetWindowSize(window,&window_width,&window_height);
-        position.w=window_width*0.1;
-        position.h=window_height*0.15;
+        setSize(window_width*0.1,window_height*0.15);
     }
     else{
         std::cerr<<"WINDOW IS NULL"<<" "<<SDL_GetError()<<std::endl;
@@ -87,23 +86,25 @@ bool Entity::isValidMove(Direction dir)
     else{
         std::cerr<<"window is null!"<<" "<<SDL_GetError()<<std::endl;
     }
-    std::cout<<window_width<<" "<<window_height<<std::endl<<position.x<<" "<<position.y<<std::endl;
-    switch(dir){
+    std::cout/*<<window_width<<" "<<window_height<<std::endl*/<<position.x<<" "<<position.y<<std::endl;
+    switch(dir){ //dont go out of bounds            
+                // 1024x720 
+                // upper bound: y=110;
+                // lower bound: y=485
+                // left bound: x=145;
+                // right bound: x=770
+                
         case UP:
-            if(position.y>=0 && position.y<=5) return false;
-            break;
+            return !(position.y>=0 && position.y<=5) ;
         case DOWN:
-            if(position.y>=window_height-5-position.h && position.y<=window_height-position.h) return false;
-            break;
+            return !(position.y>=window_height-5-position.h && position.y<=window_height-position.h) ;
         case LEFT:
-            if(position.x>=0 && position.x<=5) return false;
-            break;
+            return !(position.x>=0 && position.x<=5) ;
         case RIGHT:
-            if(position.x>=window_width-5-position.w && position.x<=window_width-position.w) return false;
-            break;
-        default:
-            
-            break;
+            return !(position.x>=window_width-5-position.w && position.x<=window_width-position.w) ;
+        case NONE:
+            return true;
+        default:        
+            return true;
     }
-    return true;
 }

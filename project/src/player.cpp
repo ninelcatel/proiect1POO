@@ -1,12 +1,16 @@
 #include "player.h"
+#include <vector>
+#include <cmath>
 const int animDelay = 500; // delay in ms
 const int moveDelay = 5;
 const int stayingDelay = 251;
 static int frameCounter = 0;
 static int animFrameCounter = 0;
+
 Player::Player(const char *filePath, float atkp, float armoor)
     : Entity(filePath)
-{   
+    {
+    SDL_GetWindowSize(window, &initial_window_width, &initial_window_height);   
     setPosition(200,200);
     ap = atkp;
     armor = armoor;
@@ -18,16 +22,21 @@ Player::Player(const char *filePath, float atkp, float armoor)
     keyBindings[SDLK_s] = &Player::moveDown;
     keyBindings[SDLK_a] = &Player::moveLeft;
     keyBindings[SDLK_d] = &Player::moveRight;
+    keyBindings[SDLK_f] = &Player::attack;
 
     keyStates[SDLK_w] = false;
     keyStates[SDLK_s] = false;
     keyStates[SDLK_a] = false;
     keyStates[SDLK_d] = false;
+    keyStates[SDLK_f] = false;
 
     keyToDirection[SDLK_w] = UP;
     keyToDirection[SDLK_s] = DOWN;
     keyToDirection[SDLK_a] = LEFT;
     keyToDirection[SDLK_d] = RIGHT;
+    keyToDirection[SDLK_f] = NONE;
+    
+    
 }
 
 void Player::handleEvent(SDL_Event &event)
@@ -44,6 +53,24 @@ void Player::handleEvent(SDL_Event &event)
     {
         keyStates[event.key.keysym.sym] = false;
     }
+    else if (event.type == SDL_WINDOWEVENT)
+    {
+        if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+{
+    SDL_GetWindowSize(window, &window_width, &window_height);
+    float scale_x = static_cast<float>(window_width) / initial_window_width;
+    float scale_y = static_cast<float>(window_height) / initial_window_height;
+
+    SDL_Rect current_position = getPosition();
+
+    setPosition(
+        static_cast<int>(current_position.x * scale_x),
+        static_cast<int>(current_position.y * scale_y)
+    );
+    initial_window_width=window_width;
+    initial_window_height=window_height;
+}
+    }
 }
 
 void Player::update()
@@ -58,114 +85,23 @@ void Player::update()
             if (keyStates[pair.first])
             {
                 moving = true;
-                if (animFrameCounter % animDelay == 0)
-                {
-
-                    if (!getIsFlipped())
-                    {
-                        switch (animFrameCounter % 7)
-                        {
-                        case 0:
-                            changeAppearence("res/player.png");
-                            break;
-                        case 1:
-                            changeAppearence("res/run1.png");
-                            break;
-                        case 2:
-                            changeAppearence("res/run2.png");
-                            break;
-                        case 3:
-                            changeAppearence("res/run3.png");
-                            break;
-                        case 4:
-                            changeAppearence("res/run4.png");
-                            break;
-                        case 5:
-                            changeAppearence("res/run5.png");
-                            break;
-                        case 6:
-                            changeAppearence("res/run6.png");
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        switch (animFrameCounter % 7)
-                        {
-                        case 0:
-                            changeAppearence("res/flipped/player.png");
-                            break;
-                        case 1:
-                            changeAppearence("res/flipped/run1.png");
-                            break;
-                        case 2:
-                            changeAppearence("res/flipped/run2.png");
-                            break;
-                        case 3:
-                            changeAppearence("res/flipped/run3.png");
-                            break;
-                        case 4:
-                            changeAppearence("res/flipped/run4.png");
-                            break;
-                        case 5:
-                            changeAppearence("res/flipped/run5.png");
-                            break;
-                        case 6:
-                            changeAppearence("res/flipped/run6.png");
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                }
                 if (isValidMove(keyToDirection[pair.first]))
                 {
                     (this->*pair.second)(); // call movement functions dynamically
                 }
             }
         }
-        if (moving == false && animFrameCounter % stayingDelay == 0)
-        {
-            if (!getIsFlipped())
-                switch (frameCounter % 4)
-                {
-                case 0:
-                    changeAppearence("res/player.png");
-                    break;
-                case 1:
-                    changeAppearence("res/stay.png");
-                    break;
-                case 2:
-                    changeAppearence("res/stay2.png");
-                    break;
-                case 3:
-                    changeAppearence("res/stay.png");
-                    break;
-                default:
-                    break;
-                }
-            else
-            {
-                switch (frameCounter % 4)
-                {
-                case 0:
-                    changeAppearence("res/flipped/player.png");
-                    break;
-                case 1:
-                    changeAppearence("res/flipped/stay.png");
-                    break;
-                case 2:
-                    changeAppearence("res/flipped/stay2.png");
-                    break;
-                case 3:
-                    changeAppearence("res/flipped/stay.png");
-                    break;
-                default:
-                    break;
-                }
-            }
+        // if (!moving && animFrameCounter % stayingDelay == 0) //condition to display staying animation
+        // {
+        //     animation(getIsFlipped(),false,animFrameCounter%4);
+        // }
+        // else if(moving && animFrameCounter%animDelay==0){ // --//-- moving
+        //     animation(getIsFlipped(),true,animFrameCounter%7);
+        // }
+
+        int frameModulo = moving ? 7 : 4; //7 frames for moving, 4 for staying
+        if((animFrameCounter %(moving ? animDelay : stayingDelay))==0){
+            animation(getIsFlipped(),moving,animFrameCounter%frameModulo);
         }
     }
 }
@@ -207,4 +143,12 @@ int Player::getEnergy()
 int Player::getCurrentEnergy()
 {
     return current_energy;
+}
+ void Player::animation(bool isFlipped,bool isMoving,int index){
+    std::string prefix = isFlipped ? "res/PLAYER/FLIPPED/" : "res/PLAYER/";
+    std::vector<std::string> suffix=isMoving ? std::vector<std::string>{"player","run1","run2","run3","run4","run5","run6"} : std::vector<std::string>{"player","stay","stay2","stay"};
+    std::string filePath=prefix+suffix[index]+".png"; //whole path;
+    changeAppearence(filePath.c_str()); //change from std::string to const char*
+}
+void Player::attack(){
 }

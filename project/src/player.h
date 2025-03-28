@@ -18,6 +18,7 @@ private:
     void dash();
 
 public:
+    int initial_window_width,initial_window_height;
     Player(const char *filePath, float atkp, float armoor);
     void update();
     void handleEvent(SDL_Event &event);
@@ -25,4 +26,5 @@ public:
     int getEnergy();
     void setMaxEnergy(int energy);
     int getCurrentEnergy();
+    void animation(bool isFlipped,bool isMoving,int frame);
 };

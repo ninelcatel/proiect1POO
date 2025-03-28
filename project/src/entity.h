@@ -2,7 +2,7 @@
 #include "init.h"
 #include <SDL2/SDL.h>
 #include <iostream>
-enum Direction{UP,DOWN,LEFT,RIGHT};
+enum Direction{UP,DOWN,LEFT,RIGHT,NONE};
 class Entity : public Game
 {
 private:
@@ -35,7 +35,7 @@ public:
     SDL_Renderer* getRenderer();
     void setHealth(int hp);
     void setMaxHealth(int hp);
-    void setPosition(int x=0, int y=0);
+    void setPosition(int x, int y);
     void changeAppearence(const char *filePath); // change the loaded texture
     SDL_Texture* flipTexture(SDL_Texture* original);
     void render();
