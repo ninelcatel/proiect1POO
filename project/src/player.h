@@ -6,7 +6,7 @@ class Player : public Entity {
 private:
     float ap, armor;
     int energy,current_energy;
-    const int speed = 1;  
+    float speed = 0.5f;  
     std::unordered_map<SDL_Keycode, void(Player::*)()> keyBindings; //function pointer for movement
     std::unordered_map<SDL_Keycode, bool> keyStates;    //which keys are pressed so diagonal and smooth movement is possible
     std::unordered_map<SDL_Keycode,Direction>keyToDirection; //for not going out of bounds
@@ -18,7 +18,6 @@ private:
     void dash();
 
 public:
-    int initial_window_width,initial_window_height;
     Player(const char *filePath, float atkp, float armoor);
     void update();
     void handleEvent(SDL_Event &event);

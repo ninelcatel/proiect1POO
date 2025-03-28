@@ -10,7 +10,7 @@ static int animFrameCounter = 0;
 Player::Player(const char *filePath, float atkp, float armoor)
     : Entity(filePath)
     {
-    SDL_GetWindowSize(window, &initial_window_width, &initial_window_height);   
+    // SDL_GetWindowSize(window, &initial_window_width, &initial_window_height);   
     setPosition(200,200);
     ap = atkp;
     armor = armoor;
@@ -56,8 +56,16 @@ void Player::handleEvent(SDL_Event &event)
     else if (event.type == SDL_WINDOWEVENT)
     {
         if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-{
-    SDL_GetWindowSize(window, &window_width, &window_height);
+{   
+    SDL_Rect pos=getPosition();
+    // scaleEntity(pos);
+    scale();
+    pos.x=static_cast<int>(pos.x*getScaleX());
+    pos.y=static_cast<int>(pos.y*getScaleY());
+    setPosition(pos.x,pos.y);
+    speed = 0.75f * getScaleY();
+    
+    /*SDL_GetWindowSize(window, &window_width, &window_height);
     float scale_x = static_cast<float>(window_width) / initial_window_width;
     float scale_y = static_cast<float>(window_height) / initial_window_height;
 
@@ -68,7 +76,7 @@ void Player::handleEvent(SDL_Event &event)
         static_cast<int>(current_position.y * scale_y)
     );
     initial_window_width=window_width;
-    initial_window_height=window_height;
+    initial_window_height=window_height;*/
 }
     }
 }
@@ -91,14 +99,6 @@ void Player::update()
                 }
             }
         }
-        // if (!moving && animFrameCounter % stayingDelay == 0) //condition to display staying animation
-        // {
-        //     animation(getIsFlipped(),false,animFrameCounter%4);
-        // }
-        // else if(moving && animFrameCounter%animDelay==0){ // --//-- moving
-        //     animation(getIsFlipped(),true,animFrameCounter%7);
-        // }
-
         int frameModulo = moving ? 7 : 4; //7 frames for moving, 4 for staying
         if((animFrameCounter %(moving ? animDelay : stayingDelay))==0){
             animation(getIsFlipped(),moving,animFrameCounter%frameModulo);
@@ -108,25 +108,25 @@ void Player::update()
 void Player::moveUp()
 {
     const SDL_Rect rect = getPosition();
-    setPosition(rect.x, rect.y - speed);
+    setPosition(rect.x, static_cast<int>(rect.y - speed));
 }
 
 void Player::moveDown()
 {
     const SDL_Rect rect = getPosition();
-    setPosition(rect.x, rect.y + speed);
+    setPosition(rect.x, static_cast<int>(rect.y + 2*speed));
 }
 
 void Player::moveLeft()
 {
     const SDL_Rect rect = getPosition();
-    setPosition(rect.x - speed, rect.y);
+    setPosition(static_cast<int>(rect.x - speed), rect.y);
 }
 
 void Player::moveRight()
 {
     const SDL_Rect rect = getPosition();
-    setPosition(rect.x + speed, rect.y);
+    setPosition(static_cast<int>(rect.x + 2*speed), rect.y);
 }
 void Player::setEnergy(int eng)
 { // eng=energy;

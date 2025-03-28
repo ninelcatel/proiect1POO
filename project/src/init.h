@@ -9,9 +9,11 @@ class Game{
     private:
         static GameState State;
         static bool initialized;; //track if initialized
-    protected:
-        int window_width,window_height;
-        int initial_window_width,initial_window_height; // used for dynamically resizing;
+        static float scale_x, scale_y;
+   protected:
+        static int window_width,window_height;
+        static int initial_window_width,initial_window_height; 
+        // used for dynamically resizing;
         static SDL_Renderer* renderer;
         static SDL_Window* window;
     public:
@@ -19,6 +21,9 @@ class Game{
         SDL_Renderer* getRenderer();
         SDL_Window* getWindow();
         void setGameState();
-        void scale(float &x,float &y);
+        void scale();
         GameState getGameState();
+        void scaleEntity(SDL_Rect &position);
+        static float getScaleX();
+        static float getScaleY();
 };

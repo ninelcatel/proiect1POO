@@ -4,14 +4,14 @@
 #include "src/room.h"
 SDL_Renderer *renderer = nullptr;
 SDL_Window *window = nullptr;
+
 int main(int argc, char *argv[])
 {
-        Game game;
+        Game game;        
         Player player("res/PLAYER/player.png",10,20);
         StatusBars stats;
         Room room;
         SDL_Event event;
-        
         bool running = true;
         while (running)
         {   

@@ -81,30 +81,33 @@ void Entity::setMaxHealth(int health)
 }
 bool Entity::isValidMove(Direction dir)
 {
-    int window_width=0,window_height=0;
+    
     if(window) SDL_GetWindowSize(window,&window_width,&window_height);
     else{
         std::cerr<<"window is null!"<<" "<<SDL_GetError()<<std::endl;
     }
-    std::cout/*<<window_width<<" "<<window_height<<std::endl*/<<position.x<<" "<<position.y<<std::endl;
-    switch(dir){ //dont go out of bounds            
+     float upperBound = 110.0f * (window_height / 720.0f);
+    float lowerBound = 485.0f * (window_height / 720.0f);
+    float leftBound = 145.0f * (window_width / 1024.0f);
+    float rightBound = 770.0f * (window_width / 1024.0f);
+        //dont go out of bounds            
                 // 1024x720 
                 // upper bound: y=110;
                 // lower bound: y=485
                 // left bound: x=145;
-                // right bound: x=770
-                
-        case UP:
-            return !(position.y>=0 && position.y<=5) ;
-        case DOWN:
-            return !(position.y>=window_height-5-position.h && position.y<=window_height-position.h) ;
-        case LEFT:
-            return !(position.x>=0 && position.x<=5) ;
-        case RIGHT:
-            return !(position.x>=window_width-5-position.w && position.x<=window_width-position.w) ;
-        case NONE:
-            return true;
-        default:        
-            return true;
-    }
+                // right bound: x=77
+
+    switch (dir) {
+    case UP:
+        return !(position.y <= upperBound);
+    case DOWN:
+        return !(position.y >= lowerBound);
+    case LEFT:
+        return !(position.x <= leftBound);
+    case RIGHT:
+        return !(position.x >= rightBound);
+    default:
+        return true;
+}
+
 }
