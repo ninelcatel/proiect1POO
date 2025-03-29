@@ -21,7 +21,7 @@ class Room:public Game{
     public:
         Room();
         void generateLevel();
-        void render();
+        void render() ;
         void setTile(int x, int y,Sprites Sprite);
         Sprites getTile(int x,int y);
 };

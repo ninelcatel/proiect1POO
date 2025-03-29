@@ -5,6 +5,7 @@ const int animDelay = 500; // delay in ms
 const int moveDelay = 5;
 const int stayingDelay = 351;
 const int attackDelay = 101;
+const int getDamagedDelay = 5000;
 static int frameCounter = 0;
 static int animFrameCounter = 0;
 
@@ -47,7 +48,7 @@ void Player::handleEvent(SDL_Event &event)
 
         if (event.key.keysym.sym == SDLK_f && !isAttacking)
         {
-            isAttacking = true; // Start attack animation
+            isAttacking = true; 
             attackFrameCounter = 0;
         }
         if (getIsFlipped() == false && event.key.keysym.sym == SDLK_a)
@@ -88,14 +89,16 @@ void Player::handleEvent(SDL_Event &event)
 }
 
 void Player::update()
-{
+{   
+    
     bool moving = false;
     // bool action = false;
     frameCounter++;
     animFrameCounter++;
 
     if (frameCounter % moveDelay == 0)
-    {
+    {   
+        if(frameCounter%getDamagedDelay==0) takeDamage();
         attackFrameCounter++;
         if (isAttacking)
         {

@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named MyGame
+# Target rules for targets named Game
 
 # Build rule for target.
-MyGame: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MyGame
-.PHONY : MyGame
+Game: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Game
+.PHONY : Game
 
 # fast build rule for target.
-MyGame/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/build
-.PHONY : MyGame/fast
+Game/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/build
+.PHONY : Game/fast
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -142,7 +142,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -150,7 +150,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 src/assets.o: src/assets.cpp.o
@@ -158,7 +158,7 @@ src/assets.o: src/assets.cpp.o
 
 # target to build an object file
 src/assets.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/assets.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/assets.cpp.o
 .PHONY : src/assets.cpp.o
 
 src/assets.i: src/assets.cpp.i
@@ -166,7 +166,7 @@ src/assets.i: src/assets.cpp.i
 
 # target to preprocess a source file
 src/assets.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/assets.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/assets.cpp.i
 .PHONY : src/assets.cpp.i
 
 src/assets.s: src/assets.cpp.s
@@ -174,7 +174,7 @@ src/assets.s: src/assets.cpp.s
 
 # target to generate assembly for a file
 src/assets.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/assets.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/assets.cpp.s
 .PHONY : src/assets.cpp.s
 
 src/entity.o: src/entity.cpp.o
@@ -182,7 +182,7 @@ src/entity.o: src/entity.cpp.o
 
 # target to build an object file
 src/entity.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/entity.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/entity.cpp.o
 .PHONY : src/entity.cpp.o
 
 src/entity.i: src/entity.cpp.i
@@ -190,7 +190,7 @@ src/entity.i: src/entity.cpp.i
 
 # target to preprocess a source file
 src/entity.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/entity.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/entity.cpp.i
 .PHONY : src/entity.cpp.i
 
 src/entity.s: src/entity.cpp.s
@@ -198,7 +198,7 @@ src/entity.s: src/entity.cpp.s
 
 # target to generate assembly for a file
 src/entity.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/entity.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/entity.cpp.s
 .PHONY : src/entity.cpp.s
 
 src/init.o: src/init.cpp.o
@@ -206,7 +206,7 @@ src/init.o: src/init.cpp.o
 
 # target to build an object file
 src/init.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/init.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/init.cpp.o
 .PHONY : src/init.cpp.o
 
 src/init.i: src/init.cpp.i
@@ -214,7 +214,7 @@ src/init.i: src/init.cpp.i
 
 # target to preprocess a source file
 src/init.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/init.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/init.cpp.i
 .PHONY : src/init.cpp.i
 
 src/init.s: src/init.cpp.s
@@ -222,7 +222,7 @@ src/init.s: src/init.cpp.s
 
 # target to generate assembly for a file
 src/init.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/init.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/init.cpp.s
 .PHONY : src/init.cpp.s
 
 src/player.o: src/player.cpp.o
@@ -230,7 +230,7 @@ src/player.o: src/player.cpp.o
 
 # target to build an object file
 src/player.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/player.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/player.cpp.o
 .PHONY : src/player.cpp.o
 
 src/player.i: src/player.cpp.i
@@ -238,7 +238,7 @@ src/player.i: src/player.cpp.i
 
 # target to preprocess a source file
 src/player.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/player.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/player.cpp.i
 .PHONY : src/player.cpp.i
 
 src/player.s: src/player.cpp.s
@@ -246,7 +246,7 @@ src/player.s: src/player.cpp.s
 
 # target to generate assembly for a file
 src/player.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/player.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/player.cpp.s
 .PHONY : src/player.cpp.s
 
 src/room.o: src/room.cpp.o
@@ -254,7 +254,7 @@ src/room.o: src/room.cpp.o
 
 # target to build an object file
 src/room.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/room.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/room.cpp.o
 .PHONY : src/room.cpp.o
 
 src/room.i: src/room.cpp.i
@@ -262,7 +262,7 @@ src/room.i: src/room.cpp.i
 
 # target to preprocess a source file
 src/room.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/room.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/room.cpp.i
 .PHONY : src/room.cpp.i
 
 src/room.s: src/room.cpp.s
@@ -270,7 +270,7 @@ src/room.s: src/room.cpp.s
 
 # target to generate assembly for a file
 src/room.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyGame.dir/build.make CMakeFiles/MyGame.dir/src/room.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/room.cpp.s
 .PHONY : src/room.cpp.s
 
 # Help Target
@@ -281,7 +281,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... MyGame"
+	@echo "... Game"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

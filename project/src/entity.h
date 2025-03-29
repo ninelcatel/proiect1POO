@@ -43,4 +43,5 @@ public:
     void setIsFlipped(bool flip);
     void setSize(int w,int h);
     bool isValidMove(Direction dir);
+    void takeDamage();
 };

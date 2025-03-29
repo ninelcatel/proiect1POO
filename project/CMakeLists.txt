@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(MyGame CXX)
+project(Game CXX)
 
 if(ENABLE_CXX_20)
     set(CMAKE_CXX_STANDARD 20)
@@ -21,7 +21,6 @@ add_executable(${CMAKE_PROJECT_NAME}
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} SDL2::SDL2 SDL2_image::SDL2_image)
-
 
 add_custom_command(
         TARGET ${CMAKE_PROJECT_NAME} POST_BUILD

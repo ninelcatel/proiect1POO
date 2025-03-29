@@ -7,8 +7,13 @@ SDL_Window *window = nullptr;
 
 int main(int argc, char *argv[])
 {
-        Game game;        
+        Game game;  
         Player player("res/PLAYER/player.png",10,20);
+        std::vector<Entity*> entites;
+        entites.push_back(new Entity("res/ENEMY/SKELETON/FLIPPED/SKELETON.png"));
+        entites[0]->setPosition(500,350);
+        entites[0]->setSize(200,200);
+        Game::pushFireZone(entites[0]->getPosition(),5);
         StatusBars stats;
         Room room;
         SDL_Event event;
@@ -28,6 +33,7 @@ int main(int argc, char *argv[])
             SDL_RenderClear(game.getRenderer());
             room.render();
             player.render();
+            entites[0]->render();
             stats.render(player);
             SDL_RenderPresent(game.getRenderer());
             

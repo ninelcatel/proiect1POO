@@ -2,7 +2,7 @@
 void StatusBars::render(Player &player){
     int max_hp=player.getHealth(),current_hp=player.getCurrentHealth(); //health
     int max_energy=player.getEnergy(),current_energy=player.getCurrentEnergy();
-    int i=0;
+    int i=5;
     if(window) SDL_GetWindowSize(window,&window_width,&window_height);
     else {
         std::cerr<<"window is null "<<SDL_GetError();
@@ -29,7 +29,7 @@ void StatusBars::render(Player &player){
      position.y+=position.h;
         // position.x=50;
         // position.y=100;
-    i=0;
+    i=5;
     while(i<=current_energy){
         SDL_RenderCopy(renderer,energy_bar,nullptr,&position);
         i+=5;

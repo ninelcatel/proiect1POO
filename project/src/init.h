@@ -2,6 +2,14 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>    
+#include <chrono>
+#include <vector>
+struct FireZone {
+        SDL_Rect zone;         
+        bool isActive;           
+        std::chrono::steady_clock::time_point activationTime; // When the fire zone was activated
+        int howLong; //how much does the zone will mainly be 1 sec or sth
+    };
 enum GameState{MENU,GAME,PAUSE,OPTIONS};
 bool init(SDL_Window **window, SDL_Renderer **renderer);
 SDL_Texture* loadTexture(const char* filePath, SDL_Renderer* renderer);
@@ -10,6 +18,7 @@ class Game{
         static GameState State;
         static bool initialized;; //track if initialized
         static float scale_x, scale_y;
+        static std::vector<FireZone>* fireZones;
    protected:
         static int window_width,window_height;
         static int initial_window_width,initial_window_height; 
@@ -26,4 +35,7 @@ class Game{
         void scaleEntity(SDL_Rect &position);
         static float getScaleX();
         static float getScaleY();
+        static void pushFireZone(SDL_Rect rect,int time=1);
+        static std::vector<FireZone>& getFireZones();
+        void update();
 };

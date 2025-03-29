@@ -122,7 +122,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=MyGame
+CMAKE_PROJECT_NAME:STATIC=Game
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/sbin/ranlib
@@ -189,6 +189,15 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Value Computed by CMake
+Game_BINARY_DIR:STATIC=/home/ninel/facultate/poo/proiect1/proiect1/project/build
+
+//Value Computed by CMake
+Game_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+Game_SOURCE_DIR:STATIC=/home/ninel/facultate/poo/proiect1/proiect1/project
+
 //Path to a file.
 JPEG_INCLUDE_DIR:PATH=/usr/include
 
@@ -197,15 +206,6 @@ JPEG_LIBRARY_DEBUG:FILEPATH=JPEG_LIBRARY_DEBUG-NOTFOUND
 
 //Path to a library.
 JPEG_LIBRARY_RELEASE:FILEPATH=/usr/lib/libjpeg.so
-
-//Value Computed by CMake
-MyGame_BINARY_DIR:STATIC=/home/ninel/facultate/poo/proiect1/proiect1/project/build
-
-//Value Computed by CMake
-MyGame_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-MyGame_SOURCE_DIR:STATIC=/home/ninel/facultate/poo/proiect1/proiect1/project
 
 //Path to a library.
 PNG_LIBRARY_DEBUG:FILEPATH=PNG_LIBRARY_DEBUG-NOTFOUND
@@ -242,6 +242,24 @@ ZLIB_LIBRARY_DEBUG:FILEPATH=ZLIB_LIBRARY_DEBUG-NOTFOUND
 
 //Path to a library.
 ZLIB_LIBRARY_RELEASE:FILEPATH=/usr/lib/libz.so
+
+//Value Computed by CMake
+binding of ninel_BINARY_DIR:STATIC=/home/ninel/facultate/poo/proiect1/proiect1/project/build
+
+//Value Computed by CMake
+binding of ninel_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+binding of ninel_SOURCE_DIR:STATIC=/home/ninel/facultate/poo/proiect1/proiect1/project
+
+//Value Computed by CMake
+binding_of_ninel_BINARY_DIR:STATIC=/home/ninel/facultate/poo/proiect1/proiect1/project/build
+
+//Value Computed by CMake
+binding_of_ninel_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+binding_of_ninel_SOURCE_DIR:STATIC=/home/ninel/facultate/poo/proiect1/proiect1/project
 
 //The directory containing a CMake configuration file for libavif.
 libavif_DIR:PATH=/lib/cmake/libavif

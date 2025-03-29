@@ -9,6 +9,7 @@ int Game::window_height=720;
 int Game::window_width=1024;
 float Game::scale_x=1;
 float Game::scale_y=1;
+std::vector<FireZone>* Game::fireZones = nullptr;
 bool init(SDL_Window **window, SDL_Renderer **renderer)
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -76,7 +77,7 @@ Game::Game(){
             
             initial_window_width=window_width;
             initial_window_height=window_height;
-            std::cout<<"!"<<initial_window_width<<"!"<<window_width;
+            fireZones = new std::vector<FireZone>();
             // std::cout<<"!"<<initial_window_width<<"!"<<window_width;
             }
         }
@@ -119,4 +120,15 @@ void Game::scale(){        //use x and y via static_cast<int>(rect.x*x) or sth t
 
  float Game::getScaleY(){
     return scale_y;
+}
+void Game::pushFireZone(SDL_Rect rect,int time){
+    FireZone fire;
+    fire.zone=rect;
+    fire.isActive=true;
+    fire.activationTime=std::chrono::steady_clock::now();
+    fire.howLong=time;
+    fireZones->push_back(fire);
+}
+std::vector<FireZone>& Game::getFireZones(){
+    return *fireZones;
 }
