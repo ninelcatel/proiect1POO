@@ -11,9 +11,8 @@ private:
     const char *filePath;
     int hp,current_hp;
     bool isFlipped=false;
-
-
 public:
+    bool isEnemy;
     Entity(const char *filePath=NULL)
     { 
         texture = loadTexture(filePath, renderer);
@@ -44,4 +43,6 @@ public:
     void setSize(int w,int h);
     bool isValidMove(Direction dir);
     void takeDamage();
+    void attack();
+    void update();
 };

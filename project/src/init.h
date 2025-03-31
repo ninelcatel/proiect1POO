@@ -8,7 +8,8 @@ struct FireZone {
         SDL_Rect zone;         
         bool isActive;           
         std::chrono::steady_clock::time_point activationTime; // When the fire zone was activated
-        int howLong; //how much does the zone will mainly be 1 sec or sth
+        double howLong; //how much does the zone will mainly be 1 sec or sth
+        bool isEnemy;
     };
 enum GameState{MENU,GAME,PAUSE,OPTIONS};
 bool init(SDL_Window **window, SDL_Renderer **renderer);
@@ -35,7 +36,7 @@ class Game{
         void scaleEntity(SDL_Rect &position);
         static float getScaleX();
         static float getScaleY();
-        static void pushFireZone(SDL_Rect rect,int time=1);
+        static void pushFireZone(SDL_Rect rect,double time,bool isEnemy);
         static std::vector<FireZone>& getFireZones();
         void update();
 };

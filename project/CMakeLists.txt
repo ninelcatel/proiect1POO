@@ -18,6 +18,7 @@ add_executable(${CMAKE_PROJECT_NAME}
         src/player.cpp
         src/assets.cpp
         src/room.cpp
+        src/enemy.cpp
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} SDL2::SDL2 SDL2_image::SDL2_image)

@@ -8,6 +8,7 @@ Game: \
   CMakeFiles/Game.dir/src/player.cpp.o \
   CMakeFiles/Game.dir/src/assets.cpp.o \
   CMakeFiles/Game.dir/src/room.cpp.o \
+  CMakeFiles/Game.dir/src/enemy.cpp.o \
   /usr/lib/libSDL2-2.0.so.0.3200.52 \
   /usr/lib/libSDL2_image.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/libstdc++.so \
@@ -86,6 +87,8 @@ CMakeFiles/Game.dir/src/player.cpp.o:
 CMakeFiles/Game.dir/src/assets.cpp.o:
 
 CMakeFiles/Game.dir/src/room.cpp.o:
+
+CMakeFiles/Game.dir/src/enemy.cpp.o:
 
 /usr/lib/libSDL2-2.0.so.0.3200.52:
 

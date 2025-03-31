@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Game.dir/main.cpp.o.d"
   "CMakeFiles/Game.dir/src/assets.cpp.o"
   "CMakeFiles/Game.dir/src/assets.cpp.o.d"
+  "CMakeFiles/Game.dir/src/enemy.cpp.o"
+  "CMakeFiles/Game.dir/src/enemy.cpp.o.d"
   "CMakeFiles/Game.dir/src/entity.cpp.o"
   "CMakeFiles/Game.dir/src/entity.cpp.o.d"
   "CMakeFiles/Game.dir/src/init.cpp.o"

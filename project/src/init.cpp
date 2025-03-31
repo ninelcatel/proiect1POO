@@ -121,12 +121,13 @@ void Game::scale(){        //use x and y via static_cast<int>(rect.x*x) or sth t
  float Game::getScaleY(){
     return scale_y;
 }
-void Game::pushFireZone(SDL_Rect rect,int time){
+void Game::pushFireZone(SDL_Rect rect,double time,bool isEnemy){
     FireZone fire;
     fire.zone=rect;
     fire.isActive=true;
     fire.activationTime=std::chrono::steady_clock::now();
     fire.howLong=time;
+    fire.isEnemy=isEnemy;
     fireZones->push_back(fire);
 }
 std::vector<FireZone>& Game::getFireZones(){

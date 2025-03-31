@@ -15,6 +15,7 @@ Player::Player(const char *filePath, float atkp, float armoor)
     // SDL_GetWindowSize(window, &initial_window_width, &initial_window_height);
     setPosition(200, 200);
     isAttacking = false;
+    isEnemy=false;
     ap = atkp;
     armor = armoor;
     setHealth(20);
@@ -25,7 +26,7 @@ Player::Player(const char *filePath, float atkp, float armoor)
     keyBindings[SDLK_s] = &Player::moveDown;
     keyBindings[SDLK_a] = &Player::moveLeft;
     keyBindings[SDLK_d] = &Player::moveRight;
-    keyBindings[SDLK_f] = &Player::attack;
+    keyBindings[SDLK_f] = &Entity::attack;
 
     keyStates[SDLK_w] = false;
     keyStates[SDLK_s] = false;
@@ -108,7 +109,7 @@ void Player::update()
                 if (attackFrameCounter % attackDelay == 0)
                     animation(getIsFlipped(), false, currentFrame, true);
 
-                // If last frame is reached, stop attack animation
+                // if last frame is reached, stop attack animation
                 if (currentFrame == 3)
                 {
                     isAttacking = false;
@@ -187,7 +188,4 @@ void Player::animation(bool isFlipped, bool isMoving, int index, bool isAction)
                                                                                                                                 : std::vector<std::string>{"player", "stay", "stay2", "stay"};
     std::string filePath = prefix + suffix[index] + ".png"; // whole path;
     changeAppearence(filePath.c_str());                     // change from std::string to const char*
-}
-void Player::attack()
-{
 }
