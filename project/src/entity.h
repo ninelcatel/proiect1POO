@@ -10,6 +10,7 @@ private:
     SDL_Texture *texture;
     const char *filePath;
     int hp,current_hp;
+    bool alreadyHit=false;
     bool isFlipped=false;
 public:
     bool isEnemy;
@@ -45,4 +46,6 @@ public:
     void takeDamage();
     void attack();
     void update();
+    bool getIsHit();
+    void setIsHit(bool isHit);
 };

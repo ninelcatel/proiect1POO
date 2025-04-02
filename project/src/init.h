@@ -21,9 +21,11 @@ class Game{
         static float scale_x, scale_y;
         static std::vector<FireZone>* fireZones;
    protected:
+        
         static int window_width,window_height;
         static int initial_window_width,initial_window_height; 
         // used for dynamically resizing;
+        static int frameCounter;
         static SDL_Renderer* renderer;
         static SDL_Window* window;
     public:

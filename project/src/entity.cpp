@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "entity.h"
+#include <algorithm>
 #include <iostream>
 void Entity::setHealth(int health)
 {
@@ -120,42 +121,56 @@ bool Entity::isValidMove(Direction dir)
     }
 }
 void Entity::takeDamage()
-{
-    
+{   
     auto currentTime = std::chrono::steady_clock::now();
     std::vector<FireZone> &fire = getFireZones();
     for (auto it = fire.begin(); it != fire.end();)
-    {
-        if (std::chrono::duration_cast<std::chrono::seconds>(currentTime - it->activationTime).count() >= it->howLong)
-        {   
-            it = fire.erase(it);
-            // std::cout<<"TIME EXPIRED!"<<std::endl;
-            continue;
-        }
-        else{
-            SDL_Rect hitbox=it->zone;
-            hitbox.x=static_cast<int>((hitbox.x+30)*getScaleX()); //make the hitbox smaller
-            hitbox.y=static_cast<int>((hitbox.y+30)*getScaleY());
-            hitbox.w=static_cast<int>((hitbox.w-60)*getScaleX());
-            hitbox.h=static_cast<int>((hitbox.h-90)*getScaleY());
-            SDL_RenderFillRect(renderer,&hitbox);
-            if (this->position.x!=it->zone.x    //so it doesnt take damage from itself , maybe add another conditon for entityType or such.
-            && this->isEnemy!=it->isEnemy       // skeleton wont damage another skeleton
-            && SDL_HasIntersection(&position
-            , &hitbox))
+    {   int passedTime=std::chrono::duration_cast<std::chrono::seconds>(currentTime - it->activationTime).count();
+        if ((passedTime) >= (it->howLong))
         {
-            setHealth(getCurrentHealth() - 5);
-            // std::cout<<position.x<<" "<<position.y<<" "<<position.w<<" "<<position.h<<" "<<it->zone.x<<" "<<it->zone.y<<" "<<it->zone.w<<" "<<it->zone.h<<std::endl;
-            std::cout<<"TAKING DAMAGE! "<<getCurrentHealth()<<std::endl;
+            it=fire.erase(it);
+            setIsHit(false);
+            // std::cout<<fire.size()<<std::endl;
+            // std::cout << "Time Passed: " << passedTime << ", Attack Duration: " << it->howLong << std::endl;
+            // std::cout<<"TIME EXPIRED!"<<std::endl;
         }
-        ++it;
+        else 
+        {   if (!getIsHit()){
+            SDL_Rect hitbox = it->zone;
+            hitbox.x = static_cast<int>((hitbox.x + 30) * getScaleX()); // make the hitbox smaller
+            hitbox.y = static_cast<int>((hitbox.y + 30) * getScaleY());
+            hitbox.w = static_cast<int>((hitbox.w - 60) * getScaleX());
+            hitbox.h = static_cast<int>((hitbox.h - 90) * getScaleY());
+
+            if (this->position.x != it->zone.x  // so it doesnt take damage from itself , maybe add another conditon for entityType or such.
+                && this->isEnemy != it->isEnemy // skeleton wont damage another skeleton
+                && SDL_HasIntersection(&position, &hitbox)
+               )
+            {
+                setHealth(getCurrentHealth() - 5);
+                setIsHit(true);
+                // std::cout<<position.x<<" "<<position.y<<" "<<position.w<<" "<<position.h<<" "<<it->zone.x<<" "<<it->zone.y<<" "<<it->zone.w<<" "<<it->zone.h<<std::endl;
+                std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
+            }
+            }
+            ++it;  
         }
     }
 }
-void Entity::attack(){
+void Entity::attack()
+{   
     SDL_Rect attack_range;
-    attack_range=position;
-    attack_range.x=static_cast<int>((attack_range.x+30)*getScaleX());
-    attack_range.y=static_cast<int>(attack_range.y*getScaleY());
-    pushFireZone(attack_range,0.0005,isEnemy);
+    attack_range = position;
+    int eyeFrames = isFlipped ? -30 : 30;
+    attack_range.x = static_cast<int>((attack_range.x + eyeFrames) * getScaleX());
+    attack_range.y = static_cast<int>(attack_range.y * getScaleY());
+    pushFireZone(attack_range, 1, isEnemy);
+}
+void Entity::setIsHit(bool isHit)
+{
+    alreadyHit = isHit;
+}
+bool Entity::getIsHit()
+{
+    return alreadyHit;
 }

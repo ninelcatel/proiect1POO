@@ -7,6 +7,7 @@ int Game::initial_window_height=720;
 int Game::initial_window_width=1024;
 int Game::window_height=720;
 int Game::window_width=1024;
+int Game::frameCounter=0;
 float Game::scale_x=1;
 float Game::scale_y=1;
 std::vector<FireZone>* Game::fireZones = nullptr;

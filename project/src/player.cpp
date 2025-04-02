@@ -1,14 +1,12 @@
 #include "player.h"
 #include <vector>
 #include <cmath>
-const int animDelay = 500; // delay in ms
-const int moveDelay = 5;
-const int stayingDelay = 351;
-const int attackDelay = 101;
+const int animDelay = 51; // delay in ms
+const int moveDelay = 11;
+const int stayingDelay = 151;
+const int attackDelay = 51;
 const int getDamagedDelay = 5000;
-static int frameCounter = 0;
 static int animFrameCounter = 0;
-
 Player::Player(const char *filePath, float atkp, float armoor)
     : Entity(filePath)
 {
@@ -47,9 +45,9 @@ void Player::handleEvent(SDL_Event &event)
     {
         keyStates[event.key.keysym.sym] = true;
 
-        if (event.key.keysym.sym == SDLK_f && !isAttacking)
+        if (event.key.keysym.sym == SDLK_f && !isAttacking && attackFrameCounter%5==0)
         {
-            isAttacking = true; 
+            isAttacking=true;
             attackFrameCounter = 0;
         }
         if (getIsFlipped() == false && event.key.keysym.sym == SDLK_a)
@@ -97,12 +95,15 @@ void Player::update()
     frameCounter++;
     animFrameCounter++;
 
-    if (frameCounter % moveDelay == 0)
+    if (frameCounter % 11 == 0)
     {   
-        if(frameCounter%getDamagedDelay==0) takeDamage();
+        if(frameCounter%getDamagedDelay==0) {
+            setIsHit(false);
+            takeDamage();
+            }
         attackFrameCounter++;
         if (isAttacking)
-        {
+        {   
             if (attackFrameCounter % attackDelay == 0)
             {
                 int currentFrame = (attackFrameCounter / attackDelay) % 4;
@@ -125,9 +126,14 @@ void Player::update()
             if (keyStates[pair.first])
             {
                 moving = keyToDirection[pair.first] != NONE;
+                if(pair.first==SDLK_f){
+                        (this->*pair.second)(); 
+                        keyStates[pair.first]=false;
+                        }// call movement functions dynamically
                 if (isValidMove(keyToDirection[pair.first]))
                 {
-                    (this->*pair.second)(); // call movement functions dynamically
+                    
+                    (this->*pair.second)();
                 }
                 // action = keyToDirection[pair.first]==NONE;
             }
