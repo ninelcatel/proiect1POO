@@ -8,7 +8,6 @@ private:
     float ap, armor;
     int energy, current_energy;
     float speed = 0.5f;
-    bool isAttacking;
     int attackFrameCounter;
     std::unordered_map<SDL_Keycode, void (Player::*)()> keyBindings; // function pointer for movement
     std::unordered_map<SDL_Keycode, bool> keyStates;                 // which keys are pressed so diagonal and smooth movement is possible
@@ -28,5 +27,4 @@ public:
     int getEnergy();
     void setMaxEnergy(int energy);
     int getCurrentEnergy();
-    void animation(bool isFlipped, bool isMoving, int frame, bool isAction);
 };

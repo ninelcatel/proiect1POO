@@ -6,12 +6,15 @@ enum Direction{UP,DOWN,LEFT,RIGHT,NONE};
 class Entity : public Game
 {
 private:
+    
     SDL_Rect position;
     SDL_Texture *texture;
     const char *filePath;
     int hp,current_hp;
     bool alreadyHit=false;
     bool isFlipped=false;
+protected:
+    bool isAttacking; //also change this
 public:
     bool isEnemy;
     Entity(const char *filePath=NULL)
@@ -40,6 +43,7 @@ public:
     SDL_Texture* flipTexture(SDL_Texture* original);
     void render();
     void setFilePath(const char* filePath);
+    void animation(bool isFlipped, bool isMoving, int frame, bool isAction);
     void setIsFlipped(bool flip);
     void setSize(int w,int h);
     bool isValidMove(Direction dir);

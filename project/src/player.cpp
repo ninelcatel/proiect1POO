@@ -186,12 +186,3 @@ int Player::getCurrentEnergy()
 {
     return current_energy;
 }
-void Player::animation(bool isFlipped, bool isMoving, int index, bool isAction)
-{
-    std::string prefix = "res/PLAYER/";
-    prefix = prefix + (isAction ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : "");
-    std::vector<std::string> suffix = isAction ? std::vector<std::string>{"player", "ATTACK1", "ATTACK2", "ATTACK3"} : isMoving ? std::vector<std::string>{"player", "run1", "run2", "run3", "run4", "run5", "run6"}
-                                                                                                                                : std::vector<std::string>{"player", "stay", "stay2", "stay"};
-    std::string filePath = prefix + suffix[index] + ".png"; // whole path;
-    changeAppearence(filePath.c_str());                     // change from std::string to const char*
-}

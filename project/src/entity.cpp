@@ -1,4 +1,4 @@
-
+//line 153 make animation for entities when hit
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "entity.h"
@@ -149,6 +149,7 @@ void Entity::takeDamage()
             {
                 setHealth(getCurrentHealth() - 5);
                 setIsHit(true);
+                //animation(isFlipped,false,frameCounter%3,false);
                 // std::cout<<position.x<<" "<<position.y<<" "<<position.w<<" "<<position.h<<" "<<it->zone.x<<" "<<it->zone.y<<" "<<it->zone.w<<" "<<it->zone.h<<std::endl;
                 std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
             }
@@ -173,4 +174,17 @@ void Entity::setIsHit(bool isHit)
 bool Entity::getIsHit()
 {
     return alreadyHit;
+}
+void Entity::animation(bool isFlipped, bool isMoving, int index, bool isAction)
+{
+    std::string prefix = isEnemy ? "res/ENEMY/SKELETON/": "res/PLAYER/";
+    prefix = prefix + (isAction ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : ""); // add this for already hit
+    std::vector<std::string> suffix = isAction ? 
+    std::vector<std::string>{"player", "ATTACK1", "ATTACK2", "ATTACK3"} : 
+    isMoving ? std::vector<std::string>{"player", "run1", "run2", "run3", "run4", "run5", "run6"}
+    : alreadyHit ? std::vector<std::string>{""} // change 
+    : std::vector<std::string>{"player", "stay", "stay2", "stay"};
+
+    std::string filePath = prefix + suffix[index] + ".png"; // whole path;
+    changeAppearence(filePath.c_str());                     // change from std::string to const char*
 }
