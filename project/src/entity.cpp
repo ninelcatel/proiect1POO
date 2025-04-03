@@ -149,7 +149,6 @@ void Entity::takeDamage()
             {
                 setHealth(getCurrentHealth() - 5);
                 setIsHit(true);
-                //animation(isFlipped,false,frameCounter%3,false);
                 // std::cout<<position.x<<" "<<position.y<<" "<<position.w<<" "<<position.h<<" "<<it->zone.x<<" "<<it->zone.y<<" "<<it->zone.w<<" "<<it->zone.h<<std::endl;
                 std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
             }
@@ -159,13 +158,14 @@ void Entity::takeDamage()
     }
 }
 void Entity::attack()
-{   
+{   if(timeSinceLastAttack<=250) return;
     SDL_Rect attack_range;
     attack_range = position;
     int eyeFrames = isFlipped ? -30 : 30;
     attack_range.x = static_cast<int>((attack_range.x + eyeFrames) * getScaleX());
     attack_range.y = static_cast<int>(attack_range.y * getScaleY());
     pushFireZone(attack_range, 1, isEnemy);
+    timeSinceLastAttack=0;
 }
 void Entity::setIsHit(bool isHit)
 {
@@ -175,16 +175,39 @@ bool Entity::getIsHit()
 {
     return alreadyHit;
 }
-void Entity::animation(bool isFlipped, bool isMoving, int index, bool isAction)
+void Entity::animation(bool isMoving, int index)
 {
     std::string prefix = isEnemy ? "res/ENEMY/SKELETON/": "res/PLAYER/";
-    prefix = prefix + (isAction ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : ""); // add this for already hit
-    std::vector<std::string> suffix = isAction ? 
+    prefix = prefix + (alreadyHit ? "" : isAttacking ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : "") ; // add this for already hit
+    std::vector<std::string> suffix = isEnemy ? alreadyHit ? 
+    std::vector<std::string>{"SKELETON","SKELETON_HIT","SKELETON"} 
+    : isAttacking ? 
+    std::vector<std::string>{"SKELETON", "ATTACK1", "ATTACK2", "ATTACK3"} : 
+    isMoving ? 
+    std::vector<std::string>{"SKELETON", "run1", "run2", "run3", "run4", "run5", "run6"} 
+    : std::vector<std::string>{"SKELETON", "SKELETON", "SKELETON", "SKELETON"}
+    :
+    alreadyHit ? 
+    std::vector<std::string>{"player","PLAYER_HIT","player","PLAYER_HIT"} 
+    : isAttacking ? 
     std::vector<std::string>{"player", "ATTACK1", "ATTACK2", "ATTACK3"} : 
-    isMoving ? std::vector<std::string>{"player", "run1", "run2", "run3", "run4", "run5", "run6"}
-    : alreadyHit ? std::vector<std::string>{""} // change 
+    isMoving ? 
+    std::vector<std::string>{"player", "run1", "run2", "run3", "run4", "run5", "run6"} 
     : std::vector<std::string>{"player", "stay", "stay2", "stay"};
+    // std::cout<<index<<" ";
+
+    int maxIndex = suffix.size() - 1;
+    if (index < 0 || index > maxIndex) {
+        // std::cerr << "Invalid animation index: " << index << ", max: " << maxIndex << std::endl;
+        return;  // Prevent segmentation fault
+    }
 
     std::string filePath = prefix + suffix[index] + ".png"; // whole path;
     changeAppearence(filePath.c_str());                     // change from std::string to const char*
+}
+void Entity::setIsAttacking(bool attk){
+    isAttacking=attk;
+}
+bool Entity::getIsAttacking(){
+    return isAttacking;
 }

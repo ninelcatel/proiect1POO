@@ -11,8 +11,8 @@ Player::Player(const char *filePath, float atkp, float armoor)
     : Entity(filePath)
 {
     // SDL_GetWindowSize(window, &initial_window_width, &initial_window_height);
+    
     setPosition(200, 200);
-    isAttacking = false;
     isEnemy=false;
     ap = atkp;
     armor = armoor;
@@ -40,14 +40,13 @@ Player::Player(const char *filePath, float atkp, float armoor)
 }
 
 void Player::handleEvent(SDL_Event &event)
-{
+{   
     if (event.type == SDL_KEYDOWN)
     {
-        keyStates[event.key.keysym.sym] = true;
-
-        if (event.key.keysym.sym == SDLK_f && !isAttacking && attackFrameCounter%5==0)
-        {
-            isAttacking=true;
+        keyStates[event.key.keysym.sym] = true;    
+        if (event.key.keysym.sym == SDLK_f && !getIsAttacking() && attackFrameCounter%5==0)
+        {   
+            setIsAttacking(true);
             attackFrameCounter = 0;
         }
         if (getIsFlipped() == false && event.key.keysym.sym == SDLK_a)
@@ -90,31 +89,30 @@ void Player::handleEvent(SDL_Event &event)
 void Player::update()
 {   
     
-    bool moving = false;
-    // bool action = false;
+    bool moving = false;;
     frameCounter++;
     animFrameCounter++;
 
     if (frameCounter % 11 == 0)
-    {   
-        if(frameCounter%getDamagedDelay==0) {
+    {   timeSinceLastAttack++;
+        if(frameCounter%3003==0) {
             setIsHit(false);
             takeDamage();
             }
         attackFrameCounter++;
-        if (isAttacking)
+        if (getIsAttacking())
         {   
             if (attackFrameCounter % attackDelay == 0)
             {
                 int currentFrame = (attackFrameCounter / attackDelay) % 4;
                 if (attackFrameCounter % attackDelay == 0)
-                    animation(getIsFlipped(), false, currentFrame, true);
+                    animation(false, currentFrame);
 
                 // if last frame is reached, stop attack animation
                 if (currentFrame == 3)
                 {
-                    isAttacking = false;
                     attackFrameCounter = 0;
+                    if(keyStates[SDLK_f]==false) setIsAttacking(false);
                 }
             }
         }
@@ -126,26 +124,30 @@ void Player::update()
             if (keyStates[pair.first])
             {
                 moving = keyToDirection[pair.first] != NONE;
-                if(pair.first==SDLK_f){
-                        (this->*pair.second)(); 
-                        keyStates[pair.first]=false;
-                        }// call movement functions dynamically
                 if (isValidMove(keyToDirection[pair.first]))
                 {
                     
                     (this->*pair.second)();
                 }
+                // std::cerr<<getIsAttacking()<<std::endl;
                 // action = keyToDirection[pair.first]==NONE;
             }
         }
-        if (isAttacking)
-            return;                       // so that the player can move whilst attacking, making a smooth animation
-        int frameModulo = moving ? 7 : 4; // 7 frames for moving, 4 for staying
+        // so that the player can move whilst attacking, making a smooth animation
+        if(getIsHit()){ 
+        if ((animFrameCounter % 32) == 0)
+        {   
+            animation(false,  animFrameCounter % 3);
+
+        }
+        }
+        else {int frameModulo = moving ? 7 : 4; // 7 frames for moving, 4 for staying
         if ((animFrameCounter % (moving ? animDelay : stayingDelay)) == 0)
         {
-            animation(getIsFlipped(), moving, animFrameCounter % frameModulo, false);
+            animation(moving, animFrameCounter % frameModulo);
         }
-    }
+        }
+        }
 }
 void Player::moveUp()
 {
