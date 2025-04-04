@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         Room room;
         SDL_Event event;
         bool running = true;
-        room.generateLevel();
+        
         while (running)
         {   
             while (SDL_PollEvent(&event))
@@ -31,18 +31,24 @@ int main(int argc, char *argv[])
                 }
                 player.handleEvent(event);
             }
+            int mouseX, mouseY;
+            SDL_GetMouseState(&mouseX, &mouseY);
+            std::cout<<"Mouse X:"<<mouseX<<" MouseY: "<<mouseY<<std::endl;
             player.update();
+            
             entites[0]->takeDamage();
             SDL_SetRenderDrawColor(game.getRenderer(), 0, 0, 0, 255);
             SDL_RenderClear(game.getRenderer());
-            room.render();
+            
             // SDL_Rect pos=player.getPosition();
             // SDL_RenderFillRect(game.getRenderer(),&pos);
+            room.render(player);
             player.render();
             // pos=entites[0]->getPosition();
             // SDL_RenderFillRect(game.getRenderer(),&pos); for visualizing hitboxes
             entites[0]->render();
             stats.render(player);
+            
             SDL_RenderPresent(game.getRenderer());
             
         }

@@ -325,4 +325,11 @@ CMakeFiles/Game.dir/src/room.cpp.o: \
  /usr/include/c++/14.2.1/bits/node_handle.h \
  /usr/include/c++/14.2.1/bits/stl_map.h \
  /usr/include/c++/14.2.1/bits/stl_multimap.h \
- /usr/include/c++/14.2.1/bits/erase_if.h
+ /usr/include/c++/14.2.1/bits/erase_if.h \
+ /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.h \
+ /usr/include/c++/14.2.1/unordered_map \
+ /usr/include/c++/14.2.1/bits/unordered_map.h \
+ /usr/include/c++/14.2.1/bits/hashtable.h \
+ /usr/include/c++/14.2.1/bits/hashtable_policy.h \
+ /usr/include/c++/14.2.1/bits/enable_special_members.h \
+ /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h

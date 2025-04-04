@@ -2,6 +2,8 @@ Game: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/crtbeginS.o \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/libasan_preinit.o \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/libasan.so \
   CMakeFiles/Game.dir/main.cpp.o \
   CMakeFiles/Game.dir/src/entity.cpp.o \
   CMakeFiles/Game.dir/src/init.cpp.o \
@@ -75,6 +77,10 @@ Game: \
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/crti.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/crtbeginS.o:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/libasan_preinit.o:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/libasan.so:
 
 CMakeFiles/Game.dir/main.cpp.o:
 

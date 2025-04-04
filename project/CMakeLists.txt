@@ -19,7 +19,11 @@ add_executable(${CMAKE_PROJECT_NAME}
         src/assets.cpp
         src/room.cpp
         src/enemy.cpp
+        
 )
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
+set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
 
 target_link_libraries(${CMAKE_PROJECT_NAME} SDL2::SDL2 SDL2_image::SDL2_image)
 

@@ -115,6 +115,7 @@ void Game::scale(){        //use x and y via static_cast<int>(rect.x*x) or sth t
     initial_window_width=window_width;
     //
 }
+
  float Game::getScaleX(){
     return scale_x;
 }
@@ -133,4 +134,8 @@ void Game::pushFireZone(SDL_Rect rect,double time,bool isEnemy){
 }
 std::vector<FireZone>& Game::getFireZones(){
     return *fireZones;
+}
+void Game::resetScales(){
+    scale_x=1;
+    scale_y=1;
 }

@@ -41,5 +41,6 @@ class Game{
         static float getScaleY();
         static void pushFireZone(SDL_Rect rect,double time,bool isEnemy);
         static std::vector<FireZone>& getFireZones();
+        static void resetScales();
         void update();
 };

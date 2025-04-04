@@ -11,7 +11,7 @@ Player::Player(const char *filePath, float atkp, float armoor)
     : Entity(filePath)
 {
     // SDL_GetWindowSize(window, &initial_window_width, &initial_window_height);
-
+    currentRoom_Position = {2, 2};
     setPosition(200, 200);
     isEnemy = false;
     ap = atkp;
@@ -88,7 +88,7 @@ void Player::handleEvent(SDL_Event &event)
 
 void Player::update()
 {
-
+    // std::cerr<<getPosition().x<<" "<<getPosition().y<<std::endl;
     bool moving = false;
     ;
     frameCounter++;
@@ -192,4 +192,12 @@ int Player::getEnergy()
 int Player::getCurrentEnergy()
 {
     return current_energy;
+}
+std::pair<int, int> Player::getRoomCoordinates()
+{
+    return currentRoom_Position;
+}
+void Player::setRoomCoordinates(std::pair<int, int> coordinates)
+{
+    currentRoom_Position=coordinates;
 }

@@ -2521,7 +2521,9 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/xtestintrin.h
 
 CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp \
+  /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/init.h \
+  /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_assert.h \
@@ -2680,6 +2682,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/14.2.1/bits/cxxabi_forced.h \
   /usr/include/c++/14.2.1/bits/cxxabi_init_exception.h \
+  /usr/include/c++/14.2.1/bits/enable_special_members.h \
   /usr/include/c++/14.2.1/bits/erase_if.h \
   /usr/include/c++/14.2.1/bits/exception.h \
   /usr/include/c++/14.2.1/bits/exception_defines.h \
@@ -2687,6 +2690,8 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/bits/functexcept.h \
   /usr/include/c++/14.2.1/bits/functional_hash.h \
   /usr/include/c++/14.2.1/bits/hash_bytes.h \
+  /usr/include/c++/14.2.1/bits/hashtable.h \
+  /usr/include/c++/14.2.1/bits/hashtable_policy.h \
   /usr/include/c++/14.2.1/bits/invoke.h \
   /usr/include/c++/14.2.1/bits/ios_base.h \
   /usr/include/c++/14.2.1/bits/istream.tcc \
@@ -2733,6 +2738,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/bits/string_view.tcc \
   /usr/include/c++/14.2.1/bits/stringfwd.h \
   /usr/include/c++/14.2.1/bits/uniform_int_dist.h \
+  /usr/include/c++/14.2.1/bits/unordered_map.h \
   /usr/include/c++/14.2.1/bits/uses_allocator.h \
   /usr/include/c++/14.2.1/bits/uses_allocator_args.h \
   /usr/include/c++/14.2.1/bits/utility.h \
@@ -2795,6 +2801,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/tuple \
   /usr/include/c++/14.2.1/type_traits \
   /usr/include/c++/14.2.1/typeinfo \
+  /usr/include/c++/14.2.1/unordered_map \
   /usr/include/c++/14.2.1/vector \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
@@ -2949,6 +2956,8 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
 Game: /usr/lib/Scrt1.o \
   /usr/lib/crti.o \
   /usr/lib/crtn.o \
+  /usr/lib/libasan.so \
+  /usr/lib/libasan_preinit.o \
   /usr/lib/libc.so \
   /usr/lib/libgcc_s.so \
   /usr/lib/libgcc_s.so.1 \
@@ -3047,6 +3056,8 @@ CMakeFiles/Game.dir/src/entity.cpp.o:
 /usr/lib/libSDL2-2.0.so.0.3200.54:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/crtendS.o:
+
+/usr/lib/libasan_preinit.o:
 
 /usr/lib/crti.o:
 
@@ -3285,6 +3296,8 @@ CMakeFiles/Game.dir/src/assets.cpp.o:
 /usr/include/c++/14.2.1/bits/stl_map.h:
 
 /usr/include/bits/types/clock_t.h:
+
+/usr/lib/libasan.so:
 
 /usr/include/bits/types/__fpos_t.h:
 
