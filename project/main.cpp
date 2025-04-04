@@ -8,6 +8,7 @@ SDL_Window *window = nullptr;
 
 int main(int argc, char *argv[])
 {
+        std::srand(std::time(nullptr));
         Game game;  
         Player player("res/PLAYER/player.png",10,20);
         std::vector<Entity*> entites;
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
         Room room;
         SDL_Event event;
         bool running = true;
+        room.generateLevel();
         while (running)
         {   
             while (SDL_PollEvent(&event))

@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>    
 #include <chrono>
 #include <vector>
+enum Direction{UP,DOWN,LEFT,RIGHT,NONE};
 struct FireZone {
         SDL_Rect zone;         
         bool isActive;           

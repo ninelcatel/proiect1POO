@@ -2,7 +2,7 @@
 #include "init.h"
 #include <SDL2/SDL.h>
 #include <iostream>
-enum Direction{UP,DOWN,LEFT,RIGHT,NONE};
+
 class Entity : public Game
 {
 private:
