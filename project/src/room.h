@@ -6,8 +6,10 @@
 #include <vector>
 enum Sprites{
     BOULDER,
+    BARREL,
     HOLE,
     CHEST,
+    VASE,
     POTION,
     DOOR,
     NOTHING
@@ -17,7 +19,8 @@ struct Tiles{
     SDL_Rect basePosition; 
     SDL_Rect position;
     SDL_Texture* texture;
-    std::vector<std::string> filePaths;
+    bool isBreakable;
+    std::vector<std::string> filePaths; // initially i wanted to have multiple texture for a single one but im too lazy to change it so ill let it make my life miserable
 };
 struct RoomLayout{
     bool exists; //0 is empty, 1 exists 
