@@ -31,10 +31,10 @@ int main(int argc, char *argv[])
                 }
                 player.handleEvent(event);
             }
-            int mouseX, mouseY;
-            SDL_GetMouseState(&mouseX, &mouseY);
-            std::cout<<"Mouse X:"<<mouseX<<" MouseY: "<<mouseY<<std::endl;
-            player.update();
+            // int mouseX, mouseY;
+            // SDL_GetMouseState(&mouseX, &mouseY);
+            // std::cout<<"Mouse X:"<<mouseX<<" MouseY: "<<mouseY<<std::endl;
+             player.update();
             
             entites[0]->takeDamage();
             SDL_SetRenderDrawColor(game.getRenderer(), 0, 0, 0, 255);

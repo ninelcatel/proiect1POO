@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+RoomLayout Room::layout[5][5]={};
 Room::Room()
 {
     room = loadTexture("res/ROOM/ROOM_TEMPLATE.png", renderer);
@@ -107,12 +108,12 @@ void Room::generateLevel()
             }
         }
     }
-    /*for(int i=0;i<5;i++)
+    for(int i=0;i<5;i++)
         {
             for(int j=0;j<5;j++)
                 std::cout<<layout[i][j].exists<<" ";
             std::cout<<std::endl;
-        }*/
+        }
 }
 /*bool Room::checkForNeighbour(int i,int j){
     if(i-1>=0) if(layout[i-1][j].exists) return true;

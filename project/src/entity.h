@@ -24,6 +24,7 @@ public:
         {
             std::cerr << "COULDNT LOAD TEXTURE" << std::endl;
         }
+        hp=current_hp=50;
     } // coordinates + where to render and image loaded;
     ~Entity()
     {

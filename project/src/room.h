@@ -27,7 +27,7 @@ struct RoomLayout{
 };
 class Room:public Game{
     private:
-        RoomLayout layout[5][5];
+        static RoomLayout layout[5][5];
         SDL_Rect rect;
         SDL_Texture* room;
         
@@ -39,5 +39,6 @@ class Room:public Game{
         Sprites getTile(int x,int y);
         void loadSpriteTextures();      
         std::vector<std::pair<int,int>> checkForNeighbour(int i,int j);
-        void spritesScale(float &x, float &y);
+        static void spritesScale(float &x, float &y);
+        friend class Player;
 };

@@ -115,7 +115,6 @@ bool Entity::isValidMove(Direction dir)
         return !(position.x >= rightBound);
     case NONE:
         return true;
-        ;
     default:
         return true;
     }

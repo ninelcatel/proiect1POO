@@ -1,4 +1,5 @@
 #include "player.h"
+#include "room.h"
 #include <vector>
 #include <cmath>
 const int animDelay = 51; // delay in ms
@@ -24,6 +25,7 @@ Player::Player(const char *filePath, float atkp, float armoor)
     keyBindings[SDLK_s] = &Player::moveDown;
     keyBindings[SDLK_a] = &Player::moveLeft;
     keyBindings[SDLK_d] = &Player::moveRight;
+    keyBindings[SDLK_SPACE] = &Player::enterRoom;
     keyBindings[SDLK_f] = &Entity::attack;
 
     keyStates[SDLK_w] = false;
@@ -31,28 +33,36 @@ Player::Player(const char *filePath, float atkp, float armoor)
     keyStates[SDLK_a] = false;
     keyStates[SDLK_d] = false;
     keyStates[SDLK_f] = false;
+    keyStates[SDLK_SPACE] = false;
 
     keyToDirection[SDLK_w] = UP;
     keyToDirection[SDLK_s] = DOWN;
     keyToDirection[SDLK_a] = LEFT;
     keyToDirection[SDLK_d] = RIGHT;
     keyToDirection[SDLK_f] = NONE;
+    keyToDirection[SDLK_SPACE] = NONE;
 }
 
 void Player::handleEvent(SDL_Event &event)
 {
     if (event.type == SDL_KEYDOWN)
-    {
+    {   
+        if(event.key.keysym.sym==SDLK_SPACE && !event.key.repeat){
+            keyStates[event.key.keysym.sym] = true;
+        }
+        else{
         keyStates[event.key.keysym.sym] = true;
         if (event.key.keysym.sym == SDLK_f && !getIsAttacking() && attackFrameCounter % 5 == 0)
         {
             setIsAttacking(true);
             attackFrameCounter = 0;
         }
+         }
         if (getIsFlipped() == false && event.key.keysym.sym == SDLK_a)
             setIsFlipped(true);
         else if (getIsFlipped() == true && event.key.keysym.sym == SDLK_d)
             setIsFlipped(false);
+           
     }
     else if (event.type == SDL_KEYUP)
     {
@@ -130,7 +140,6 @@ void Player::update()
                 moving = keyToDirection[pair.first] != NONE;
                 if (isValidMove(keyToDirection[pair.first]))
                 {
-
                     (this->*pair.second)();
                 }
                 // std::cerr<<getIsAttacking()<<std::endl;
@@ -200,4 +209,47 @@ std::pair<int, int> Player::getRoomCoordinates()
 void Player::setRoomCoordinates(std::pair<int, int> coordinates)
 {
     currentRoom_Position=coordinates;
+}
+void Player::enterRoom(){
+    
+    auto [x,y]=getRoomCoordinates();
+    auto helper=Room::layout[x][y].roomSprites;
+    scale();
+    float scaledX,scaledY;
+    Room::spritesScale(scaledX,scaledY);
+    for(int i=0;i<7;i++){
+        for(int j=0;j<8;j++){
+            if(helper[i][j].sprite==DOOR){
+                if(checkNearDoor(helper[i][j].position)){
+                    switch(i){  //hardcoding the direction xd, love pink monster 
+                        case 0:
+                            setRoomCoordinates({x-1,y});
+                            setPosition(static_cast<int>(500*scaledX),static_cast<int>(400*scaledY));
+                            break;      
+                        case 6:
+                            setRoomCoordinates({x+1,y});
+                            setPosition(static_cast<int>(500*scaledX),static_cast<int>(200*scaledY));
+                            break;
+                        case 3:
+                            setRoomCoordinates({x,j==0 ? y-1 : y+1});
+                            j!=0 ? setPosition(static_cast<int>(200*scaledX),static_cast<int>(300*scaledY))
+                            : setPosition(static_cast<int>(700*scaledX),static_cast<int>(300*scaledY));                         
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+        }
+    }
+    auto [n,m]=getRoomCoordinates();
+    std::cout<<n<<" "<<m<<std::endl;
+}
+bool Player::checkNearDoor(SDL_Rect doorPosition){
+    SDL_Rect playerPosition=getPosition();
+    float x,y;
+    Room::spritesScale(x,y);
+    doorPosition.h=static_cast<int>(50*y);
+    return SDL_HasIntersection(&playerPosition,&doorPosition);
 }

@@ -30,4 +30,6 @@ public:
     int getCurrentEnergy();
     std::pair<int,int> getRoomCoordinates();
     void setRoomCoordinates(std::pair<int,int> coordinates);
+    bool checkNearDoor(SDL_Rect doorPosition);
+    void enterRoom();
 };
