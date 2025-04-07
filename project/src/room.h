@@ -10,6 +10,7 @@ enum Sprites{
     HOLE,
     CHEST,
     VASE,
+    SKULL,
     POTION,
     DOOR,
     NOTHING
@@ -43,5 +44,6 @@ class Room:public Game{
         void loadSpriteTextures();      
         std::vector<std::pair<int,int>> checkForNeighbour(int i,int j);
         static void spritesScale(float &x, float &y);
+        static RoomLayout (&getLayout())[5][5];
         friend class Player;
 };

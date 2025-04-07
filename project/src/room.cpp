@@ -308,6 +308,9 @@ void Room::loadSpriteTextures()
                                 case CHEST:
                                     spriteSuffix = "CHEST";
                                     break;
+                                case SKULL:
+                                    spriteSuffix = "SKULL";
+                                    break;
                                 default:
                                     break;
                                 }
@@ -331,4 +334,7 @@ void Room::spritesScale(float &scale_x, float &scale_y)
     SDL_GetWindowSize(window, &window_width, &window_height);
     scale_x = static_cast<float>(window_width) / 1024;
     scale_y = static_cast<float>(window_height) / 720;
+}
+RoomLayout (&Room::getLayout())[5][5]{
+    return layout;
 }

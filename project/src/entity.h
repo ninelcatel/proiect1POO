@@ -58,5 +58,6 @@ public:
     void setIsHit(bool isHit);
     bool getIsAttacking();
     void setIsAttacking(bool attk);
-    bool checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j);
+    bool checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j,Direction dir);
+    std::pair<int,int> getIndexesInRoomMatrix();
 };

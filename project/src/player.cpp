@@ -13,7 +13,8 @@ Player::Player(const char *filePath, float atkp, float armoor)
 {
     // SDL_GetWindowSize(window, &initial_window_width, &initial_window_height);
     setRoomCoordinates({2, 2});
-    setPosition(200, 200);
+    setPosition(175, 330);
+    setSize(115,70);
     isEnemy = false;
     ap = atkp;
     armor = armoor;
@@ -217,7 +218,7 @@ void Player::enterRoom(){
                     switch(i){  //hardcoding the direction xd, love pink monster 
                         case 0:
                             setRoomCoordinates({x-1,y});
-                            setPosition(static_cast<int>(500*scaledX),static_cast<int>(400*scaledY));
+                            setPosition(static_cast<int>(500*scaledX),static_cast<int>(450*scaledY));
                             break;      
                         case 6:
                             setRoomCoordinates({x+1,y});

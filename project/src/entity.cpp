@@ -100,32 +100,51 @@ bool Entity::isValidMove(Direction dir)
     float rightBound = 770.0f * (window_width / 1024.0f);
     // dont go out of bounds
     //  1024x720
+    // 175,230,115,70 <--- sprite base position
     //  upper bound: y=110;
     //  lower bound: y=485
     //  left bound: x=145;
     //  right bound: x=77
-    std::pair<int,int> entity_currentCoordinates=getRoomCoordinates();
-    int room_row=static_cast<int>(position.x/upperBound);
-    int room_col=static_cast<int>(position.y/leftBound);
+    auto [room_row,room_col]=getIndexesInRoomMatrix();
+    std::cout<<room_row<<" "<<room_col<<std::endl;
+    
     switch (dir)
     {
     case UP:
-        return !(position.y <= upperBound && checkForObstacles(entity_currentCoordinates,room_row,room_col));
+        return (position.y > upperBound && !checkForObstacles(getRoomCoordinates(),room_row,room_col,UP));
     case DOWN:
-        return !(position.y >= lowerBound && checkForObstacles(entity_currentCoordinates,room_row,room_col));
+        return (position.y < lowerBound && !checkForObstacles(getRoomCoordinates(),room_row,room_col,DOWN));
     case LEFT:
-        return !(position.x <= leftBound && checkForObstacles(entity_currentCoordinates,room_row,room_col));
+        return (position.x > leftBound && !checkForObstacles(getRoomCoordinates(),room_row,room_col,LEFT));
     case RIGHT:
-        return !(position.x >= rightBound && checkForObstacles(entity_currentCoordinates,room_row,room_col));
+        return (position.x < rightBound && !checkForObstacles(getRoomCoordinates(),room_row,room_col,RIGHT));
     case NONE:
         return true;
     default:
         return true;
     }
+    return false;
 }
-bool Entity::checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j) // i and j are room coordinates in the 5x6 matrix;
+bool Entity::checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j,Direction dir) // i and j are room coordinates in the 5x6 matrix;
 {
-    // ceva Room::layout
+    auto& layout= Room::getLayout();
+    SDL_Rect helper=layout[layoutCoordinates.first][layoutCoordinates.second].roomSprites[i][j].position;
+    SDL_Rect hitbox=getPosition();
+    switch(dir){
+        case UP:
+            hitbox.y=static_cast<int>((hitbox.y-hitbox.h/2)*getScaleY());
+            break;
+        case DOWN:
+            hitbox.y=static_cast<int>((hitbox.y+hitbox.h)*getScaleY());
+                break;
+        case LEFT:
+            hitbox.x=static_cast<int>((hitbox.x-hitbox.w)*getScaleX());
+                break;
+        case RIGHT:
+            hitbox.x=static_cast<int>((hitbox.x+hitbox.w)*getScaleX());
+                break;    
+    }
+    return SDL_HasIntersection(&hitbox,&helper);
 }
 void Entity::takeDamage()
 {   
@@ -225,4 +244,27 @@ std::pair<int, int> Entity::getRoomCoordinates()
 void Entity::setRoomCoordinates(std::pair<int, int> coordinates)
 {
     currentRoom_Position=coordinates;
+}
+std::pair<int,int> Entity::getIndexesInRoomMatrix() {
+    const int roomStartX = 184;
+    const int roomStartY = 212;
+    const int elementWidth = 115;
+    const int elementHeight = 70;
+    
+    // Calculate center of entity
+    int centerX = position.x + position.w / 2;
+    int centerY = position.y + position.h/ 2;
+    
+    // Calculate relative position in the room
+    int relativeX = centerX - roomStartX;
+    int relativeY = centerY - roomStartY;
+    
+    // Calculate column and row (1-indexed)
+    int column = (relativeX / elementWidth) + 1;
+    int row = (relativeY / elementHeight) + 1;
+    
+    // Ensure we're within bounds
+    column = std::max(1, std::min(column, 6));
+    row = std::max(1, std::min(row, 5));
+    return std::make_pair(row, column);
 }
