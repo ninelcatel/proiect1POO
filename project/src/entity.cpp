@@ -106,7 +106,6 @@ bool Entity::isValidMove(Direction dir)
     //  left bound: x=145;
     //  right bound: x=77
     auto [room_row,room_col]=getIndexesInRoomMatrix();
-    std::cout<<room_row<<" "<<room_col<<std::endl;
     
     switch (dir)
     {
@@ -128,22 +127,25 @@ bool Entity::isValidMove(Direction dir)
 bool Entity::checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j,Direction dir) // i and j are room coordinates in the 5x6 matrix;
 {
     auto& layout= Room::getLayout();
-    SDL_Rect helper=layout[layoutCoordinates.first][layoutCoordinates.second].roomSprites[i][j].position;
+    SDL_Rect &helper=layout[layoutCoordinates.first][layoutCoordinates.second].roomSprites[i][j].position;
     SDL_Rect hitbox=getPosition();
+    float x,y;
+    Room::spritesScale(x,y);
     switch(dir){
         case UP:
-            hitbox.y=static_cast<int>((hitbox.y-hitbox.h/2)*getScaleY());
+            hitbox.y=static_cast<int>((hitbox.y-hitbox.h/2));
             break;
         case DOWN:
-            hitbox.y=static_cast<int>((hitbox.y+hitbox.h)*getScaleY());
+            hitbox.y=static_cast<int>((hitbox.y+hitbox.h));
                 break;
         case LEFT:
-            hitbox.x=static_cast<int>((hitbox.x-hitbox.w)*getScaleX());
+            hitbox.x=static_cast<int>((hitbox.x-hitbox.w));
                 break;
         case RIGHT:
-            hitbox.x=static_cast<int>((hitbox.x+hitbox.w)*getScaleX());
+            hitbox.x=static_cast<int>((hitbox.x+hitbox.w));
                 break;    
     }
+    std::cout<<"Player: "<<hitbox.x<<" "<<hitbox.y<<" "<<hitbox.w<<" "<<hitbox.h<<" Sprite: "<<helper.x<<" "<<helper.y<<" "<<helper.w<<" "<<helper.h<<std::endl; 
     return SDL_HasIntersection(&hitbox,&helper);
 }
 void Entity::takeDamage()
@@ -177,6 +179,7 @@ void Entity::takeDamage()
                 setIsHit(true);
                 // std::cout<<position.x<<" "<<position.y<<" "<<position.w<<" "<<position.h<<" "<<it->zone.x<<" "<<it->zone.y<<" "<<it->zone.w<<" "<<it->zone.h<<std::endl;
                 std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
+                
             }
             }
             ++it;  
@@ -246,18 +249,20 @@ void Entity::setRoomCoordinates(std::pair<int, int> coordinates)
     currentRoom_Position=coordinates;
 }
 std::pair<int,int> Entity::getIndexesInRoomMatrix() {
-    const int roomStartX = 184;
-    const int roomStartY = 212;
-    const int elementWidth = 115;
-    const int elementHeight = 70;
+     float x,y;
+    Room::spritesScale(x,y);
+    const int roomStartX = static_cast<int>(184*x);
+    const int roomStartY = static_cast<int>(212*y);
+    const int elementWidth = static_cast<int>(115*x);
+    const int elementHeight = static_cast<int>(70*y);
     
     // Calculate center of entity
     int centerX = position.x + position.w / 2;
     int centerY = position.y + position.h/ 2;
-    
+   
     // Calculate relative position in the room
-    int relativeX = centerX - roomStartX;
-    int relativeY = centerY - roomStartY;
+    int relativeX = static_cast<int>((centerX - roomStartX));
+    int relativeY = static_cast<int>((centerY - roomStartY));
     
     // Calculate column and row (1-indexed)
     int column = (relativeX / elementWidth) + 1;
@@ -266,5 +271,12 @@ std::pair<int,int> Entity::getIndexesInRoomMatrix() {
     // Ensure we're within bounds
     column = std::max(1, std::min(column, 6));
     row = std::max(1, std::min(row, 5));
+    std::cout<<"Row: "<<row<<" Column: "<<column<<std::endl;
     return std::make_pair(row, column);
+}
+void Entity::update(){
+        
+        position.x = int((position.x * getScaleX()));
+        position.y = int((position.y * getScaleY()));
+        scale();                //must get put again because since its not handled by an event it takes the static one and multiplies too much
 }

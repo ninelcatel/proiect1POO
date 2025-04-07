@@ -1,4 +1,5 @@
 #include "room.h"
+#include "enemy.h"
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
@@ -75,13 +76,15 @@ void Room::render(Player &player)
             }
         }
     }
+    // Enemy *andre=new Enemy("xd");
+    // delete andre; this is where ill render and update enemies i think.
 }
 void Room::generateLevel()
 {
     const int maxRooms = 6;
     int roomCount = 1;
     std::vector<std::pair<int, int>> activeRooms = {{2, 2}, {2, 1}, {1, 2}, {3, 2}, {2, 3}};
-    std::vector<Sprites> sprites = {BOULDER, HOLE, CHEST, POTION};
+    std::vector<Sprites> sprites = {BOULDER, HOLE, CHEST, POTION,SKULL,VASE,BARREL};
     while (roomCount <= maxRooms && !activeRooms.empty())
     {
         int randNumber = std::rand();
@@ -139,6 +142,7 @@ void Room::generateLevel()
             std::unordered_map<Sprites, int> spritesMap; // what sprites and how many of them;
             std::random_shuffle(sprites.begin(), sprites.end());
             int howMany = (rand() % 13) + 1;
+            y.enemyCount=howMany%4+1; //max 4 mobs
             while (howMany)
             {
                 int randIndex = (rand() % 3) + 1; // 4 sprites
@@ -155,11 +159,22 @@ void Room::generateLevel()
                     i = 2;
                     j = 3;
                     break;
+                case VASE:
+                    i = 2;
+                    j = 3;
+                    break;
+                case BARREL:
+                    i = 2;
+                    j = 3;
+                    break;
                 case HOLE:
                     i = 1;
                     j = 3;
                     break;
                 case POTION:
+                    i = j = 1;
+                    break;
+                case SKULL:
                     i = j = 1;
                     break;
                 case CHEST:
@@ -213,12 +228,12 @@ bool notBlockingDoors =
             }
         }
     }
-    for (int i = 0; i < 5; i++)
+    /*for (int i = 0; i < 5; i++)       FOR VISUALIZING THE MAP
     {
         for (int j = 0; j < 5; j++)
             std::cout << layout[i][j].exists << " ";
         std::cout << std::endl;
-    }
+    }*/
 }
 std::vector<std::pair<int, int>> Room::checkForNeighbour(int i, int j)
 {

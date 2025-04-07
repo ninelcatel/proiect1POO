@@ -34,9 +34,12 @@ int main(int argc, char *argv[])
             //  int mouseX, mouseY;
             //  SDL_GetMouseState(&mouseX, &mouseY);
             //  std::cout<<"Mouse X:"<<mouseX<<" MouseY: "<<mouseY<<std::endl;
-             player.update();
-            
-            entites[0]->takeDamage();
+            player.update();
+            for(auto &entity:entites)
+                {
+                    entity->takeDamage();   
+                    entity->update();
+                }
             SDL_SetRenderDrawColor(game.getRenderer(), 0, 0, 0, 255);
             SDL_RenderClear(game.getRenderer());
             

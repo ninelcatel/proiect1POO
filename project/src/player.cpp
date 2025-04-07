@@ -78,8 +78,9 @@ void Player::handleEvent(SDL_Event &event)
             scale();
             pos.x = static_cast<int>(pos.x * getScaleX());
             pos.y = static_cast<int>(pos.y * getScaleY());
+            
             setPosition(pos.x, pos.y);
-            speed = 0.75f * getScaleY();
+            speed = 0.75f * getScaleY();        //MUST BE Y, OTHERWISE SPEED WONT BE HIGH ENOUGH TO MAKE THE TRUNC WHEN CASTING
 
             /*SDL_GetWindowSize(window, &window_width, &window_height);
             float scale_x = static_cast<float>(window_width) / initial_window_width;
