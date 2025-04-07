@@ -2,6 +2,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "entity.h"
+#include <cmath>
+#include "room.h"
 #include <algorithm>
 #include <iostream>
 void Entity::setHealth(int health)
@@ -102,22 +104,28 @@ bool Entity::isValidMove(Direction dir)
     //  lower bound: y=485
     //  left bound: x=145;
     //  right bound: x=77
-
+    std::pair<int,int> entity_currentCoordinates=getRoomCoordinates();
+    int room_row=static_cast<int>(position.x/upperBound);
+    int room_col=static_cast<int>(position.y/leftBound);
     switch (dir)
     {
     case UP:
-        return !(position.y <= upperBound);
+        return !(position.y <= upperBound && checkForObstacles(entity_currentCoordinates,room_row,room_col));
     case DOWN:
-        return !(position.y >= lowerBound);
+        return !(position.y >= lowerBound && checkForObstacles(entity_currentCoordinates,room_row,room_col));
     case LEFT:
-        return !(position.x <= leftBound);
+        return !(position.x <= leftBound && checkForObstacles(entity_currentCoordinates,room_row,room_col));
     case RIGHT:
-        return !(position.x >= rightBound);
+        return !(position.x >= rightBound && checkForObstacles(entity_currentCoordinates,room_row,room_col));
     case NONE:
         return true;
     default:
         return true;
     }
+}
+bool Entity::checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j) // i and j are room coordinates in the 5x6 matrix;
+{
+    // ceva Room::layout
 }
 void Entity::takeDamage()
 {   
@@ -209,4 +217,12 @@ void Entity::setIsAttacking(bool attk){
 }
 bool Entity::getIsAttacking(){
     return isAttacking;
+}
+std::pair<int, int> Entity::getRoomCoordinates()
+{
+    return currentRoom_Position;
+}
+void Entity::setRoomCoordinates(std::pair<int, int> coordinates)
+{
+    currentRoom_Position=coordinates;
 }

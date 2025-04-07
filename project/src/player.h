@@ -6,7 +6,6 @@ class Player : public Entity
 {
 private:
     float ap, armor;
-    std::pair<int,int> currentRoom_Position;
     int energy, current_energy;
     float speed = 0.5f;
     int attackFrameCounter;
@@ -28,8 +27,7 @@ public:
     int getEnergy();
     void setMaxEnergy(int energy);
     int getCurrentEnergy();
-    std::pair<int,int> getRoomCoordinates();
-    void setRoomCoordinates(std::pair<int,int> coordinates);
+    
     bool checkNearDoor(SDL_Rect doorPosition);
     void enterRoom();
 };

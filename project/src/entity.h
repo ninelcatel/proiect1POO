@@ -6,6 +6,7 @@
 class Entity : public Game
 {
 private:
+    std::pair<int,int> currentRoom_Position;
     SDL_Rect position;
     SDL_Texture *texture;
     const char *filePath;
@@ -52,7 +53,10 @@ public:
     void attack();
     void update();
     bool getIsHit();
+    std::pair<int,int> getRoomCoordinates();
+    void setRoomCoordinates(std::pair<int,int> coordinates);
     void setIsHit(bool isHit);
     bool getIsAttacking();
     void setIsAttacking(bool attk);
+    bool checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j);
 };

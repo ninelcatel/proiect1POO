@@ -138,7 +138,7 @@ void Room::generateLevel()
                 continue;
             std::unordered_map<Sprites, int> spritesMap; // what sprites and how many of them;
             std::random_shuffle(sprites.begin(), sprites.end());
-            int howMany = (rand() % 15) + 1;
+            int howMany = (rand() % 13) + 1;
             while (howMany)
             {
                 int randIndex = (rand() % 3) + 1; // 4 sprites
@@ -186,7 +186,13 @@ void Room::generateLevel()
                         randPlacingY = rand() % rangeY + 1;
                     else
                         randPlacingY = 1;
-                    if (!(randPlacingX > 5 || randPlacingX < 1 || randPlacingY > 6 || randPlacingY < 1) && ((randPlacingX!=0 && randPlacingY!=3) || (randPlacingX!=6 && randPlacingY!=3) || (randPlacingX!=3 && randPlacingY!=0) || (randPlacingX!=3 && randPlacingY!=7)))
+                    bool inBounds = randPlacingX >= 1 && randPlacingX <= 5 && randPlacingY >= 1 && randPlacingY <= 6;
+bool notBlockingDoors =
+    (randPlacingX == 3 && (randPlacingY == 1 || randPlacingY == 6)) ||
+    (randPlacingX == 2 && (randPlacingY == 1 || randPlacingY == 6)) ||
+    (randPlacingX == 1 && (randPlacingY == 3 || randPlacingY == 4)) ||
+    (randPlacingX == 5 && (randPlacingY == 3 || randPlacingY == 4));
+                    if(inBounds and !notBlockingDoors)
                     { // checking for bounds
                         Sprites &helper = y.roomSprites[randPlacingX][randPlacingY].sprite;
                         if (helper == NOTHING)
@@ -194,6 +200,7 @@ void Room::generateLevel()
                             helper = spriteType;
                             --count;
                             retries = 0;
+                            if(helper==CHEST || helper== POTION) count = 0;
                         }
                     }
                     ++retries;
@@ -308,7 +315,7 @@ void Room::loadSpriteTextures()
                             std::string fullPath=spritePrefix+spriteSuffix+".png";
                             tile.filePaths.push_back(fullPath);
                             tile.texture=loadTexture(fullPath.c_str(),renderer);
-                            tile.basePosition={180,230,110,70};
+                            tile.basePosition={175,230,115,70};
                         }
                         }
                         //  std::cout<<"layout[i][j]: "<<i<<" "<<j<<" sprite[row][col] "<<row<<" "<<col<<" "<<layout[i][j].roomSprites[row][col].filePaths[0]<<std::endl;

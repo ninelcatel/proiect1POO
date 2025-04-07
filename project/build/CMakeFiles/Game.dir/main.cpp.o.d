@@ -321,7 +321,6 @@ CMakeFiles/Game.dir/main.cpp.o: \
  /usr/include/c++/14.2.1/bits/node_handle.h \
  /usr/include/c++/14.2.1/bits/erase_if.h \
  /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h \
- /usr/include/SDL2/SDL_ttf.h \
  /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.h \
  /usr/include/c++/14.2.1/algorithm \
  /usr/include/c++/14.2.1/bits/stl_algo.h \
@@ -333,5 +332,5 @@ CMakeFiles/Game.dir/main.cpp.o: \
  /usr/include/c++/14.2.1/pstl/execution_defs.h \
  /usr/include/c++/14.2.1/map /usr/include/c++/14.2.1/bits/stl_tree.h \
  /usr/include/c++/14.2.1/bits/stl_map.h \
- /usr/include/c++/14.2.1/bits/stl_multimap.h \
+ /usr/include/c++/14.2.1/bits/stl_multimap.h /usr/include/SDL2/SDL_ttf.h \
  /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.h
