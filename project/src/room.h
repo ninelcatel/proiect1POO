@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <map>
 #include "player.h"
+#include "enemy.h"
 #include <vector>
 enum Sprites{
     BOULDER,
@@ -27,6 +28,7 @@ struct RoomLayout{
     bool exists; //0 is empty, 1 exists 
     bool isCleared;
     int enemyCount;
+    std::vector<Enemy*> enemies;
     Tiles roomSprites[7][8]; // 5x6 tiles with a border saved for doors only
 };
 class Room:public Game{

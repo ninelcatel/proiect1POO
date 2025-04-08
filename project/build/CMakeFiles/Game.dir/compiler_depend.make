@@ -1272,6 +1272,7 @@ CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/xtestintrin.h
 
 CMakeFiles/Game.dir/src/entity.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.cpp \
+  /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/init.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.h \
@@ -2115,6 +2116,7 @@ CMakeFiles/Game.dir/src/init.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/xtestintrin.h
 
 CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.cpp \
+  /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/init.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.h \
@@ -2548,6 +2550,7 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/xtestintrin.h
 
 CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp \
+  /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/init.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.h \

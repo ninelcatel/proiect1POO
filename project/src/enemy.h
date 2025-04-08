@@ -5,4 +5,5 @@
 class Enemy : public Entity{
     public:
         Enemy(const char *filePath);
+        void update();
 };

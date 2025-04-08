@@ -11,11 +11,6 @@ int main(int argc, char *argv[])
         std::srand(std::time(nullptr));
         Game game;  
         Player player("res/PLAYER/player.png",10,20);
-        std::vector<Entity*> entites;
-        entites.push_back(new Enemy("res/ENEMY/SKELETON/FLIPPED/SKELETON.png"));
-        entites[0]->setPosition(500,350);
-        entites[0]->setSize(102,108);
-        entites[0]->pushFireZone(entites[0]->getPosition(),1000,entites[0]->isEnemy);
         StatusBars stats;
         Room room;
         SDL_Event event;
@@ -35,11 +30,6 @@ int main(int argc, char *argv[])
             //  SDL_GetMouseState(&mouseX, &mouseY);
             //  std::cout<<"Mouse X:"<<mouseX<<" MouseY: "<<mouseY<<std::endl;
             player.update();
-            for(auto &entity:entites)
-                {
-                    entity->takeDamage();   
-                    entity->update();
-                }
             SDL_SetRenderDrawColor(game.getRenderer(), 0, 0, 0, 255);
             SDL_RenderClear(game.getRenderer());
             
@@ -49,7 +39,6 @@ int main(int argc, char *argv[])
             player.render();
             // pos=entites[0]->getPosition();
             // SDL_RenderFillRect(game.getRenderer(),&pos); for visualizing hitboxes
-            entites[0]->render();
             stats.render(player);
             
             SDL_RenderPresent(game.getRenderer());

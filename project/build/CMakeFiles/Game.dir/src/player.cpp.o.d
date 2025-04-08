@@ -332,4 +332,5 @@ CMakeFiles/Game.dir/src/player.cpp.o: \
  /usr/include/c++/14.2.1/pstl/execution_defs.h \
  /usr/include/c++/14.2.1/map /usr/include/c++/14.2.1/bits/stl_tree.h \
  /usr/include/c++/14.2.1/bits/stl_map.h \
- /usr/include/c++/14.2.1/bits/stl_multimap.h
+ /usr/include/c++/14.2.1/bits/stl_multimap.h \
+ /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.h
