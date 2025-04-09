@@ -6,6 +6,8 @@
 SDL_Renderer *renderer = nullptr;
 SDL_Window *window = nullptr;
 
+// make the frame handling  smoother
+
 int main(int argc, char *argv[])
 {
         std::srand(std::time(nullptr));

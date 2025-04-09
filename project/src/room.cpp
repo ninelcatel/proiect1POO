@@ -78,9 +78,10 @@ void Room::render(Player &player)
         }
     }
     for (auto it = layout[x][y].enemies.begin(); it != layout[x][y].enemies.end();)
-    {
+    {   
         Enemy *enemy = *it;
-        enemy->update();
+        enemy->setRoomCoordinates(player.getRoomCoordinates());
+        enemy->update(player);
         enemy->render();
         if (enemy->getCurrentHealth() == 0)
         {
