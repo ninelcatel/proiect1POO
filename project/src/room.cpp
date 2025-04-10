@@ -410,3 +410,87 @@ RoomLayout (&Room::getLayout())[5][5]
 {
     return layout;
 }
+
+
+
+const int ROWS = 7;
+const int COLS = 8;
+
+// Directions: UP, DOWN, LEFT, RIGHT
+const int dx[] = {-1, 1, 0, 0};
+const int dy[] = {0, 0, -1, 1};
+
+
+int heuristic(int x1, int y1, int x2, int y2) {
+    return abs(x1 - x2) + abs(y1 - y2);
+}
+
+std::vector<std::pair<int,int>> aStar(int sx, int sy, int gx, int gy, const Tiles grid[ROWS][COLS]) {
+    //min heap
+    auto compare = [](const Node& a, const Node& b) { return a.f > b.f; };
+    std::priority_queue<Node, std::vector<Node>, decltype(compare)> pq(compare);
+    
+    // track visited nodes and parents
+    std::map<std::pair<int,int>, bool> visited;
+    std::map<std::pair<int,int>, std::pair<int,int>> parent;
+    std::map<std::pair<int,int>, int> gScore;
+    
+    // initialize start node
+    pq.push({sx, sy, 0, heuristic(sx, sy, gx, gy)});
+    gScore[{sx, sy}] = 0;
+    
+    while (!pq.empty()) {
+        Node current = pq.top();
+        pq.pop();
+        
+        int x = current.x;
+        int y = current.y;
+        
+        if (visited[{x, y}]) continue;
+        visited[{x, y}] = true;
+        
+        if (x == gx && y == gy) break;
+        
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            
+            //check bounds
+            if (nx < 1 || nx > 5 || ny < 1 || ny > 6) continue;
+            
+            // check for obstacles 
+            if (grid[nx][ny].sprite != NOTHING && grid[nx][ny].sprite != DOOR) continue;
+            
+            int newG = gScore[{x, y}] + 1;
+            
+            // if this path is better than previous ones, update
+            if (!gScore.count({nx, ny}) || newG < gScore[{nx, ny}]) {
+                gScore[{nx, ny}] = newG;
+                int f = newG + heuristic(nx, ny, gx, gy);
+                pq.push({nx, ny, newG, f});
+                parent[{nx, ny}] = {x, y};
+            }
+        }
+    }
+    
+    // reconstruct path
+    std::vector<std::pair<int,int>> path;
+    std::pair<int,int> current = {gx, gy};
+    
+    // check if a path was found
+    if (!parent.count(current)) {
+        // no path found, return empty path
+        return path;
+    }
+    
+    // build path from goal to start
+    while (current != std::make_pair(sx, sy)) {
+        path.push_back(current);
+        current = parent[current];
+    }
+    path.push_back({sx, sy});
+    
+    // reverse path to get start to goal order
+    std::reverse(path.begin(), path.end());
+    return path;
+}

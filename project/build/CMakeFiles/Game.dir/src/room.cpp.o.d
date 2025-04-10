@@ -333,4 +333,8 @@ CMakeFiles/Game.dir/src/room.cpp.o: \
  /usr/include/c++/14.2.1/bits/hashtable_policy.h \
  /usr/include/c++/14.2.1/bits/enable_special_members.h \
  /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h \
- /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.h
+ /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.h \
+ /usr/include/c++/14.2.1/queue /usr/include/c++/14.2.1/deque \
+ /usr/include/c++/14.2.1/bits/stl_deque.h \
+ /usr/include/c++/14.2.1/bits/deque.tcc \
+ /usr/include/c++/14.2.1/bits/stl_queue.h /usr/include/c++/14.2.1/climits

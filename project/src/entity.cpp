@@ -177,7 +177,6 @@ void Entity::takeDamage()
             {
                 setHealth(getCurrentHealth() - 5);
                 setIsHit(true);
-                // std::cout<<position.x<<" "<<position.y<<" "<<position.w<<" "<<position.h<<" "<<it->zone.x<<" "<<it->zone.y<<" "<<it->zone.w<<" "<<it->zone.h<<std::endl;
                 std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
                 
             }
@@ -187,14 +186,16 @@ void Entity::takeDamage()
     }
 }
 void Entity::attack()
-{   if(timeSinceLastAttack<=250) return;
+{   if(static_cast<int>(timeSinceLastAttack)<=250) return;
     SDL_Rect attack_range;
     attack_range = position;
-    int eyeFrames = isFlipped ? -30 : 30;
+    int eyeFrames = isEnemy? 10 : 50;
+    eyeFrames=isFlipped ? -eyeFrames : eyeFrames;
     attack_range.x = static_cast<int>((attack_range.x + eyeFrames) * getScaleX());
     attack_range.y = static_cast<int>(attack_range.y * getScaleY());
     pushFireZone(attack_range, 1, isEnemy);
     timeSinceLastAttack=0;
+
 }
 void Entity::setIsHit(bool isHit)
 {
@@ -207,13 +208,17 @@ bool Entity::getIsHit()
 void Entity::animation(bool isMoving, int index)
 {
     std::string prefix = isEnemy ? "res/ENEMY/SKELETON/": "res/PLAYER/";
+    if(isEnemy){
+        if(alreadyHit) isMoving=false;
+        prefix+=isAttacking ? "ANIMATION/" : isMoving ? "ANIMATION/MOVING/" : "";
+    }
     prefix = prefix + (alreadyHit ? "" : isAttacking ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : "") ; // add this for already hit
     std::vector<std::string> suffix = isEnemy ? alreadyHit ? 
     std::vector<std::string>{"SKELETON","SKELETON_HIT","SKELETON"} 
     : isAttacking ? 
-    std::vector<std::string>{"SKELETON", "ATTACK1", "ATTACK2", "ATTACK3"} : 
+    std::vector<std::string>{"SKELETON", "SKELETON1", "SKELETON2", "SKELETON3","SKELETON","SKELETON5","SKELETON6","SKELETON7","SKELETON8","SKELETON9"} : 
     isMoving ? 
-    std::vector<std::string>{"SKELETON", "run1", "run2", "run3", "run4", "run5", "run6"} 
+    std::vector<std::string>{"SKELETON1", "SKELETON2", "SKELETON3", "SKELETON4", "SKELETON5", "SKELETON6"} 
     : std::vector<std::string>{"SKELETON", "SKELETON", "SKELETON", "SKELETON"}
     :
     alreadyHit ? 

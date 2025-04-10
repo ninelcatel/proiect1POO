@@ -15,7 +15,7 @@ private:
     bool isFlipped=false;
     bool isAttacking=false;
 protected:
-    int timeSinceLastAttack=500;
+    float timeSinceLastAttack=0;
 public:
     bool isEnemy;
     Entity(const char *filePath=NULL)

@@ -166,6 +166,7 @@ CMakeFiles/Game.dir/main.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/proj
   /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/14.2.1/bits/cxxabi_forced.h \
   /usr/include/c++/14.2.1/bits/cxxabi_init_exception.h \
+  /usr/include/c++/14.2.1/bits/deque.tcc \
   /usr/include/c++/14.2.1/bits/enable_special_members.h \
   /usr/include/c++/14.2.1/bits/erase_if.h \
   /usr/include/c++/14.2.1/bits/exception.h \
@@ -205,6 +206,7 @@ CMakeFiles/Game.dir/main.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/proj
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
   /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
+  /usr/include/c++/14.2.1/bits/stl_deque.h \
   /usr/include/c++/14.2.1/bits/stl_function.h \
   /usr/include/c++/14.2.1/bits/stl_heap.h \
   /usr/include/c++/14.2.1/bits/stl_iterator.h \
@@ -213,6 +215,7 @@ CMakeFiles/Game.dir/main.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/proj
   /usr/include/c++/14.2.1/bits/stl_map.h \
   /usr/include/c++/14.2.1/bits/stl_multimap.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_queue.h \
   /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/14.2.1/bits/stl_tree.h \
   /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
@@ -231,6 +234,7 @@ CMakeFiles/Game.dir/main.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/proj
   /usr/include/c++/14.2.1/cctype \
   /usr/include/c++/14.2.1/cerrno \
   /usr/include/c++/14.2.1/chrono \
+  /usr/include/c++/14.2.1/climits \
   /usr/include/c++/14.2.1/clocale \
   /usr/include/c++/14.2.1/cmath \
   /usr/include/c++/14.2.1/concepts \
@@ -243,6 +247,7 @@ CMakeFiles/Game.dir/main.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/proj
   /usr/include/c++/14.2.1/cwctype \
   /usr/include/c++/14.2.1/debug/assertions.h \
   /usr/include/c++/14.2.1/debug/debug.h \
+  /usr/include/c++/14.2.1/deque \
   /usr/include/c++/14.2.1/exception \
   /usr/include/c++/14.2.1/ext/aligned_buffer.h \
   /usr/include/c++/14.2.1/ext/alloc_traits.h \
@@ -263,6 +268,7 @@ CMakeFiles/Game.dir/main.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/proj
   /usr/include/c++/14.2.1/pstl/execution_defs.h \
   /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
   /usr/include/c++/14.2.1/pstl/pstl_config.h \
+  /usr/include/c++/14.2.1/queue \
   /usr/include/c++/14.2.1/ratio \
   /usr/include/c++/14.2.1/stdexcept \
   /usr/include/c++/14.2.1/stdlib.h \
@@ -864,6 +870,7 @@ CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/init.h \
   /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.h \
+  /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_assert.h \
   /usr/include/SDL2/SDL_atomic.h \
@@ -1004,8 +1011,10 @@ CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1
   /usr/include/bits/wctype-wchar.h \
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/14.2.1/algorithm \
   /usr/include/c++/14.2.1/backward/binders.h \
   /usr/include/c++/14.2.1/bit \
+  /usr/include/c++/14.2.1/bits/algorithmfwd.h \
   /usr/include/c++/14.2.1/bits/alloc_traits.h \
   /usr/include/c++/14.2.1/bits/allocator.h \
   /usr/include/c++/14.2.1/bits/basic_ios.h \
@@ -1019,6 +1028,7 @@ CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1
   /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/14.2.1/bits/cxxabi_forced.h \
   /usr/include/c++/14.2.1/bits/cxxabi_init_exception.h \
+  /usr/include/c++/14.2.1/bits/deque.tcc \
   /usr/include/c++/14.2.1/bits/enable_special_members.h \
   /usr/include/c++/14.2.1/bits/erase_if.h \
   /usr/include/c++/14.2.1/bits/exception.h \
@@ -1054,20 +1064,29 @@ CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1
   /usr/include/c++/14.2.1/bits/requires_hosted.h \
   /usr/include/c++/14.2.1/bits/specfun.h \
   /usr/include/c++/14.2.1/bits/std_abs.h \
+  /usr/include/c++/14.2.1/bits/stl_algo.h \
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
   /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
+  /usr/include/c++/14.2.1/bits/stl_deque.h \
   /usr/include/c++/14.2.1/bits/stl_function.h \
+  /usr/include/c++/14.2.1/bits/stl_heap.h \
   /usr/include/c++/14.2.1/bits/stl_iterator.h \
   /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/14.2.1/bits/stl_iterator_base_types.h \
+  /usr/include/c++/14.2.1/bits/stl_map.h \
+  /usr/include/c++/14.2.1/bits/stl_multimap.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_queue.h \
+  /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
+  /usr/include/c++/14.2.1/bits/stl_tree.h \
   /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/14.2.1/bits/stl_vector.h \
   /usr/include/c++/14.2.1/bits/streambuf.tcc \
   /usr/include/c++/14.2.1/bits/streambuf_iterator.h \
   /usr/include/c++/14.2.1/bits/string_view.tcc \
   /usr/include/c++/14.2.1/bits/stringfwd.h \
+  /usr/include/c++/14.2.1/bits/uniform_int_dist.h \
   /usr/include/c++/14.2.1/bits/unordered_map.h \
   /usr/include/c++/14.2.1/bits/uses_allocator.h \
   /usr/include/c++/14.2.1/bits/uses_allocator_args.h \
@@ -1077,6 +1096,7 @@ CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1
   /usr/include/c++/14.2.1/cctype \
   /usr/include/c++/14.2.1/cerrno \
   /usr/include/c++/14.2.1/chrono \
+  /usr/include/c++/14.2.1/climits \
   /usr/include/c++/14.2.1/clocale \
   /usr/include/c++/14.2.1/cmath \
   /usr/include/c++/14.2.1/concepts \
@@ -1089,6 +1109,7 @@ CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1
   /usr/include/c++/14.2.1/cwctype \
   /usr/include/c++/14.2.1/debug/assertions.h \
   /usr/include/c++/14.2.1/debug/debug.h \
+  /usr/include/c++/14.2.1/deque \
   /usr/include/c++/14.2.1/exception \
   /usr/include/c++/14.2.1/ext/aligned_buffer.h \
   /usr/include/c++/14.2.1/ext/alloc_traits.h \
@@ -1102,10 +1123,14 @@ CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1
   /usr/include/c++/14.2.1/iostream \
   /usr/include/c++/14.2.1/istream \
   /usr/include/c++/14.2.1/limits \
+  /usr/include/c++/14.2.1/map \
   /usr/include/c++/14.2.1/math.h \
   /usr/include/c++/14.2.1/new \
   /usr/include/c++/14.2.1/ostream \
+  /usr/include/c++/14.2.1/pstl/execution_defs.h \
+  /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
   /usr/include/c++/14.2.1/pstl/pstl_config.h \
+  /usr/include/c++/14.2.1/queue \
   /usr/include/c++/14.2.1/ratio \
   /usr/include/c++/14.2.1/stdexcept \
   /usr/include/c++/14.2.1/stdlib.h \
@@ -1443,6 +1468,7 @@ CMakeFiles/Game.dir/src/entity.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/14.2.1/bits/cxxabi_forced.h \
   /usr/include/c++/14.2.1/bits/cxxabi_init_exception.h \
+  /usr/include/c++/14.2.1/bits/deque.tcc \
   /usr/include/c++/14.2.1/bits/enable_special_members.h \
   /usr/include/c++/14.2.1/bits/erase_if.h \
   /usr/include/c++/14.2.1/bits/exception.h \
@@ -1482,6 +1508,7 @@ CMakeFiles/Game.dir/src/entity.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
   /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
+  /usr/include/c++/14.2.1/bits/stl_deque.h \
   /usr/include/c++/14.2.1/bits/stl_function.h \
   /usr/include/c++/14.2.1/bits/stl_heap.h \
   /usr/include/c++/14.2.1/bits/stl_iterator.h \
@@ -1490,6 +1517,7 @@ CMakeFiles/Game.dir/src/entity.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/bits/stl_map.h \
   /usr/include/c++/14.2.1/bits/stl_multimap.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_queue.h \
   /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/14.2.1/bits/stl_tree.h \
   /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
@@ -1508,6 +1536,7 @@ CMakeFiles/Game.dir/src/entity.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/cctype \
   /usr/include/c++/14.2.1/cerrno \
   /usr/include/c++/14.2.1/chrono \
+  /usr/include/c++/14.2.1/climits \
   /usr/include/c++/14.2.1/clocale \
   /usr/include/c++/14.2.1/cmath \
   /usr/include/c++/14.2.1/concepts \
@@ -1520,6 +1549,7 @@ CMakeFiles/Game.dir/src/entity.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/cwctype \
   /usr/include/c++/14.2.1/debug/assertions.h \
   /usr/include/c++/14.2.1/debug/debug.h \
+  /usr/include/c++/14.2.1/deque \
   /usr/include/c++/14.2.1/exception \
   /usr/include/c++/14.2.1/ext/aligned_buffer.h \
   /usr/include/c++/14.2.1/ext/alloc_traits.h \
@@ -1540,6 +1570,7 @@ CMakeFiles/Game.dir/src/entity.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/pstl/execution_defs.h \
   /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
   /usr/include/c++/14.2.1/pstl/pstl_config.h \
+  /usr/include/c++/14.2.1/queue \
   /usr/include/c++/14.2.1/ratio \
   /usr/include/c++/14.2.1/stdexcept \
   /usr/include/c++/14.2.1/stdlib.h \
@@ -2287,6 +2318,7 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/14.2.1/bits/cxxabi_forced.h \
   /usr/include/c++/14.2.1/bits/cxxabi_init_exception.h \
+  /usr/include/c++/14.2.1/bits/deque.tcc \
   /usr/include/c++/14.2.1/bits/enable_special_members.h \
   /usr/include/c++/14.2.1/bits/erase_if.h \
   /usr/include/c++/14.2.1/bits/exception.h \
@@ -2326,6 +2358,7 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
   /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
+  /usr/include/c++/14.2.1/bits/stl_deque.h \
   /usr/include/c++/14.2.1/bits/stl_function.h \
   /usr/include/c++/14.2.1/bits/stl_heap.h \
   /usr/include/c++/14.2.1/bits/stl_iterator.h \
@@ -2334,6 +2367,7 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/bits/stl_map.h \
   /usr/include/c++/14.2.1/bits/stl_multimap.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_queue.h \
   /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/14.2.1/bits/stl_tree.h \
   /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
@@ -2352,6 +2386,7 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/cctype \
   /usr/include/c++/14.2.1/cerrno \
   /usr/include/c++/14.2.1/chrono \
+  /usr/include/c++/14.2.1/climits \
   /usr/include/c++/14.2.1/clocale \
   /usr/include/c++/14.2.1/cmath \
   /usr/include/c++/14.2.1/concepts \
@@ -2364,6 +2399,7 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/cwctype \
   /usr/include/c++/14.2.1/debug/assertions.h \
   /usr/include/c++/14.2.1/debug/debug.h \
+  /usr/include/c++/14.2.1/deque \
   /usr/include/c++/14.2.1/exception \
   /usr/include/c++/14.2.1/ext/aligned_buffer.h \
   /usr/include/c++/14.2.1/ext/alloc_traits.h \
@@ -2384,6 +2420,7 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/pstl/execution_defs.h \
   /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
   /usr/include/c++/14.2.1/pstl/pstl_config.h \
+  /usr/include/c++/14.2.1/queue \
   /usr/include/c++/14.2.1/ratio \
   /usr/include/c++/14.2.1/stdexcept \
   /usr/include/c++/14.2.1/stdlib.h \
@@ -2721,6 +2758,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
   /usr/include/c++/14.2.1/bits/cxxabi_forced.h \
   /usr/include/c++/14.2.1/bits/cxxabi_init_exception.h \
+  /usr/include/c++/14.2.1/bits/deque.tcc \
   /usr/include/c++/14.2.1/bits/enable_special_members.h \
   /usr/include/c++/14.2.1/bits/erase_if.h \
   /usr/include/c++/14.2.1/bits/exception.h \
@@ -2760,6 +2798,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
   /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
+  /usr/include/c++/14.2.1/bits/stl_deque.h \
   /usr/include/c++/14.2.1/bits/stl_function.h \
   /usr/include/c++/14.2.1/bits/stl_heap.h \
   /usr/include/c++/14.2.1/bits/stl_iterator.h \
@@ -2768,6 +2807,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/bits/stl_map.h \
   /usr/include/c++/14.2.1/bits/stl_multimap.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_queue.h \
   /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/14.2.1/bits/stl_tree.h \
   /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
@@ -2786,6 +2826,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/cctype \
   /usr/include/c++/14.2.1/cerrno \
   /usr/include/c++/14.2.1/chrono \
+  /usr/include/c++/14.2.1/climits \
   /usr/include/c++/14.2.1/clocale \
   /usr/include/c++/14.2.1/cmath \
   /usr/include/c++/14.2.1/concepts \
@@ -2798,6 +2839,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/cwctype \
   /usr/include/c++/14.2.1/debug/assertions.h \
   /usr/include/c++/14.2.1/debug/debug.h \
+  /usr/include/c++/14.2.1/deque \
   /usr/include/c++/14.2.1/exception \
   /usr/include/c++/14.2.1/ext/aligned_buffer.h \
   /usr/include/c++/14.2.1/ext/alloc_traits.h \
@@ -2818,6 +2860,7 @@ CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/
   /usr/include/c++/14.2.1/pstl/execution_defs.h \
   /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
   /usr/include/c++/14.2.1/pstl/pstl_config.h \
+  /usr/include/c++/14.2.1/queue \
   /usr/include/c++/14.2.1/ratio \
   /usr/include/c++/14.2.1/stdexcept \
   /usr/include/c++/14.2.1/stdlib.h \
@@ -3140,8 +3183,6 @@ CMakeFiles/Game.dir/src/entity.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/smmintrin.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/sm4intrin.h:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/sha512intrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/sgxintrin.h:
@@ -3324,6 +3365,12 @@ CMakeFiles/Game.dir/src/assets.cpp.o:
 
 /usr/include/c++/14.2.1/new:
 
+/usr/lib32/libjpeg.so.8:
+
+/usr/include/c++/14.2.1/math.h:
+
+/usr/include/c++/14.2.1/map:
+
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/avx512erintrin.h:
 
 /usr/include/bits/types/locale_t.h:
@@ -3476,6 +3523,12 @@ CMakeFiles/Game.dir/src/init.cpp.o:
 
 /usr/include/c++/14.2.1/concepts:
 
+/usr/include/c++/14.2.1/iostream:
+
+/usr/include/bits/stdint-uintn.h:
+
+/usr/include/asm/errno.h:
+
 /usr/include/c++/14.2.1/bits/locale_facets.tcc:
 
 /usr/lib/ld-linux-x86-64.so.2:
@@ -3502,6 +3555,10 @@ CMakeFiles/Game.dir/src/init.cpp.o:
 
 /usr/include/SDL2/SDL_image.h:
 
+/usr/include/c++/14.2.1/istream:
+
+/usr/include/SDL2/SDL_joystick.h:
+
 /home/ninel/facultate/poo/proiect1/proiect1/project/src/init.h:
 
 /usr/lib/libjpeg.so.8:
@@ -3511,6 +3568,10 @@ CMakeFiles/Game.dir/src/init.cpp.o:
 /usr/include/c++/14.2.1/string:
 
 /usr/include/SDL2/SDL_hints.h:
+
+/usr/include/c++/14.2.1/limits:
+
+/usr/include/c++/14.2.1/backward/binders.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/tmmintrin.h:
 
@@ -3539,6 +3600,8 @@ CMakeFiles/Game.dir/main.cpp.o:
 /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/avxvnniint8intrin.h:
+
+/usr/include/c++/14.2.1/bits/stl_deque.h:
 
 /usr/include/c++/14.2.1/bits/hash_bytes.h:
 
@@ -3637,6 +3700,8 @@ CMakeFiles/Game.dir/main.cpp.o:
 /usr/include/SDL2/SDL_loadso.h:
 
 /usr/include/SDL2/SDL_rect.h:
+
+/usr/include/c++/14.2.1/queue:
 
 /usr/include/SDL2/SDL_locale.h:
 
@@ -3814,9 +3879,7 @@ CMakeFiles/Game.dir/main.cpp.o:
 
 /usr/include/c++/14.2.1/bits/basic_ios.h:
 
-/usr/include/c++/14.2.1/backward/binders.h:
-
-/usr/include/c++/14.2.1/limits:
+/usr/include/c++/14.2.1/bits/deque.tcc:
 
 /usr/include/bits/math-vector.h:
 
@@ -3888,8 +3951,6 @@ CMakeFiles/Game.dir/main.cpp.o:
 
 /usr/include/c++/14.2.1/bits/ios_base.h:
 
-/usr/include/c++/14.2.1/map:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/immintrin.h:
 
 /usr/include/c++/14.2.1/bits/istream.tcc:
@@ -3908,19 +3969,9 @@ CMakeFiles/Game.dir/main.cpp.o:
 
 /usr/include/c++/14.2.1/bits/memory_resource.h:
 
-/usr/include/bits/stdint-uintn.h:
-
-/usr/include/asm/errno.h:
-
-/usr/include/c++/14.2.1/iostream:
-
 /usr/include/c++/14.2.1/bits/move.h:
 
 /usr/include/c++/14.2.1/bits/nested_exception.h:
-
-/usr/lib32/libjpeg.so.8:
-
-/usr/include/c++/14.2.1/math.h:
 
 /usr/include/c++/14.2.1/bits/new_allocator.h:
 
@@ -3978,6 +4029,8 @@ CMakeFiles/Game.dir/main.cpp.o:
 
 /usr/include/c++/14.2.1/bits/stl_pair.h:
 
+/usr/include/c++/14.2.1/bits/stl_queue.h:
+
 /usr/include/c++/14.2.1/bits/stl_vector.h:
 
 /usr/include/c++/14.2.1/bits/streambuf.tcc:
@@ -4022,6 +4075,8 @@ CMakeFiles/Game.dir/main.cpp.o:
 
 /usr/include/c++/14.2.1/cerrno:
 
+/usr/include/c++/14.2.1/climits:
+
 /usr/include/c++/14.2.1/cstdio:
 
 /usr/include/c++/14.2.1/cwctype:
@@ -4036,6 +4091,10 @@ CMakeFiles/Game.dir/main.cpp.o:
 
 /usr/include/c++/14.2.1/debug/debug.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/sm4intrin.h:
+
+/usr/include/c++/14.2.1/deque:
+
 /usr/include/bits/types/__locale_t.h:
 
 /usr/include/c++/14.2.1/bits/functional_hash.h:
@@ -4045,7 +4104,3 @@ CMakeFiles/Game.dir/main.cpp.o:
 CMakeFiles/Game.dir/src/enemy.cpp.o:
 
 /usr/include/c++/14.2.1/ext/numeric_traits.h:
-
-/usr/include/SDL2/SDL_joystick.h:
-
-/usr/include/c++/14.2.1/istream:

@@ -5,6 +5,10 @@
 #include "player.h"
 #include "enemy.h"
 #include <vector>
+#include <queue>
+#include <tuple>
+#include <climits>
+
 enum Sprites{
     BOULDER,
     BARREL,
@@ -48,4 +52,15 @@ class Room:public Game{
         static void spritesScale(float &x, float &y);
         static RoomLayout (&getLayout())[5][5];
         friend class Player;
+        friend class Enemy;
 };
+
+struct Node {
+    int x, y;
+    int g, f;  // g = cost from start, f = g + heuristic
+    bool operator<(const Node& other) const {
+        return f > other.f; // priority queue wants smallest f
+    }
+};
+int heuristic(int x1, int y1, int x2, int y2);
+std::vector<std::pair<int, int>> aStar(int startX, int startY, int endX, int endY, const Tiles grid[7][8]);      
