@@ -21,5 +21,14 @@ class StatusBars : public Game
 };
 class Menu : public Game{
     private:
-        
+        std::vector<std::pair<SDL_Texture *,SDL_Rect>> text;
+        std::vector<std::string> textContent;
+        std::vector<bool> isHovered;
+        TTF_Font* font;
+    public:
+        void update(SDL_Event& e);
+        void render();
+        void init_font();
+        Menu();
+        ~Menu();
 };

@@ -1302,6 +1302,18 @@
 			"value" : "/lib/cmake/SDL2_image"
 		},
 		{
+			"name" : "SDL2_ttf_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for SDL2_ttf."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/lib/cmake/SDL2_ttf"
+		},
+		{
 			"name" : "TIFF_INCLUDE_DIR",
 			"properties" : 
 			[

@@ -12,7 +12,7 @@ struct FireZone {
         double howLong; //how much does the zone will mainly be 1 sec or sth
         bool isEnemy;
     };
-enum GameState{MENU,GAME,PAUSE,OPTIONS};
+enum class GameState{MENU,GAME,PAUSE};
 bool init(SDL_Window **window, SDL_Renderer **renderer);
 SDL_Texture* loadTexture(const char* filePath, SDL_Renderer* renderer);
 class Game{
@@ -33,9 +33,9 @@ class Game{
         Game();
         SDL_Renderer* getRenderer();
         SDL_Window* getWindow();
-        void setGameState();
+        static void setGameState(GameState state);
         void scale();
-        GameState getGameState();
+        static GameState getGameState();
         void scaleEntity(SDL_Rect &position);
         static float getScaleX();
         static float getScaleY();

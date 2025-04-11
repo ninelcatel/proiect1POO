@@ -25,13 +25,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 14,
+				"line" : 15,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 31,
+				"line" : 32,
 				"parent" : 0
 			}
 		]
@@ -82,6 +82,11 @@
 			{
 				"fragment" : "-fsanitize=address -g -g",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/usr/lib/libSDL2_ttf.so",
+				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,

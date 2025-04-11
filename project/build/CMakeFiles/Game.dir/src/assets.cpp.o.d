@@ -322,4 +322,11 @@ CMakeFiles/Game.dir/src/assets.cpp.o: \
  /usr/include/c++/14.2.1/bits/node_handle.h \
  /usr/include/c++/14.2.1/bits/erase_if.h \
  /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.h \
- /usr/include/SDL2/SDL_ttf.h
+ /usr/include/SDL2/SDL_ttf.h /usr/include/c++/14.2.1/algorithm \
+ /usr/include/c++/14.2.1/bits/stl_algo.h \
+ /usr/include/c++/14.2.1/bits/algorithmfwd.h \
+ /usr/include/c++/14.2.1/bits/stl_heap.h \
+ /usr/include/c++/14.2.1/bits/uniform_int_dist.h \
+ /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
+ /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/14.2.1/pstl/execution_defs.h

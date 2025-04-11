@@ -11,6 +11,7 @@ Game: \
   CMakeFiles/Game.dir/src/assets.cpp.o \
   CMakeFiles/Game.dir/src/room.cpp.o \
   CMakeFiles/Game.dir/src/enemy.cpp.o \
+  /usr/lib/libSDL2_ttf.so \
   /usr/lib/libSDL2-2.0.so.0.3200.54 \
   /usr/lib/libSDL2_image.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/libstdc++.so \
@@ -39,6 +40,10 @@ Game: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/libgcc.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/crtendS.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/crtn.o \
+  /usr/lib32/libfreetype.so.6 \
+  /usr/lib/libfreetype.so.6 \
+  /usr/lib32/libharfbuzz.so.0 \
+  /usr/lib/libharfbuzz.so.0 \
   /usr/lib32/libpng16.so.16 \
   /usr/lib/libpng16.so.16 \
   /usr/lib/libjxl.so.0.11 \
@@ -52,10 +57,15 @@ Game: \
   /usr/lib/ld-linux-x86-64.so.2 \
   /usr/lib32/libz.so.1 \
   /usr/lib/libz.so.1 \
-  /usr/lib/libjxl_cms.so.0.11 \
-  /usr/lib/libhwy.so.1 \
+  /usr/lib32/libbz2.so.1.0 \
+  /usr/lib/libbz2.so.1.0 \
   /usr/lib32/libbrotlidec.so.1 \
   /usr/lib/libbrotlidec.so.1 \
+  /usr/lib32/libglib-2.0.so.0 \
+  /usr/lib/libglib-2.0.so.0 \
+  /usr/lib/libgraphite2.so.3 \
+  /usr/lib/libjxl_cms.so.0.11 \
+  /usr/lib/libhwy.so.1 \
   /usr/lib32/libbrotlienc.so.1 \
   /usr/lib/libbrotlienc.so.1 \
   /usr/lib32/libzstd.so.1 \
@@ -70,7 +80,9 @@ Game: \
   /usr/lib/libSvtAv1Enc.so.3 \
   /usr/lib/libaom.so.3 \
   /usr/lib32/libbrotlicommon.so.1 \
-  /usr/lib/libbrotlicommon.so.1
+  /usr/lib/libbrotlicommon.so.1 \
+  /usr/lib32/libpcre2-8.so.0 \
+  /usr/lib/libpcre2-8.so.0
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/Scrt1.o:
 
@@ -95,6 +107,8 @@ CMakeFiles/Game.dir/src/assets.cpp.o:
 CMakeFiles/Game.dir/src/room.cpp.o:
 
 CMakeFiles/Game.dir/src/enemy.cpp.o:
+
+/usr/lib/libSDL2_ttf.so:
 
 /usr/lib/libSDL2-2.0.so.0.3200.54:
 
@@ -152,6 +166,14 @@ CMakeFiles/Game.dir/src/enemy.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/../../../../lib/crtn.o:
 
+/usr/lib32/libfreetype.so.6:
+
+/usr/lib/libfreetype.so.6:
+
+/usr/lib32/libharfbuzz.so.0:
+
+/usr/lib/libharfbuzz.so.0:
+
 /usr/lib32/libpng16.so.16:
 
 /usr/lib/libpng16.so.16:
@@ -178,13 +200,23 @@ CMakeFiles/Game.dir/src/enemy.cpp.o:
 
 /usr/lib/libz.so.1:
 
-/usr/lib/libjxl_cms.so.0.11:
+/usr/lib32/libbz2.so.1.0:
 
-/usr/lib/libhwy.so.1:
+/usr/lib/libbz2.so.1.0:
 
 /usr/lib32/libbrotlidec.so.1:
 
 /usr/lib/libbrotlidec.so.1:
+
+/usr/lib32/libglib-2.0.so.0:
+
+/usr/lib/libglib-2.0.so.0:
+
+/usr/lib/libgraphite2.so.3:
+
+/usr/lib/libjxl_cms.so.0.11:
+
+/usr/lib/libhwy.so.1:
 
 /usr/lib32/libbrotlienc.so.1:
 
@@ -215,3 +247,7 @@ CMakeFiles/Game.dir/src/enemy.cpp.o:
 /usr/lib32/libbrotlicommon.so.1:
 
 /usr/lib/libbrotlicommon.so.1:
+
+/usr/lib32/libpcre2-8.so.0:
+
+/usr/lib/libpcre2-8.so.0:

@@ -40,9 +40,12 @@ class Room:public Game{
         static RoomLayout layout[5][5];
         SDL_Rect rect;
         SDL_Texture* room;
+        static int TILE_SIZE_Y;
+        static int TILE_SIZE_X;
         
     public:
         Room();
+        ~Room();
         void generateLevel();
         void render(Player& player) ;
         void setTile(int x, int y,Sprites Sprite);
@@ -51,6 +54,8 @@ class Room:public Game{
         std::vector<std::pair<int,int>> checkForNeighbour(int i,int j);
         static void spritesScale(float &x, float &y);
         static RoomLayout (&getLayout())[5][5];
+        static void setTileSize(int x,int y);
+        static std::pair<int,int> getTileSize();
         friend class Player;
         friend class Enemy;
 };

@@ -1,11 +1,11 @@
 #include "enemy.h"
 #include "room.h"
 
-const int STEP_SIZE = 2;
-const int TILE_SIZE = 125;
+ float Enemy::STEP_SIZE = 2;
 const int ANIM_DELAY = 15;
 Enemy::Enemy(const char *filePath) : Entity(filePath)
 {
+    setHealth(30);
     timeSinceLastAttack=0;
     animFrameCounter=0;
     attackFrameCounter=0;
@@ -14,9 +14,18 @@ Enemy::Enemy(const char *filePath) : Entity(filePath)
 }
 void Enemy::update(Player &player)
 {
-    SDL_Rect playerRect = player.getPosition();
-    SDL_Rect enemyRect = getPosition();
     
+    
+     //  resolution scaling
+    SDL_Rect position = getPosition();
+    position.x = static_cast<int>((position.x * getScaleX()));
+    position.y = static_cast<int>((position.y * getScaleY()));
+    position.w = static_cast<int>((position.w * getScaleY()));
+    position.h = static_cast<int>((position.h * getScaleY()));
+    STEP_SIZE=STEP_SIZE*getScaleX();
+    setPosition(position.x, position.y);
+    SDL_Rect enemyRect = getPosition(); 
+    SDL_Rect playerRect = player.getPosition();
     if (frameCounter % 4003 == 0) // take damage every 4 seconds
     {
         setIsHit(false);
@@ -50,9 +59,8 @@ void Enemy::update(Player &player)
             if (path.size() > currentWaypointIndex)
             {
                 auto [nextY, nextX] = path[currentWaypointIndex];       // rows are based on Y in pixels...
-                
-                int targetX = nextX * (TILE_SIZE);
-                int targetY = nextY * (TILE_SIZE-25);
+                int targetX = static_cast<int>(nextX * (Room::getTileSize().first));
+                int targetY = static_cast<int>(nextY * (Room::getTileSize().second));
 
                 // Get current position
                 SDL_Rect enemyRect = getPosition();
@@ -78,7 +86,7 @@ void Enemy::update(Player &player)
                     // Move horizontally if needed
                     if (!reachedX)
                     {
-                        int moveX = distX > 0 ? STEP_SIZE : -STEP_SIZE;
+                        int moveX = distX > 0 ? static_cast<int>(STEP_SIZE) : -static_cast<int>(STEP_SIZE);
                         setPosition(enemyRect.x + moveX, enemyRect.y);
                     }
 
@@ -88,7 +96,7 @@ void Enemy::update(Player &player)
                     // Move vertically if needed
                     if (!reachedY)
                     {   
-                        int moveY = distY > 0 ? STEP_SIZE : -STEP_SIZE;
+                        int moveY = distY > 0 ? static_cast<int>(STEP_SIZE) : -static_cast<int>(STEP_SIZE);
                         setPosition(enemyRect.x, enemyRect.y + moveY);
                         
                     }
@@ -116,22 +124,6 @@ void Enemy::update(Player &player)
 
         
     }
-    // In render method, add debugging visualizations
-for (auto [x, y] : path) {
-    SDL_Rect debugRect = {
-        static_cast<int>(x * TILE_SIZE * getScaleX()),
-        static_cast<int>(y * TILE_SIZE * getScaleY()),
-        static_cast<int>(10 * getScaleX()),
-        static_cast<int>(10 * getScaleY())
-    };
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &debugRect);
-}
-    // Adjusting position to match the resolution scaling
-    SDL_Rect position = getPosition();
-    position.x = static_cast<int>((position.x * getScaleX()));
-    position.y = static_cast<int>((position.y * getScaleY()));
-    position.w = static_cast<int>((position.w * getScaleY()));
-    position.h = static_cast<int>((position.h * getScaleY()));
-    setPosition(position.x, position.y);
+    
+   
 }

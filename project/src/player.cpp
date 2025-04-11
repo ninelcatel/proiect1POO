@@ -1,6 +1,7 @@
 #include "player.h"
 #include "room.h"
 #include <vector>
+#include <SDL2/SDL_ttf.h>
 #include <cmath>
 const int animDelay = 51; // delay in ms
 const int moveDelay = 11;
@@ -48,12 +49,19 @@ void Player::handleEvent(SDL_Event &event)
 {
     if (event.type == SDL_KEYDOWN)
     {   
+
+        if(event.key.keysym.sym==SDLK_ESCAPE){
+            setGameState(GameState::PAUSE);
+            for(auto it:keyStates)
+                keyStates[it.first]=false;
+         
+        }
         if(event.key.keysym.sym==SDLK_SPACE && !event.key.repeat){
             keyStates[event.key.keysym.sym] = true;
         }
         else{
         keyStates[event.key.keysym.sym] = true;
-        if (event.key.keysym.sym == SDLK_f && !getIsAttacking() && attackFrameCounter % 5 == 0)
+        if (event.key.keysym.sym == SDLK_f && !getIsAttacking() && attackFrameCounter % 5 == 0 && getCurrentEnergy()>0)
         {
             setIsAttacking(true);
             attackFrameCounter = 0;
@@ -82,6 +90,8 @@ void Player::handleEvent(SDL_Event &event)
             setPosition(pos.x, pos.y);
             speed = 0.75f * getScaleY();        //MUST BE Y, OTHERWISE SPEED WONT BE HIGH ENOUGH TO MAKE THE TRUNC WHEN CASTING
 
+            Room::setTileSize(static_cast<int>(getScaleX()*Room::getTileSize().first),static_cast<int>(getScaleY()*Room::getTileSize().second)); //update tile size for enemy pathfinding
+            std::cout<<Room::getTileSize().first<<" "<<Room::getTileSize().second<<" "<<std::endl;
             /*SDL_GetWindowSize(window, &window_width, &window_height);
             float scale_x = static_cast<float>(window_width) / initial_window_width;
             float scale_y = static_cast<float>(window_height) / initial_window_height;
@@ -107,10 +117,13 @@ void Player::update()
     animFrameCounter++;
 
     if (frameCounter % 11 == 0)
-    {
+    {    
+        if(frameCounter%22000==0){ //Health regeneration every 22k frames ig
+            setHealth(getHealth()>getCurrentHealth() ? getCurrentHealth()+5 : getHealth());
+        }
         timeSinceLastAttack++;
         if (frameCounter % 3003 == 0)
-        {
+        {   setEnergy(getCurrentEnergy()<getEnergy() ? getCurrentEnergy()+5 : getEnergy());
             setIsHit(false);
             takeDamage();
         }
@@ -129,6 +142,7 @@ void Player::update()
                     attackFrameCounter = 0;
                     if (keyStates[SDLK_f] == false)
                         setIsAttacking(false); // setting keyStates to false makes the animation smoother and lets the player attack whilst moving
+                    setEnergy(getCurrentEnergy()-5);
                 }
             }
         }
@@ -141,8 +155,12 @@ void Player::update()
             {
                 moving = keyToDirection[pair.first] != NONE;
                 if (isValidMove(keyToDirection[pair.first]))
-                {
-                    (this->*pair.second)();
+                {   
+                    if(pair.first==SDLK_f && getCurrentEnergy()!=0){
+                        (this->*pair.second)();
+                        
+                    }
+                    else (this->*pair.second)();
                 }
                 // std::cerr<<getIsAttacking()<<std::endl;
                 // action = keyToDirection[pair.first]==NONE;

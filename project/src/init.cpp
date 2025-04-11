@@ -10,6 +10,7 @@ int Game::window_width=1024;
 int Game::frameCounter=0;
 float Game::scale_x=1;
 float Game::scale_y=1;
+GameState Game::State=GameState::MENU;
 std::vector<FireZone>* Game::fireZones = nullptr;
 bool init(SDL_Window **window, SDL_Renderer **renderer)
 {
@@ -138,4 +139,10 @@ std::vector<FireZone>& Game::getFireZones(){
 void Game::resetScales(){
     scale_x=1;
     scale_y=1;
+}
+GameState Game::getGameState(){
+    return State;
+}
+void Game::setGameState(GameState state){
+    State=state;
 }

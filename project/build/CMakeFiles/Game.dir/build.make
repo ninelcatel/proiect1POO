@@ -192,6 +192,7 @@ Game: CMakeFiles/Game.dir/src/room.cpp.o
 Game: CMakeFiles/Game.dir/src/enemy.cpp.o
 Game: CMakeFiles/Game.dir/build.make
 Game: CMakeFiles/Game.dir/compiler_depend.ts
+Game: /usr/lib/libSDL2_ttf.so
 Game: /usr/lib/libSDL2-2.0.so.0.3200.54
 Game: /usr/lib/libSDL2_image.so
 Game: CMakeFiles/Game.dir/link.txt

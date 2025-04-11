@@ -589,8 +589,10 @@ CMakeFiles/Game.dir/src/assets.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/bits/wctype-wchar.h \
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/14.2.1/algorithm \
   /usr/include/c++/14.2.1/backward/binders.h \
   /usr/include/c++/14.2.1/bit \
+  /usr/include/c++/14.2.1/bits/algorithmfwd.h \
   /usr/include/c++/14.2.1/bits/alloc_traits.h \
   /usr/include/c++/14.2.1/bits/allocator.h \
   /usr/include/c++/14.2.1/bits/basic_ios.h \
@@ -639,20 +641,24 @@ CMakeFiles/Game.dir/src/assets.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/bits/requires_hosted.h \
   /usr/include/c++/14.2.1/bits/specfun.h \
   /usr/include/c++/14.2.1/bits/std_abs.h \
+  /usr/include/c++/14.2.1/bits/stl_algo.h \
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
   /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
   /usr/include/c++/14.2.1/bits/stl_function.h \
+  /usr/include/c++/14.2.1/bits/stl_heap.h \
   /usr/include/c++/14.2.1/bits/stl_iterator.h \
   /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/14.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_tempbuf.h \
   /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
   /usr/include/c++/14.2.1/bits/stl_vector.h \
   /usr/include/c++/14.2.1/bits/streambuf.tcc \
   /usr/include/c++/14.2.1/bits/streambuf_iterator.h \
   /usr/include/c++/14.2.1/bits/string_view.tcc \
   /usr/include/c++/14.2.1/bits/stringfwd.h \
+  /usr/include/c++/14.2.1/bits/uniform_int_dist.h \
   /usr/include/c++/14.2.1/bits/unordered_map.h \
   /usr/include/c++/14.2.1/bits/uses_allocator.h \
   /usr/include/c++/14.2.1/bits/uses_allocator_args.h \
@@ -690,6 +696,8 @@ CMakeFiles/Game.dir/src/assets.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/c++/14.2.1/math.h \
   /usr/include/c++/14.2.1/new \
   /usr/include/c++/14.2.1/ostream \
+  /usr/include/c++/14.2.1/pstl/execution_defs.h \
+  /usr/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
   /usr/include/c++/14.2.1/pstl/pstl_config.h \
   /usr/include/c++/14.2.1/ratio \
   /usr/include/c++/14.2.1/stdexcept \
@@ -2209,6 +2217,7 @@ CMakeFiles/Game.dir/src/player.cpp.o: /home/ninel/facultate/poo/proiect1/proiect
   /usr/include/SDL2/SDL_thread.h \
   /usr/include/SDL2/SDL_timer.h \
   /usr/include/SDL2/SDL_touch.h \
+  /usr/include/SDL2/SDL_ttf.h \
   /usr/include/SDL2/SDL_version.h \
   /usr/include/SDL2/SDL_video.h \
   /usr/include/SDL2/begin_code.h \
@@ -3051,15 +3060,21 @@ Game: /usr/lib/Scrt1.o \
   /usr/lib/ld-linux-x86-64.so.2 \
   /usr/lib/libSDL2-2.0.so.0.3200.54 \
   /usr/lib/libSDL2_image.so \
+  /usr/lib/libSDL2_ttf.so \
   /usr/lib/libSvtAv1Enc.so.3 \
   /usr/lib/libaom.so.3 \
   /usr/lib/libavif.so.16 \
   /usr/lib/libbrotlicommon.so.1 \
   /usr/lib/libbrotlidec.so.1 \
   /usr/lib/libbrotlienc.so.1 \
+  /usr/lib/libbz2.so.1.0 \
   /usr/lib/libc.so.6 \
   /usr/lib/libc_nonshared.a \
   /usr/lib/libdav1d.so.7 \
+  /usr/lib/libfreetype.so.6 \
+  /usr/lib/libglib-2.0.so.0 \
+  /usr/lib/libgraphite2.so.3 \
+  /usr/lib/libharfbuzz.so.0 \
   /usr/lib/libhwy.so.1 \
   /usr/lib/libjbig.so.2.1 \
   /usr/lib/libjpeg.so.8 \
@@ -3068,6 +3083,7 @@ Game: /usr/lib/Scrt1.o \
   /usr/lib/liblzma.so.5 \
   /usr/lib/libm.so.6 \
   /usr/lib/libmvec.so.1 \
+  /usr/lib/libpcre2-8.so.0 \
   /usr/lib/libpng16.so.16 \
   /usr/lib/librav1e.so.0.7 \
   /usr/lib/libsharpyuv.so.0 \
@@ -3080,8 +3096,13 @@ Game: /usr/lib/Scrt1.o \
   /usr/lib32/libbrotlicommon.so.1 \
   /usr/lib32/libbrotlidec.so.1 \
   /usr/lib32/libbrotlienc.so.1 \
+  /usr/lib32/libbz2.so.1.0 \
+  /usr/lib32/libfreetype.so.6 \
+  /usr/lib32/libglib-2.0.so.0 \
+  /usr/lib32/libharfbuzz.so.0 \
   /usr/lib32/libjpeg.so.8 \
   /usr/lib32/liblzma.so.5 \
+  /usr/lib32/libpcre2-8.so.0 \
   /usr/lib32/libpng16.so.16 \
   /usr/lib32/libtiff.so.6 \
   /usr/lib32/libz.so.1 \
@@ -3107,6 +3128,8 @@ CMakeFiles/Game.dir/src/entity.cpp.o:
 
 /usr/lib32/libpng16.so.16:
 
+/usr/lib32/libbz2.so.1.0:
+
 /usr/lib/libzstd.so.1:
 
 /usr/lib/libyuv.so:
@@ -3115,11 +3138,19 @@ CMakeFiles/Game.dir/src/entity.cpp.o:
 
 /usr/lib/libwebp.so.7:
 
+/usr/lib/libpcre2-8.so.0:
+
 /usr/lib/libmvec.so.1:
 
 /usr/lib/libjxl_cms.so.0.11:
 
 /usr/lib/libjbig.so.2.1:
+
+/usr/lib/libharfbuzz.so.0:
+
+/usr/lib/libglib-2.0.so.0:
+
+/usr/lib/libfreetype.so.6:
 
 /usr/lib/libpng16.so.16:
 
@@ -3132,6 +3163,8 @@ CMakeFiles/Game.dir/src/entity.cpp.o:
 /usr/lib/libbrotlienc.so.1:
 
 /usr/lib/libavif.so.16:
+
+/usr/lib/libSDL2_ttf.so:
 
 /usr/lib/libSDL2_image.so:
 
@@ -3321,6 +3354,8 @@ CMakeFiles/Game.dir/src/assets.cpp.o:
 
 /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/ctype_base.h:
 
+/usr/lib32/libfreetype.so.6:
+
 /usr/include/errno.h:
 
 /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++locale.h:
@@ -3462,6 +3497,8 @@ CMakeFiles/Game.dir/src/assets.cpp.o:
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/avx512ifmavlintrin.h:
 
 /usr/include/SDL2/SDL_blendmode.h:
+
+/usr/lib/libgraphite2.so.3:
 
 /usr/include/bits/libm-simd-decl-stubs.h:
 
@@ -3755,6 +3792,8 @@ CMakeFiles/Game.dir/main.cpp.o:
 
 /usr/include/SDL2/SDL_platform.h:
 
+/usr/lib32/libglib-2.0.so.0:
+
 /usr/lib32/libbrotlidec.so.1:
 
 /usr/include/SDL2/SDL_video.h:
@@ -3861,6 +3900,8 @@ CMakeFiles/Game.dir/main.cpp.o:
 
 /usr/include/bits/types/struct_sched_param.h:
 
+/usr/lib32/libharfbuzz.so.0:
+
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/avx512dqintrin.h:
 
 /usr/include/SDL2/SDL_hidapi.h:
@@ -3902,6 +3943,8 @@ CMakeFiles/Game.dir/main.cpp.o:
 /usr/include/bits/select.h:
 
 /usr/include/c++/14.2.1/bits/algorithmfwd.h:
+
+/usr/lib/libbz2.so.1.0:
 
 /usr/include/c++/14.2.1/bits/allocator.h:
 
@@ -3998,6 +4041,8 @@ CMakeFiles/Game.dir/main.cpp.o:
 /usr/include/c++/14.2.1/bits/postypes.h:
 
 /usr/include/c++/14.2.1/bits/ptr_traits.h:
+
+/usr/lib32/libpcre2-8.so.0:
 
 /usr/include/c++/14.2.1/bits/refwrap.h:
 

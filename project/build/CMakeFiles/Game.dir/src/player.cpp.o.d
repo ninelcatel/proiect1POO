@@ -337,4 +337,5 @@ CMakeFiles/Game.dir/src/player.cpp.o: \
  /usr/include/c++/14.2.1/queue /usr/include/c++/14.2.1/deque \
  /usr/include/c++/14.2.1/bits/stl_deque.h \
  /usr/include/c++/14.2.1/bits/deque.tcc \
- /usr/include/c++/14.2.1/bits/stl_queue.h /usr/include/c++/14.2.1/climits
+ /usr/include/c++/14.2.1/bits/stl_queue.h /usr/include/c++/14.2.1/climits \
+ /usr/include/SDL2/SDL_ttf.h

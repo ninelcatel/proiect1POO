@@ -16,7 +16,6 @@ private:
     void moveDown();
     void moveLeft();
     void moveRight();
-    void attack();
     void dash();
 
 public:

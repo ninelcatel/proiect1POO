@@ -209,8 +209,11 @@ void Entity::animation(bool isMoving, int index)
 {
     std::string prefix = isEnemy ? "res/ENEMY/SKELETON/": "res/PLAYER/";
     if(isEnemy){
-        if(alreadyHit) isMoving=false;
-        prefix+=isAttacking ? "ANIMATION/" : isMoving ? "ANIMATION/MOVING/" : "";
+        if(alreadyHit) {
+            isMoving=false;
+            setIsAttacking(false);
+            }
+        else prefix+=isAttacking ? "ANIMATION/" : isMoving ? "ANIMATION/MOVING/" : "";
     }
     prefix = prefix + (alreadyHit ? "" : isAttacking ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : "") ; // add this for already hit
     std::vector<std::string> suffix = isEnemy ? alreadyHit ? 

@@ -20,6 +20,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/lib/cmake/SDL2_image/Findwebp.cmake"
   "/lib/cmake/SDL2_image/sdl2_image-config-version.cmake"
   "/lib/cmake/SDL2_image/sdl2_image-config.cmake"
+  "/lib/cmake/SDL2_ttf/sdl2_ttf-config-version.cmake"
+  "/lib/cmake/SDL2_ttf/sdl2_ttf-config.cmake"
   "/lib/cmake/libavif/libavif-config-noconfig.cmake"
   "/lib/cmake/libavif/libavif-config-version.cmake"
   "/lib/cmake/libavif/libavif-config.cmake"

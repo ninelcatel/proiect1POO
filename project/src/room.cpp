@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+int Room::TILE_SIZE_X=125,Room::TILE_SIZE_Y=100;
 RoomLayout Room::layout[5][5] = {};
 Room::Room()
 {
@@ -40,6 +41,7 @@ Room::Room()
     generateLevel();
     loadSpriteTextures();
 };
+
 void Room::render(Player &player)
 {
     (window) ? SDL_GetWindowSize(window, &window_width, &window_height) : SDL_Quit();
@@ -410,8 +412,13 @@ RoomLayout (&Room::getLayout())[5][5]
 {
     return layout;
 }
-
-
+void Room::setTileSize(int x,int y){
+    TILE_SIZE_X=x;
+    TILE_SIZE_Y=y;
+}
+std::pair<int,int> Room::getTileSize(){
+    return {TILE_SIZE_X,TILE_SIZE_Y};
+}
 
 const int ROWS = 7;
 const int COLS = 8;
@@ -493,4 +500,12 @@ std::vector<std::pair<int,int>> aStar(int sx, int sy, int gx, int gy, const Tile
     // reverse path to get start to goal order
     std::reverse(path.begin(), path.end());
     return path;
+}
+
+Room::~Room(){
+    for(auto& x:layout)
+        for(auto& y:x)
+            {for(auto& e:y.enemies)
+                delete e;
+            }
 }

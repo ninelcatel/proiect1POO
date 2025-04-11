@@ -224,6 +224,9 @@ SDL2_DIR:PATH=/lib/cmake/SDL2
 //The directory containing a CMake configuration file for SDL2_image.
 SDL2_image_DIR:PATH=/lib/cmake/SDL2_image
 
+//The directory containing a CMake configuration file for SDL2_ttf.
+SDL2_ttf_DIR:PATH=/lib/cmake/SDL2_ttf
+
 //Path to a file.
 TIFF_INCLUDE_DIR:PATH=/usr/include
 
