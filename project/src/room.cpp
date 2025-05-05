@@ -127,14 +127,15 @@ void Room::generateLevel()
     }
 
     std::vector<std::pair<int, int>> tupleslist;
-
-    for (auto [x, y] : activeRooms)
-    {
-
-        tupleslist = checkForNeighbour(x, y); // adding doors
-        if (tupleslist.size())
+    for (int x = 0; x < 5; x++) {
+    for (int y = 0; y < 5; y++) {
+        if (!layout[x][y].exists) continue;
+        
+        // get neighbors
+        tupleslist = checkForNeighbour(x, y);
+        if (!tupleslist.empty())
         {
-            for (auto [i, j] : tupleslist)
+            for (auto& [i, j] : tupleslist)
             {
                 std::string pathPrefix = "res/ROOM/DOORS/DOOR_"; // putting doors;
                 auto [nx, ny] = x == i  ? y < j ? std::make_pair(3, 7) : std::make_pair(3, 0)
@@ -145,9 +146,13 @@ void Room::generateLevel()
                                                                                     : "UP";
                 std::string fullPath = pathPrefix + suffix + ".png";
                 layout[x][y].roomSprites[nx][ny].filePaths.push_back(fullPath);
-                // std::cerr<<layout[x][y].roomSprites[nx][ny].filePaths[0]<<" "<<x<<" "<<y<<" "<<nx<<" "<<ny<<std::endl;
+                std::cout<<x<<" "<<y<<" are in "<<suffix<<" "<<i<<" "<<j<<std::endl;
+ 
             }
+            
         }
+        else std::cout<<x<<" "<<y<<" nu are neighbour "<<std::endl;
+    } 
     }
     for (auto &x : layout)
     {
@@ -294,7 +299,7 @@ void Room::generateLevel()
 }
 std::vector<std::pair<int, int>> Room::checkForNeighbour(int i, int j)
 {
-    std::vector<std::pair<int, int>> tuplesList;
+    std::vector<std::pair<int, int>> tuplesList={};
     if (i < 0 || i >= 5 || j < 0 || j >= 5)
     {
         std::cerr << "checkForNeighbour called with out-of-bounds indices: " << i << " " << j << std::endl;
