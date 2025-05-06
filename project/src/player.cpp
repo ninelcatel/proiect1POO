@@ -58,6 +58,9 @@ void Player::handleEvent(SDL_Event &event)
         }
         if(event.key.keysym.sym==SDLK_SPACE && !event.key.repeat){
             keyStates[event.key.keysym.sym] = true;
+            
+    auto [n,m]=getRoomCoordinates();
+    std::cout<<n<<" "<<m<<std::endl;
         }
         else{
         keyStates[event.key.keysym.sym] = true;
@@ -120,6 +123,10 @@ void Player::update()
     {    
         if(frameCounter%22000==0){ //Health regeneration every 22k frames ig
             setHealth(getHealth()>getCurrentHealth() ? getCurrentHealth()+5 : getHealth());
+                // Player temp=*this;
+            // this->setHealth(temp.getHealth()>temp.getCurrentHealth() ? (temp+5).getCurrentHealth() : temp.getHealth()); // sat and looked at this for 10 seconds then started laughing 
+            //                                                                                                             // why do i have to implement + overload man
+        
         }
         timeSinceLastAttack++;
         if (frameCounter % 3003 == 0)
@@ -256,8 +263,6 @@ void Player::enterRoom(){
             }
         }
     }
-    auto [n,m]=getRoomCoordinates();
-    std::cout<<n<<" "<<m<<std::endl;
 }
 bool Player::checkNearDoor(SDL_Rect doorPosition){
     SDL_Rect playerPosition=getPosition();

@@ -142,10 +142,24 @@ CMakeFiles/Game.dir/src/assets.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Game.dir/src/assets.cpp.s"
 	/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ninel/facultate/poo/proiect1/proiect1/project/src/assets.cpp -o CMakeFiles/Game.dir/src/assets.cpp.s
 
+CMakeFiles/Game.dir/src/gamemanager.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/src/gamemanager.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp
+CMakeFiles/Game.dir/src/gamemanager.cpp.o: CMakeFiles/Game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ninel/facultate/poo/proiect1/proiect1/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Game.dir/src/gamemanager.cpp.o"
+	/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Game.dir/src/gamemanager.cpp.o -MF CMakeFiles/Game.dir/src/gamemanager.cpp.o.d -o CMakeFiles/Game.dir/src/gamemanager.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp
+
+CMakeFiles/Game.dir/src/gamemanager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Game.dir/src/gamemanager.cpp.i"
+	/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp > CMakeFiles/Game.dir/src/gamemanager.cpp.i
+
+CMakeFiles/Game.dir/src/gamemanager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Game.dir/src/gamemanager.cpp.s"
+	/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp -o CMakeFiles/Game.dir/src/gamemanager.cpp.s
+
 CMakeFiles/Game.dir/src/room.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/src/room.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp
 CMakeFiles/Game.dir/src/room.cpp.o: CMakeFiles/Game.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ninel/facultate/poo/proiect1/proiect1/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Game.dir/src/room.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ninel/facultate/poo/proiect1/proiect1/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Game.dir/src/room.cpp.o"
 	/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Game.dir/src/room.cpp.o -MF CMakeFiles/Game.dir/src/room.cpp.o.d -o CMakeFiles/Game.dir/src/room.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp
 
 CMakeFiles/Game.dir/src/room.cpp.i: cmake_force
@@ -159,7 +173,7 @@ CMakeFiles/Game.dir/src/room.cpp.s: cmake_force
 CMakeFiles/Game.dir/src/enemy.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/src/enemy.cpp.o: /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.cpp
 CMakeFiles/Game.dir/src/enemy.cpp.o: CMakeFiles/Game.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ninel/facultate/poo/proiect1/proiect1/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Game.dir/src/enemy.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ninel/facultate/poo/proiect1/proiect1/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Game.dir/src/enemy.cpp.o"
 	/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Game.dir/src/enemy.cpp.o -MF CMakeFiles/Game.dir/src/enemy.cpp.o.d -o CMakeFiles/Game.dir/src/enemy.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.cpp
 
 CMakeFiles/Game.dir/src/enemy.cpp.i: cmake_force
@@ -177,6 +191,7 @@ Game_OBJECTS = \
 "CMakeFiles/Game.dir/src/init.cpp.o" \
 "CMakeFiles/Game.dir/src/player.cpp.o" \
 "CMakeFiles/Game.dir/src/assets.cpp.o" \
+"CMakeFiles/Game.dir/src/gamemanager.cpp.o" \
 "CMakeFiles/Game.dir/src/room.cpp.o" \
 "CMakeFiles/Game.dir/src/enemy.cpp.o"
 
@@ -188,6 +203,7 @@ Game: CMakeFiles/Game.dir/src/entity.cpp.o
 Game: CMakeFiles/Game.dir/src/init.cpp.o
 Game: CMakeFiles/Game.dir/src/player.cpp.o
 Game: CMakeFiles/Game.dir/src/assets.cpp.o
+Game: CMakeFiles/Game.dir/src/gamemanager.cpp.o
 Game: CMakeFiles/Game.dir/src/room.cpp.o
 Game: CMakeFiles/Game.dir/src/enemy.cpp.o
 Game: CMakeFiles/Game.dir/build.make
@@ -196,7 +212,7 @@ Game: /usr/lib/libSDL2_ttf.so
 Game: /usr/lib/libSDL2-2.0.so.0.3200.54
 Game: /usr/lib/libSDL2_image.so
 Game: CMakeFiles/Game.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ninel/facultate/poo/proiect1/proiect1/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Game"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ninel/facultate/poo/proiect1/proiect1/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable Game"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Game.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying resources to build directory"
 	/sbin/cmake -E copy_directory /home/ninel/facultate/poo/proiect1/proiect1/project/res /home/ninel/facultate/poo/proiect1/proiect1/project/build/res

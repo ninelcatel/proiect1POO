@@ -20,7 +20,7 @@ void Entity::setSize(int w, int h)
     position.w = w;
     position.h = h;
 }
-int Entity::getHealth()
+int Entity::getHealth() const
 {
     return hp;
 }
@@ -77,7 +77,7 @@ bool Entity::getIsFlipped()
 {
     return isFlipped;
 }
-int Entity::getCurrentHealth()
+int Entity::getCurrentHealth() const
 {
     return current_hp;
 }
@@ -175,7 +175,8 @@ void Entity::takeDamage()
                 && SDL_HasIntersection(&position, &hitbox)
                )
             {
-                setHealth(getCurrentHealth() - 5);
+                Entity temp = *this + (-5);
+                this->setHealth(temp.getCurrentHealth()); // need to implement + somehow
                 setIsHit(true);
                 std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
                 

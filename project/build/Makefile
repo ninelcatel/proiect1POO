@@ -225,6 +225,30 @@ src/entity.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/entity.cpp.s
 .PHONY : src/entity.cpp.s
 
+src/gamemanager.o: src/gamemanager.cpp.o
+.PHONY : src/gamemanager.o
+
+# target to build an object file
+src/gamemanager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/gamemanager.cpp.o
+.PHONY : src/gamemanager.cpp.o
+
+src/gamemanager.i: src/gamemanager.cpp.i
+.PHONY : src/gamemanager.i
+
+# target to preprocess a source file
+src/gamemanager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/gamemanager.cpp.i
+.PHONY : src/gamemanager.cpp.i
+
+src/gamemanager.s: src/gamemanager.cpp.s
+.PHONY : src/gamemanager.s
+
+# target to generate assembly for a file
+src/gamemanager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/src/gamemanager.cpp.s
+.PHONY : src/gamemanager.cpp.s
+
 src/init.o: src/init.cpp.o
 .PHONY : src/init.o
 
@@ -318,6 +342,9 @@ help:
 	@echo "... src/entity.o"
 	@echo "... src/entity.i"
 	@echo "... src/entity.s"
+	@echo "... src/gamemanager.o"
+	@echo "... src/gamemanager.i"
+	@echo "... src/gamemanager.s"
 	@echo "... src/init.o"
 	@echo "... src/init.i"
 	@echo "... src/init.s"

@@ -20,7 +20,7 @@ private:
 
 public:
     Player(const char *filePath, float atkp, float armoor);
-    void update();
+    virtual void update() override;
     void handleEvent(SDL_Event &event);
     void setEnergy(int energy);
     int getEnergy();
@@ -29,4 +29,9 @@ public:
     
     bool checkNearDoor(SDL_Rect doorPosition);
     void enterRoom();
+    friend std::ostream& operator<<(std::ostream& os,const Player& e){
+        os << "The Player has the following attributes: "<<e.getCurrentHealth()<<"/"<<e.getHealth()<<" Health Points "<<std::endl
+        <<e.current_energy<<"/"<<e.energy<<" Energy"<<std::endl;
+        return os;
+    }
 };

@@ -18,6 +18,7 @@ add_executable(${CMAKE_PROJECT_NAME}
         src/init.cpp
         src/player.cpp
         src/assets.cpp
+        src/gamemanager.cpp
         src/room.cpp
         src/enemy.cpp
         

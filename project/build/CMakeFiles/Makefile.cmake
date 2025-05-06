@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "/home/ninel/facultate/poo/proiect1/proiect1/project/CMakeLists.txt"
-  "CMakeFiles/4.0.0/CMakeCXXCompiler.cmake"
-  "CMakeFiles/4.0.0/CMakeSystem.cmake"
+  "CMakeFiles/4.0.1/CMakeCXXCompiler.cmake"
+  "CMakeFiles/4.0.1/CMakeSystem.cmake"
   "/lib/cmake/SDL2/SDL2Config.cmake"
   "/lib/cmake/SDL2/SDL2ConfigVersion.cmake"
   "/lib/cmake/SDL2/SDL2Targets-none.cmake"

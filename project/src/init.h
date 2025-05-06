@@ -42,5 +42,11 @@ class Game{
         static void pushFireZone(SDL_Rect rect,double time,bool isEnemy);
         static std::vector<FireZone>& getFireZones();
         static void resetScales();
-        void update();
+};
+class GameComponent {
+    public:
+        virtual ~GameComponent() = default;
+        virtual void update() = 0;
+        virtual void render() = 0;
+
 };

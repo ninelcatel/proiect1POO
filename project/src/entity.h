@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-class Entity : public Game
+class Entity : public Game,public GameComponent
 {
 private:
     std::pair<int,int> currentRoom_Position;
@@ -31,8 +31,8 @@ public:
     {
         SDL_DestroyTexture(texture);
     }
-    int getHealth();
-    int getCurrentHealth();
+    int getHealth() const;
+    int getCurrentHealth() const;
     SDL_Texture* getTexture();
     const char* getFilePath();
     bool getIsFlipped();
@@ -43,7 +43,7 @@ public:
     void setPosition(int x, int y);
     void changeAppearence(const char *filePath); // change the loaded texture
     SDL_Texture* flipTexture(SDL_Texture* original);
-    void render();
+    virtual void render() override;
     void setFilePath(const char* filePath);
     void animation(bool isMoving, int frame);
     void setIsFlipped(bool flip);
@@ -51,7 +51,7 @@ public:
     bool isValidMove(Direction dir);
     void takeDamage();
     void attack();
-    void update();
+    virtual void update() override;
     bool getIsHit();
     std::pair<int,int> getRoomCoordinates();
     void setRoomCoordinates(std::pair<int,int> coordinates);
@@ -60,4 +60,13 @@ public:
     void setIsAttacking(bool attk);
     bool checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j,Direction dir);
     std::pair<int,int> getIndexesInRoomMatrix();
+    Entity operator+(const int& hp) {
+        Entity result = *this;
+        result.current_hp+=hp;
+        return result;
+    }
+    friend std::ostream& operator<<(std::ostream& os,const Entity& e){
+        os << "The Entity has the following attributes: "<<e.current_hp<<"/"<<e.hp<<" Health Points "<<std::endl;
+        return os;
+    }
 };

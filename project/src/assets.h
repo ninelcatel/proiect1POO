@@ -26,7 +26,7 @@ class Menu : public Game{
         std::vector<bool> isHovered;
         TTF_Font* font;
     public:
-        void update(SDL_Event& e);
+        void update(SDL_Event& e) ;
         void render();
         void init_font();
         Menu();

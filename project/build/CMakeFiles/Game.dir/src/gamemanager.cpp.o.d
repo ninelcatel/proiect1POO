@@ -1,5 +1,5 @@
-CMakeFiles/Game.dir/main.cpp.o: \
- /home/ninel/facultate/poo/proiect1/proiect1/project/main.cpp \
+CMakeFiles/Game.dir/src/gamemanager.cpp.o: \
+ /home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp \
  /usr/include/stdc-predef.h \
  /home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.h \
  /home/ninel/facultate/poo/proiect1/proiect1/project/src/init.h \

@@ -31,6 +31,12 @@
 },
 {
   "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/gamemanager.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp",
+  "output": "CMakeFiles/Game.dir/src/gamemanager.cpp.o"
+},
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
   "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/room.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp",
   "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp",
   "output": "CMakeFiles/Game.dir/src/room.cpp.o"

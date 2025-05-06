@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/ninel/facultate/poo/proiect1/proiect1/project/src/assets.cpp" "CMakeFiles/Game.dir/src/assets.cpp.o" "gcc" "CMakeFiles/Game.dir/src/assets.cpp.o.d"
   "/home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.cpp" "CMakeFiles/Game.dir/src/enemy.cpp.o" "gcc" "CMakeFiles/Game.dir/src/enemy.cpp.o.d"
   "/home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.cpp" "CMakeFiles/Game.dir/src/entity.cpp.o" "gcc" "CMakeFiles/Game.dir/src/entity.cpp.o.d"
+  "/home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp" "CMakeFiles/Game.dir/src/gamemanager.cpp.o" "gcc" "CMakeFiles/Game.dir/src/gamemanager.cpp.o.d"
   "/home/ninel/facultate/poo/proiect1/proiect1/project/src/init.cpp" "CMakeFiles/Game.dir/src/init.cpp.o" "gcc" "CMakeFiles/Game.dir/src/init.cpp.o.d"
   "/home/ninel/facultate/poo/proiect1/proiect1/project/src/player.cpp" "CMakeFiles/Game.dir/src/player.cpp.o" "gcc" "CMakeFiles/Game.dir/src/player.cpp.o.d"
   "/home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp" "CMakeFiles/Game.dir/src/room.cpp.o" "gcc" "CMakeFiles/Game.dir/src/room.cpp.o.d"

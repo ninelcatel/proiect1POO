@@ -9,6 +9,7 @@ Game: \
   CMakeFiles/Game.dir/src/init.cpp.o \
   CMakeFiles/Game.dir/src/player.cpp.o \
   CMakeFiles/Game.dir/src/assets.cpp.o \
+  CMakeFiles/Game.dir/src/gamemanager.cpp.o \
   CMakeFiles/Game.dir/src/room.cpp.o \
   CMakeFiles/Game.dir/src/enemy.cpp.o \
   /usr/lib/libSDL2_ttf.so \
@@ -103,6 +104,8 @@ CMakeFiles/Game.dir/src/init.cpp.o:
 CMakeFiles/Game.dir/src/player.cpp.o:
 
 CMakeFiles/Game.dir/src/assets.cpp.o:
+
+CMakeFiles/Game.dir/src/gamemanager.cpp.o:
 
 CMakeFiles/Game.dir/src/room.cpp.o:
 
