@@ -3,9 +3,12 @@
 
 GameManager::GameManager()
     : player("res/PLAYER/player.png", 10, 20)
-{}
+{
+    room=new Room();
+}
 
 GameManager::~GameManager() {
+    delete room;
     SDL_DestroyRenderer(game.getRenderer());
     SDL_DestroyWindow(game.getWindow());
     SDL_Quit();
@@ -24,8 +27,7 @@ void GameManager::run() {
         render();
         SDL_RenderPresent(game.getRenderer());
     }
-
-    std::cout << player;
+    std::cout << player; //the operator overload
 }
 
 void GameManager::handleEvents(SDL_Event& event, bool& running) {
@@ -38,7 +40,8 @@ void GameManager::handleEvents(SDL_Event& event, bool& running) {
             player.handleEvent(event);
             break;
         case GameState::MENU:
-            menu.update(event);
+            menu.handleEvent(event);
+            if(menu.getIsRunning()==false) running=false;
             break;
         case GameState::PAUSE:
             if (event.key.keysym.sym == SDLK_RETURN && event.type == SDL_KEYUP) {
@@ -54,6 +57,11 @@ void GameManager::update() {
     if (game.getGameState() == GameState::GAME) {
         player.update();
     }
+    if(player.getIsChangingLevels()){
+        player.setIsChangingLevel(false);
+        delete room;
+        room = new Room();
+    }
 }
 
 void GameManager::render() {
@@ -62,7 +70,7 @@ void GameManager::render() {
 
     switch (game.getGameState()) {
         case GameState::GAME:
-            room.render(player);
+            room->render(player);
             player.render();
             stats.render(player);
             break;
@@ -87,7 +95,7 @@ void GameManager::render() {
             textRect.y = (height - textRect.h) / 2;
             TTF_CloseFont(font);
 
-            room.render(player);
+            room->render(player);
             player.render();
             stats.render(player);
 

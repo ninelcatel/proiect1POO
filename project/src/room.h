@@ -42,16 +42,16 @@ class Room:public Game{
         SDL_Texture* room;
         static int TILE_SIZE_Y;
         static int TILE_SIZE_X;
-        
+        static void generateLevel();
     public:
         Room();
         ~Room();
-        void generateLevel();
+        
         void render(Player& player) ;
         void setTile(int x, int y,Sprites Sprite);
         Sprites getTile(int x,int y);
         void loadSpriteTextures();      
-        std::vector<std::pair<int,int>> checkForNeighbour(int i,int j);
+        static std::vector<std::pair<int,int>> checkForNeighbour(int i,int j);
         static void spritesScale(float &x, float &y);
         static RoomLayout (&getLayout())[5][5];
         static void setTileSize(int x,int y);

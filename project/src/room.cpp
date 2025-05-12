@@ -100,7 +100,7 @@ void Room::generateLevel()
     const int maxRooms = 6;
     int roomCount = 1;
     std::vector<std::pair<int, int>> activeRooms = {{2, 2}, {2, 1}, {1, 2}, {3, 2}, {2, 3}};
-    std::vector<Sprites> sprites = {BOULDER, HOLE, CHEST, POTION, SKULL, VASE, BARREL};
+    std::vector<Sprites> sprites = {BOULDER, CHEST, POTION, SKULL, VASE, BARREL};
     while (roomCount <= maxRooms && !activeRooms.empty())
     {
         int randNumber = std::rand();
@@ -146,7 +146,7 @@ void Room::generateLevel()
                                                                                     : "UP";
                 std::string fullPath = pathPrefix + suffix + ".png";
                 layout[x][y].roomSprites[nx][ny].filePaths.push_back(fullPath);
-                std::cout<<x<<" "<<y<<" are in "<<suffix<<" "<<i<<" "<<j<<std::endl;
+              
  
             }
             
@@ -170,6 +170,7 @@ void Room::generateLevel()
                 spritesMap[sprites[randIndex]] += 1;
                 --howMany;
             }
+
             const int max_tries = 100;
             for (auto &[spriteType, count] : spritesMap) // generating random positions for obstacle sprites
             {
@@ -188,10 +189,9 @@ void Room::generateLevel()
                     i = 2;
                     j = 3;
                     break;
-                case HOLE:
-                    i = 1;
-                    j = 3;
-                    break;
+                // case HOLE:
+                //     i = j = 1;
+                //     break;
                 case POTION:
                     i = j = 1;
                     break;
@@ -251,6 +251,18 @@ void Room::generateLevel()
         }
     }
 
+    auto [randx,randy]=activeRooms[rand()%(activeRooms.empty()==true ? 1 : activeRooms.size())];   
+    std::cout<<randx<<" "<<randy<<" "<<activeRooms.size()<<std::endl;
+    while(true){
+          int randomX = rand() % 5 + 1; // where does the generation start;
+            int randomY = rand() % 6 + 1;
+            Sprites &helper = layout[randx][randy].roomSprites[randomX][randomY].sprite;
+            if (helper==NOTHING) {
+                helper=HOLE;
+                
+                break;
+            }
+    }
     for (auto &x : layout)
     {
         for (auto &y : x)
@@ -512,5 +524,6 @@ Room::~Room(){
         for(auto& y:x)
             {for(auto& e:y.enemies)
                 delete e;
+            y.enemies.clear();
             }
 }

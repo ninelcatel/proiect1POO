@@ -23,11 +23,11 @@ Player::Player(const char *filePath, float atkp, float armoor)
     setMaxHealth(30);
     energy = 40;
     current_energy = 20;
-    keyBindings[SDLK_w] = &Player::moveUp;
-    keyBindings[SDLK_s] = &Player::moveDown;
-    keyBindings[SDLK_a] = &Player::moveLeft;
-    keyBindings[SDLK_d] = &Player::moveRight;
-    keyBindings[SDLK_SPACE] = &Player::enterRoom;
+    keyBindings[SDLK_w] = &Player::_moveUp;
+    keyBindings[SDLK_s] = &Player::_moveDown;
+    keyBindings[SDLK_a] = &Player::_moveLeft;
+    keyBindings[SDLK_d] = &Player::_moveRight;
+    keyBindings[SDLK_SPACE] = &Player::_enterRoom;
     keyBindings[SDLK_f] = &Entity::attack;
 
     keyStates[SDLK_w] = false;
@@ -59,8 +59,8 @@ void Player::handleEvent(SDL_Event &event)
         if(event.key.keysym.sym==SDLK_SPACE && !event.key.repeat){
             keyStates[event.key.keysym.sym] = true;
             
-    auto [n,m]=getRoomCoordinates();
-    std::cout<<n<<" "<<m<<std::endl;
+    // auto [n,m]=getRoomCoordinates();
+    // std::cout<<n<<" "<<m<<std::endl;
         }
         else{
         keyStates[event.key.keysym.sym] = true;
@@ -190,25 +190,25 @@ void Player::update()
         }
     }
 }
-void Player::moveUp()
+void Player::_moveUp()
 {
     const SDL_Rect rect = getPosition();
     setPosition(rect.x, static_cast<int>(rect.y - speed));
 }
 
-void Player::moveDown()
+void Player::_moveDown()
 {
     const SDL_Rect rect = getPosition();
     setPosition(rect.x, static_cast<int>(rect.y + 2 * speed));
 }
 
-void Player::moveLeft()
+void Player::_moveLeft()
 {
     const SDL_Rect rect = getPosition();
     setPosition(static_cast<int>(rect.x - speed), rect.y);
 }
 
-void Player::moveRight()
+void Player::_moveRight()
 {
     const SDL_Rect rect = getPosition();
     setPosition(static_cast<int>(rect.x + 2 * speed), rect.y);
@@ -230,7 +230,7 @@ int Player::getCurrentEnergy()
     return current_energy;
 }
 
-void Player::enterRoom(){
+void Player::_enterRoom(){
     
     auto [x,y]=getRoomCoordinates();
     auto helper=Room::layout[x][y].roomSprites;
@@ -260,6 +260,13 @@ void Player::enterRoom(){
                     }
 
                 }
+            }
+            else if(helper[i][j].sprite==HOLE){ //for changing levels
+                    if(checkNearDoor(helper[i][j].position)){
+                        setIsChangingLevel(true);
+                        SDL_Delay(100);
+                        setRoomCoordinates(std::make_pair(2,2));
+                    }
             }
         }
     }

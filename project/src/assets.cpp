@@ -49,7 +49,7 @@ void StatusBars::render(Player &player)
         i += 5;
     }
 }
-void Menu::update(SDL_Event &e)
+void Menu::handleEvent(SDL_Event &e)
 {
   
     auto it=std::find(isHovered.begin(),isHovered.end(),true);
@@ -81,9 +81,7 @@ void Menu::update(SDL_Event &e)
                 {
                     SDL_DestroyTexture(t.first);
                 }
-                TTF_CloseFont(font);
-                TTF_Quit();
-                SDL_Quit();
+                isRunning=false;
                 break;
             default:
                 break;
@@ -153,7 +151,7 @@ void Menu::render(){
     }
 }
 Menu::Menu()
-{
+{   isRunning=true;
     textContent = {"PLAY", "CHANGE RESOLUTION", "EXIT"};
     isHovered = std::vector<bool>(3, false);
     isHovered[0]=true;

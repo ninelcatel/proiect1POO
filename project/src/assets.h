@@ -25,10 +25,14 @@ class Menu : public Game{
         std::vector<std::string> textContent;
         std::vector<bool> isHovered;
         TTF_Font* font;
+        bool isRunning=true;;
     public:
-        void update(SDL_Event& e) ;
+        void handleEvent(SDL_Event& e);
         void render();
         void init_font();
         Menu();
+        bool getIsRunning() const{
+            return isRunning;
+        }
         ~Menu();
 };
