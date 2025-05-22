@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <unordered_map>
 #include "entity.h"
 class Player : public Entity
@@ -11,7 +10,7 @@ private:
     int attackFrameCounter;
     std::unordered_map<SDL_Keycode, void (Player::*)()> keyBindings; // function pointer for movement
     std::unordered_map<SDL_Keycode, bool> keyStates;                 // which keys are pressed so diagonal and smooth movement is possible
-    std::unordered_map<SDL_Keycode, Direction> keyToDirection;       // for not going out of bounds
+    std::unordered_map<SDL_Keycode, Direction> keyToDirection;       // for not going out of bounds or into obstacles
     void _moveUp();
     void _moveDown();
     void _moveLeft();
@@ -19,21 +18,24 @@ private:
     bool isChangingLevels;
     void _enterRoom();
 public:
-    Player(const char *filePath, float atkp, float armoor);
+    Player(const char *filePath);
     virtual void update() override;
     void handleEvent(SDL_Event &event);
-    void setEnergy(int energy);
-    int getEnergy();
-    void setMaxEnergy(int energy);
-    int getCurrentEnergy();
+
     
-    bool checkNearDoor(SDL_Rect doorPosition);
-    bool getIsChangingLevels() const{
-        return isChangingLevels;
-    };
+    // ----- setters -----
+    void setEnergy(int energy);
+    void setMaxEnergy(int energy);
     void setIsChangingLevel(bool x){
         isChangingLevels=x;
     }
+    // ---- getters ----
+    int getEnergy();
+    int getCurrentEnergy();
+    bool getIsChangingLevels() const{
+        return isChangingLevels;
+    };
+    bool checkNearDoor(SDL_Rect doorPosition) const;
     friend std::ostream& operator<<(std::ostream& os,const Player& e){
         os << "The Player has the following attributes: "<<e.getCurrentHealth()<<"/"<<e.getHealth()<<" Health Points "<<std::endl
         <<e.current_energy<<"/"<<e.energy<<" Energy"<<std::endl;

@@ -9,7 +9,7 @@ const int stayingDelay = 151;
 const int attackDelay = 51;
 const int getDamagedDelay = 5000;
 static int animFrameCounter = 0;
-Player::Player(const char *filePath, float atkp, float armoor)
+Player::Player(const char *filePath)
     : Entity(filePath)
 {
     // SDL_GetWindowSize(window, &initial_window_width, &initial_window_height);
@@ -17,8 +17,6 @@ Player::Player(const char *filePath, float atkp, float armoor)
     setPosition(175, 330);
     setSize(115,70);
     isEnemy = false;
-    ap = atkp;
-    armor = armoor;
     setHealth(20);
     setMaxHealth(30);
     energy = 40;
@@ -50,27 +48,26 @@ void Player::handleEvent(SDL_Event &event)
     if (event.type == SDL_KEYDOWN)
     {   
 
-        if(event.key.keysym.sym==SDLK_ESCAPE){
+        if(event.key.keysym.sym==SDLK_ESCAPE){ //for pausing the game
             setGameState(GameState::PAUSE);
             for(auto it:keyStates)
                 keyStates[it.first]=false;
          
         }
-        if(event.key.keysym.sym==SDLK_SPACE && !event.key.repeat){
+        if(event.key.keysym.sym==SDLK_SPACE && !event.key.repeat){ //changing rooms or levels
             keyStates[event.key.keysym.sym] = true;
             
-    // auto [n,m]=getRoomCoordinates();
-    // std::cout<<n<<" "<<m<<std::endl;
         }
         else{
         keyStates[event.key.keysym.sym] = true;
-        if (event.key.keysym.sym == SDLK_f && !getIsAttacking() && attackFrameCounter % 5 == 0 && getCurrentEnergy()>0)
+        // logic for attacking only once per whole attack motion ( used to be pushing too many elements into the fireZones vector instakilling anything)
+        if (event.key.keysym.sym == SDLK_f && !getIsAttacking() && attackFrameCounter % 5 == 0 && getCurrentEnergy()>0) 
         {
             setIsAttacking(true);
             attackFrameCounter = 0;
         }
          }
-        if (getIsFlipped() == false && event.key.keysym.sym == SDLK_a)
+        if (getIsFlipped() == false && event.key.keysym.sym == SDLK_a) // flips the character in function of the direction
             setIsFlipped(true);
         else if (getIsFlipped() == true && event.key.keysym.sym == SDLK_d)
             setIsFlipped(false);
@@ -80,7 +77,7 @@ void Player::handleEvent(SDL_Event &event)
     {
         keyStates[event.key.keysym.sym] = false;
     }
-    else if (event.type == SDL_WINDOWEVENT)
+    else if (event.type == SDL_WINDOWEVENT) // logic for scaling all the textures when resizing the window
     {
         if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
         {
@@ -94,7 +91,7 @@ void Player::handleEvent(SDL_Event &event)
             speed = 0.75f * getScaleY();        //MUST BE Y, OTHERWISE SPEED WONT BE HIGH ENOUGH TO MAKE THE TRUNC WHEN CASTING
 
             Room::setTileSize(static_cast<int>(getScaleX()*Room::getTileSize().first),static_cast<int>(getScaleY()*Room::getTileSize().second)); //update tile size for enemy pathfinding
-            std::cout<<Room::getTileSize().first<<" "<<Room::getTileSize().second<<" "<<std::endl;
+            
             /*SDL_GetWindowSize(window, &window_width, &window_height);
             float scale_x = static_cast<float>(window_width) / initial_window_width;
             float scale_y = static_cast<float>(window_height) / initial_window_height;
@@ -107,15 +104,14 @@ void Player::handleEvent(SDL_Event &event)
             );
             initial_window_width=window_width;
             initial_window_height=window_height;*/
+            // ^ first way of doing it
         }
     }
 }
 
 void Player::update()
 {
-    // std::cerr<<getPosition().x<<" "<<getPosition().y<<std::endl;
     bool moving = false;
-    ;
     frameCounter++;
     animFrameCounter++;
 
@@ -132,7 +128,7 @@ void Player::update()
         if (frameCounter % 3003 == 0)
         {   setEnergy(getCurrentEnergy()<getEnergy() ? getCurrentEnergy()+5 : getEnergy());
             setIsHit(false);
-            takeDamage();
+            takeDamage(); //function that checks if a player is inside a firezone and take damage only once per attack
         }
         attackFrameCounter++;
         if (getIsAttacking())
@@ -156,7 +152,7 @@ void Player::update()
         else
             attackFrameCounter = 0;
 
-        for (const auto &pair : keyBindings)
+        for (const auto &pair : keyBindings) //looping through the keybindings and call every function associated with it
         {
             if (keyStates[pair.first])
             {
@@ -173,17 +169,17 @@ void Player::update()
                 // action = keyToDirection[pair.first]==NONE;
             }
         }
-        if (getIsHit())
+        if (getIsHit()) //calling animation for being hit
         {
             if ((animFrameCounter % 32) == 0)
             {
                 animation(false, animFrameCounter % 3);
             }
         }
-        else
+        else //calling animation for movement or idle position
         {
             int frameModulo = moving ? 7 : 4; // 7 frames for moving, 4 for staying
-            if ((animFrameCounter % (moving ? animDelay : stayingDelay)) == 0)
+            if ((animFrameCounter % (moving ? animDelay : stayingDelay)) == 0) 
             {
                 animation(moving, animFrameCounter % frameModulo);
             }
@@ -239,7 +235,7 @@ void Player::_enterRoom(){
     Room::spritesScale(scaledX,scaledY);
     for(int i=0;i<7;i++){
         for(int j=0;j<8;j++){
-            if(helper[i][j].sprite==DOOR){
+            if(helper[i][j].sprite==DOOR){ // changing the room and updating position so it makes it look natural
                 if(checkNearDoor(helper[i][j].position)){
                     switch(i){  //hardcoding the direction xd, love pink monster 
                         case 0:
@@ -264,14 +260,14 @@ void Player::_enterRoom(){
             else if(helper[i][j].sprite==HOLE){ //for changing levels
                     if(checkNearDoor(helper[i][j].position)){
                         setIsChangingLevel(true);
-                        SDL_Delay(100);
-                        setRoomCoordinates(std::make_pair(2,2));
+                        SDL_Delay(100); // didnt try to not include it but thought a bit of delay woud make the game transition a bit more natural
+                        setRoomCoordinates(std::make_pair(2,2)); //starting position is always 2,2
                     }
             }
         }
     }
 }
-bool Player::checkNearDoor(SDL_Rect doorPosition){
+bool Player::checkNearDoor(SDL_Rect doorPosition) const{ //helper function for changing rooms, verifying 
     SDL_Rect playerPosition=getPosition();
     float x,y;
     Room::spritesScale(x,y);

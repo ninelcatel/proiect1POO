@@ -2,9 +2,8 @@
 #include "enemy.h"
 #include <cstdlib>
 #include <ctime>
-#include <algorithm>
-int Room::TILE_SIZE_X=125,Room::TILE_SIZE_Y=100;
 RoomLayout Room::layout[5][5] = {};
+int Room::TILE_SIZE_X=125,Room::TILE_SIZE_Y=100;
 Room::Room()
 {
     room = loadTexture("res/ROOM/ROOM_TEMPLATE.png", renderer);
@@ -163,7 +162,7 @@ void Room::generateLevel()
             std::unordered_map<Sprites, int> spritesMap; // what sprites and how many of them;
             std::random_shuffle(sprites.begin(), sprites.end());
             int howMany = (rand() % 13) + 1;
-            y.enemyCount = howMany % 4 + 1; // max 4 mobs
+            y.enemyCount = howMany % 4 + 1; // max 4 mobs per room
             while (howMany)
             {
                 int randIndex = (rand() % 3) + 1; // 4 sprites
@@ -252,8 +251,8 @@ void Room::generateLevel()
     }
 
     auto [randx,randy]=activeRooms[rand()%(activeRooms.empty()==true ? 1 : activeRooms.size())];   
-    std::cout<<randx<<" "<<randy<<" "<<activeRooms.size()<<std::endl;
-    while(true){
+    // std::cout<<randx<<" "<<randy<<" "<<activeRooms.size()<<std::endl;
+    while(true){ // searching for an empty space in the layout[randx][randy] to create an unique HOLE sprite to generate levels again making the game session be played as much as you want
           int randomX = rand() % 5 + 1; // where does the generation start;
             int randomY = rand() % 6 + 1;
             Sprites &helper = layout[randx][randy].roomSprites[randomX][randomY].sprite;
@@ -262,12 +261,13 @@ void Room::generateLevel()
                 
                 break;
             }
-    }
+    } 
+
     for (auto &x : layout)
     {
         for (auto &y : x)
         { // generating enemies;
-            std::vector<std::pair<int, int>> remainingAvailablePositions;
+            std::vector<std::pair<int, int>> remainingAvailablePositions; // Makes the enemies not spawn in obstacles 
             const auto &helper = y.roomSprites;
             for (int i = 1; i < 6; ++i)
             {
@@ -282,7 +282,7 @@ void Room::generateLevel()
                 }
             }
             std::random_shuffle(remainingAvailablePositions.begin(), remainingAvailablePositions.end());
-            while (y.enemyCount)
+            while (y.enemyCount) 
             {
                 const auto [i, j] = remainingAvailablePositions[rand() % remainingAvailablePositions.size()];
                 Enemy *enemy = new Enemy("res/ENEMY/SKELETON/SKELETON.png");
@@ -309,7 +309,7 @@ void Room::generateLevel()
         std::cout << std::endl;
     }*/
 }
-std::vector<std::pair<int, int>> Room::checkForNeighbour(int i, int j)
+std::vector<std::pair<int, int>> Room::checkForNeighbour(int i, int j) //logic for adding doors for each room that are connected in the correct decision
 {
     std::vector<std::pair<int, int>> tuplesList={};
     if (i < 0 || i >= 5 || j < 0 || j >= 5)
@@ -329,7 +329,7 @@ std::vector<std::pair<int, int>> Room::checkForNeighbour(int i, int j)
 
     return tuplesList;
 }
-void Room::loadSpriteTextures()
+void Room::loadSpriteTextures()  // After randomly generating the layout and roomSprites we have to load the textures and assign base positions
 {
     for (int i = 0; i < 5; ++i) // no idea why auto doesnt work
     {
@@ -370,13 +370,13 @@ void Room::loadSpriteTextures()
                         else
                         {
                             auto &tile = layout[i][j].roomSprites[row][col];
-                            if (tile.sprite != NOTHING)
+                            if (tile.sprite != NOTHING) // creating the path to the sprites
                             {
                                 std::string spritePrefix = "res/ROOM/";
                                 std::string spriteSuffix;
                                 if (tile.sprite == BOULDER)
                                 {
-                                    int boulderIndex = rand() % 4 + 1;
+                                    int boulderIndex = rand() % 4 + 1; // there are 4 boulder sprites
                                     spriteSuffix = "BOULDERS/BOULDER" + std::to_string(boulderIndex);
                                 }
                                 else
@@ -408,10 +408,9 @@ void Room::loadSpriteTextures()
                                 std::string fullPath = spritePrefix + spriteSuffix + ".png";
                                 tile.filePaths.push_back(fullPath);
                                 tile.texture = loadTexture(fullPath.c_str(), renderer);
-                                tile.basePosition = {175, 230, 115, 70};
+                                tile.basePosition = {175, 230, 115, 70}; // where the first tile appears, then it's actual position is processed in function of the rooms layout indexes
                             }
                         }
-                        //  std::cout<<"layout[i][j]: "<<i<<" "<<j<<" sprite[row][col] "<<row<<" "<<col<<" "<<layout[i][j].roomSprites[row][col].filePaths[0]<<std::endl;
                     }
                 }
             }
@@ -429,13 +428,7 @@ RoomLayout (&Room::getLayout())[5][5]
 {
     return layout;
 }
-void Room::setTileSize(int x,int y){
-    TILE_SIZE_X=x;
-    TILE_SIZE_Y=y;
-}
-std::pair<int,int> Room::getTileSize(){
-    return {TILE_SIZE_X,TILE_SIZE_Y};
-}
+
 
 const int ROWS = 7;
 const int COLS = 8;
@@ -526,4 +519,12 @@ Room::~Room(){
                 delete e;
             y.enemies.clear();
             }
+}
+
+void Room::setTileSize(int x,int y){
+    TILE_SIZE_X=x;
+    TILE_SIZE_Y=y;
+}
+std::pair<int,int> Room::getTileSize(){
+    return {TILE_SIZE_X,TILE_SIZE_Y};
 }

@@ -18,19 +18,18 @@ enum Sprites{
     SKULL,
     POTION,
     DOOR,
-    NOTHING
+    NOTHING // player or enemies can go through NOTHING
 };
 struct Tiles{
     Sprites sprite;
     SDL_Rect basePosition; 
     SDL_Rect position;
     SDL_Texture* texture;
-    bool isBreakable;
+    bool isBreakable; // Idea for being able to destroy certain sprites via player attack, was too lazy to implement
     std::vector<std::string> filePaths; // initially i wanted to have multiple texture for a single one but im too lazy to change it so ill let it make my life miserable
 };
 struct RoomLayout{
     bool exists; //0 is empty, 1 exists 
-    bool isCleared;
     int enemyCount;
     std::vector<Enemy*> enemies;
     Tiles roomSprites[7][8]; // 5x6 tiles with a border saved for doors only
@@ -46,10 +45,7 @@ class Room:public Game{
     public:
         Room();
         ~Room();
-        
         void render(Player& player) ;
-        void setTile(int x, int y,Sprites Sprite);
-        Sprites getTile(int x,int y);
         void loadSpriteTextures();      
         static std::vector<std::pair<int,int>> checkForNeighbour(int i,int j);
         static void spritesScale(float &x, float &y);

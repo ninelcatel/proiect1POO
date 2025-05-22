@@ -1,14 +1,13 @@
 #include "gamemanager.h"
 #include <iostream>
 
-GameManager::GameManager()
-    : player("res/PLAYER/player.png", 10, 20)
+GameManager::GameManager(): player("res/PLAYER/player.png")
 {
     room=new Room();
 }
 
 GameManager::~GameManager() {
-    delete room;
+    delete room; //cleanup
     SDL_DestroyRenderer(game.getRenderer());
     SDL_DestroyWindow(game.getWindow());
     SDL_Quit();
@@ -18,7 +17,7 @@ void GameManager::run() {
     SDL_Event event;
     bool running = true;
 
-    while (running) {
+    while (running) {                       // Game loop
         while (SDL_PollEvent(&event)) {
             handleEvents(event, running);
         }
@@ -30,7 +29,7 @@ void GameManager::run() {
     std::cout << player; //the operator overload
 }
 
-void GameManager::handleEvents(SDL_Event& event, bool& running) {
+void GameManager::handleEvents(SDL_Event& event, bool& running) { // Handling events in function of GameState 
     if (event.type == SDL_QUIT) {
         running = false;
     }
@@ -41,10 +40,10 @@ void GameManager::handleEvents(SDL_Event& event, bool& running) {
             break;
         case GameState::MENU:
             menu.handleEvent(event);
-            if(menu.getIsRunning()==false) running=false;
+            if(menu.getIsRunning()==false) running=false; // If "QUIT" is pressed stop the game
             break;
         case GameState::PAUSE:
-            if (event.key.keysym.sym == SDLK_RETURN && event.type == SDL_KEYUP) {
+            if (event.key.keysym.sym == SDLK_RETURN && event.type == SDL_KEYUP) { // Press enter to unpause the game
                 game.setGameState(GameState::GAME);
             }
             break;
@@ -57,9 +56,9 @@ void GameManager::update() {
     if (game.getGameState() == GameState::GAME) {
         player.update();
     }
-    if(player.getIsChangingLevels()){
+    if(player.getIsChangingLevels()){ // Changing Rooms
         player.setIsChangingLevel(false);
-        delete room;
+        delete room; // Free the memory
         room = new Room();
     }
 }
@@ -79,7 +78,7 @@ void GameManager::render() {
             menu.render();
             break;
 
-        case GameState::PAUSE: {
+        case GameState::PAUSE: {  // Could've been done with another class or function but works just as fine
             TTF_Font* font = TTF_OpenFont("res/font/Pixeled.ttf", 50);
             SDL_Color color = {255, 255, 255};
             SDL_Rect textRect;
@@ -90,7 +89,7 @@ void GameManager::render() {
             SDL_Texture* textTexture = SDL_CreateTextureFromSurface(game.getRenderer(), textSurface);
             SDL_FreeSurface(textSurface);
 
-            TTF_SizeText(font, "RESUME", &textRect.w, &textRect.h);
+            TTF_SizeText(font, "RESUME", &textRect.w, &textRect.h); // Text content
             textRect.x = (width - textRect.w) / 2;
             textRect.y = (height - textRect.h) / 2;
             TTF_CloseFont(font);
@@ -99,12 +98,12 @@ void GameManager::render() {
             player.render();
             stats.render(player);
 
-            SDL_SetRenderDrawBlendMode(game.getRenderer(), SDL_BLENDMODE_BLEND);
+            SDL_SetRenderDrawBlendMode(game.getRenderer(), SDL_BLENDMODE_BLEND); // For adding a slight blur on the background
             SDL_SetRenderDrawColor(game.getRenderer(), 180, 180, 180, 50);
-            SDL_Rect blur = {0, 0, width, height};
+            SDL_Rect blur = {0, 0, width, height}; // Occupy the whole screen
             SDL_RenderFillRect(game.getRenderer(), &blur);
             SDL_RenderCopy(game.getRenderer(), textTexture, nullptr, &textRect);
-            SDL_DestroyTexture(textTexture);
+            SDL_DestroyTexture(textTexture); // Free memory
             break;
         }
 

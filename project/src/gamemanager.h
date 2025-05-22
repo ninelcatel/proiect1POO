@@ -19,8 +19,7 @@ private:
     StatusBars stats;
 public:
     GameManager();
-    
-    ~GameManager();
+   ~GameManager();
     void run();
 
 };

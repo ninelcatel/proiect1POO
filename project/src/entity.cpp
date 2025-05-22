@@ -24,7 +24,7 @@ int Entity::getHealth() const
 {
     return hp;
 }
-SDL_Rect Entity::getPosition() // also gives entity size with .h and .w;
+SDL_Rect Entity::getPosition() const// also gives entity size with .h and .w;
 {
     return position;
 }
@@ -38,7 +38,7 @@ void Entity::changeAppearence(const char *filePath)
     texture = loadTexture(filePath, renderer);
 }
 
-void Entity::render()
+void Entity::render() // Basic scaling, every class has this in it's rendering/update function though
 {
     if (window)
     {
@@ -52,11 +52,11 @@ void Entity::render()
     }
     SDL_RenderCopy(renderer, texture, nullptr, &position);
 }
-SDL_Texture *Entity::getTexture()
+SDL_Texture *Entity::getTexture()const
 {
     return texture;
 }
-const char *Entity::getFilePath()
+const char *Entity::getFilePath()const
 {
 
     return filePath;
@@ -65,15 +65,12 @@ void Entity::setFilePath(const char *newPath)
 {
     filePath = newPath;
 }
-SDL_Renderer *Entity::getRenderer()
-{
-    return renderer;
-}
+
 void Entity::setIsFlipped(bool flip)
 {
     isFlipped = flip;
 }
-bool Entity::getIsFlipped()
+bool Entity::getIsFlipped()const
 {
     return isFlipped;
 }
@@ -105,7 +102,7 @@ bool Entity::isValidMove(Direction dir)
     //  lower bound: y=485
     //  left bound: x=145;
     //  right bound: x=770
-    auto [room_row,room_col]=getIndexesInRoomMatrix();
+    auto [room_row,room_col]=getIndexesInRoomMatrix(); // Nust be called to know which TILE in the room to verify obstacles in 
     
     switch (dir)
     {
@@ -128,10 +125,10 @@ bool Entity::checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j,
 {
     auto& layout= Room::getLayout();
     SDL_Rect &helper=layout[layoutCoordinates.first][layoutCoordinates.second].roomSprites[i][j].position;
-    SDL_Rect hitbox=getPosition();
+    SDL_Rect hitbox=getPosition(); // Helper for entity hitbox
     float x,y;
     Room::spritesScale(x,y);
-    switch(dir){
+    switch(dir){ // Updating the obstacle's hitbox for the rendering to look natural (without this thee player would be able to go through half of the sprite)
         case UP:
             hitbox.y=static_cast<int>((hitbox.y-hitbox.h/2));
             break;
@@ -145,7 +142,6 @@ bool Entity::checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j,
             hitbox.x=static_cast<int>((hitbox.x+hitbox.w));
                 break;    
     }
-    // std::cout<<"Player: "<<hitbox.x<<" "<<hitbox.y<<" "<<hitbox.w<<" "<<hitbox.h<<" Sprite: "<<helper.x<<" "<<helper.y<<" "<<helper.w<<" "<<helper.h<<std::endl; 
     return SDL_HasIntersection(&hitbox,&helper);
 }
 void Entity::takeDamage()
@@ -176,9 +172,9 @@ void Entity::takeDamage()
                )
             {
                 Entity temp = *this + (-5);
-                this->setHealth(temp.getCurrentHealth()); // need to implement + somehow
-                setIsHit(true);
-                std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
+                this->setHealth(temp.getCurrentHealth()); // need to implement + overload somehow
+                setIsHit(true); // take damage only once per attack frame
+                // std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
                 
             }
             }
@@ -187,26 +183,26 @@ void Entity::takeDamage()
     }
 }
 void Entity::attack()
-{   if(static_cast<int>(timeSinceLastAttack)<=250) return;
+{   if(static_cast<int>(timeSinceLastAttack)<=250) return; // 250 feels like the threhsold to make attacking be as active as the actual attacking animation frames
     SDL_Rect attack_range;
     attack_range = position;
-    int eyeFrames = isEnemy? 10 : 50;
-    eyeFrames=isFlipped ? -eyeFrames : eyeFrames;
-    attack_range.x = static_cast<int>((attack_range.x + eyeFrames) * getScaleX());
+    int eFrames = isEnemy? 10 : 50; // Player has a bigger attack range than enemies, we dont want a hard game
+    eFrames=isFlipped ? -eFrames : eFrames;
+    attack_range.x = static_cast<int>((attack_range.x + eFrames) * getScaleX()); // Scaling in function of window size;
     attack_range.y = static_cast<int>(attack_range.y * getScaleY());
     pushFireZone(attack_range, 1, isEnemy);
-    timeSinceLastAttack=0;
+    timeSinceLastAttack=0; // Reset the timer
 
 }
 void Entity::setIsHit(bool isHit)
 {
     alreadyHit = isHit;
 }
-bool Entity::getIsHit()
+bool Entity::getIsHit()const
 {
     return alreadyHit;
 }
-void Entity::animation(bool isMoving, int index)
+void Entity::animation(bool isMoving, int index) // Logic for animating 
 {
     std::string prefix = isEnemy ? "res/ENEMY/SKELETON/": "res/PLAYER/";
     if(isEnemy){
@@ -216,7 +212,7 @@ void Entity::animation(bool isMoving, int index)
             }
         else prefix+=isAttacking ? "ANIMATION/" : isMoving ? "ANIMATION/MOVING/" : "";
     }
-    prefix = prefix + (alreadyHit ? "" : isAttacking ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : "") ; // add this for already hit
+    prefix = prefix + (alreadyHit ? "" : isAttacking ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : "") ; 
     std::vector<std::string> suffix = isEnemy ? alreadyHit ? 
     std::vector<std::string>{"SKELETON","SKELETON_HIT","SKELETON"} 
     : isAttacking ? 
@@ -246,10 +242,10 @@ void Entity::animation(bool isMoving, int index)
 void Entity::setIsAttacking(bool attk){
     isAttacking=attk;
 }
-bool Entity::getIsAttacking(){
+bool Entity::getIsAttacking()const{
     return isAttacking;
 }
-std::pair<int, int> Entity::getRoomCoordinates()
+std::pair<int, int> Entity::getRoomCoordinates()const
 {
     return currentRoom_Position;
 }
@@ -257,7 +253,7 @@ void Entity::setRoomCoordinates(std::pair<int, int> coordinates)
 {
     currentRoom_Position=coordinates;
 }
-std::pair<int,int> Entity::getIndexesInRoomMatrix() {
+std::pair<int,int> Entity::getIndexesInRoomMatrix()const {
      float x,y;
     Room::spritesScale(x,y);
     const int roomStartX = static_cast<int>(184*x);
@@ -280,11 +276,9 @@ std::pair<int,int> Entity::getIndexesInRoomMatrix() {
     // Ensure we're within bounds
     column = std::max(1, std::min(column, 6));
     row = std::max(1, std::min(row, 5));
-    // std::cout<<"Row: "<<row<<" Column: "<<column<<std::endl;
     return std::make_pair(row, column);
 }
 void Entity::update(){
-         
         position.x = int((position.x * getScaleX()));
         position.y = int((position.y * getScaleY()));
         scale();                //must get put again because since its not handled by an event it takes the static one and multiplies too much

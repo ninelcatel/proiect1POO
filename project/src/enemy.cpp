@@ -69,7 +69,7 @@ void Enemy::update(Player &player)
                 int distX = targetX - enemyRect.x;
                 int distY = targetY - enemyRect.y;
 
-                // Determine if we've reached the waypoint (within STEP_SIZE)
+                // Determine if we've reached the waypoint
                 bool reachedX = abs(distX) <= STEP_SIZE;
                 bool reachedY = abs(distY) <= STEP_SIZE;
 
@@ -102,7 +102,7 @@ void Enemy::update(Player &player)
                     }
                 }
 
-                // // Update animation based on movement direction
+                // Update animation based on movement direction
                 if (distX != 0)
                 {
                     // Set direction based on movement
@@ -110,17 +110,17 @@ void Enemy::update(Player &player)
                 }                
             }
         }
-          if(SDL_HasIntersection(&enemyRect,&playerRect)){
+          if(SDL_HasIntersection(&enemyRect,&playerRect)){ // Enemy will attack if the hitboxes reach but the attacking logic is made to make it hard for enemies to deal damage via attacks
             setIsAttacking(true);
             this->attack();
           }
-          if(getIsHit() && animFrameCounter%5==0) animation(moving,animFrameCounter%3);
-        else if(getIsAttacking() && animFrameCounter%10==0) {
+          if(getIsHit() && animFrameCounter%5==0) animation(moving,animFrameCounter%3); // Animation for taking damage (pulsating red)
+        else if(getIsAttacking() && animFrameCounter%10==0) { // Animation for attacking
             animation(moving,attackFrameCounter%10);
             attackFrameCounter++;
             if(attackFrameCounter%10==0) setIsAttacking(false);
             }
-        else if(animFrameCounter%ANIM_DELAY==0)animation(moving, (animFrameCounter) % 7); 
+        else if(animFrameCounter%ANIM_DELAY==0)animation(moving, (animFrameCounter) % 7);  // Animation for moving 
 
         
     }

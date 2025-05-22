@@ -18,30 +18,35 @@ SDL_Texture* loadTexture(const char* filePath, SDL_Renderer* renderer);
 class Game{
     private:
         static GameState State;
-        static bool initialized;; //track if initialized
+        static bool initialized;; //track if initialized for window resizing
         static float scale_x, scale_y;
-        static std::vector<FireZone>* fireZones;
-   protected:
-        
+        static std::vector<FireZone>* fireZones; // Main logic for making player / enemies take damage
+   protected: // Protected because each child has the logic of upscaling/downscaling and framecounters.
+
         static int window_width,window_height;
         static int initial_window_width,initial_window_height; 
-        // used for dynamically resizing;
+        // used for resizing;
         static int frameCounter;
         static SDL_Renderer* renderer;
         static SDL_Window* window;
     public:
         Game();
-        SDL_Renderer* getRenderer();
-        SDL_Window* getWindow();
-        static void setGameState(GameState state);
+        
+        
         void scale();
-        static GameState getGameState();
         void scaleEntity(SDL_Rect &position);
-        static float getScaleX();
-        static float getScaleY();
         static void pushFireZone(SDL_Rect rect,double time,bool isEnemy);
-        static std::vector<FireZone>& getFireZones();
-        static void resetScales();
+        // ---- setters -----
+        static void setGameState(GameState state);
+        // ---- getters -----
+        static float getScaleX() ;
+        static float getScaleY() ;
+        static std::vector<FireZone>& getFireZones() ;
+        static GameState getGameState() ;
+        SDL_Renderer* getRenderer() const;
+        SDL_Window* getWindow() const; 
+
+        
 };
 class GameComponent {
     public:

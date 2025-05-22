@@ -1,17 +1,15 @@
 #include "init.h"
 #include "player.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 class StatusBars : public Game
 {
     private:
         SDL_Texture* health_bar,
         *energy_bar,
-        *broken_health,
-        *broken_energy;
+        *broken_health, // Broken refers to empty sprtie for the respective bar, for example if player's hp is 30/40 6 hearts will be full and 2 will be empty
+        *broken_energy; 
         public:
-        StatusBars(){
+        StatusBars(){ // Loading the texture for the status bars
             health_bar=loadTexture("res/heart/Heart.png",renderer);
             broken_health=loadTexture("res/heart/brokenHeart.png",renderer);
             energy_bar=loadTexture("res/heart/Energy.png",renderer);
@@ -21,13 +19,13 @@ class StatusBars : public Game
 };
 class Menu : public Game{
     private:
-        std::vector<std::pair<SDL_Texture *,SDL_Rect>> text;
-        std::vector<std::string> textContent;
-        std::vector<bool> isHovered;
+        std::vector<std::pair<SDL_Texture *,SDL_Rect>> text; // Vector used for rendering the text, the pair.first is made from TTF via textContent elements
+        std::vector<std::string> textContent; 
+        std::vector<bool> isHovered; // Used to highlight and acces current selection
         TTF_Font* font;
         bool isRunning=true;;
     public:
-        void handleEvent(SDL_Event& e);
+        void handleEvent(SDL_Event& e); // Handles going through menu tokens and accesing them
         void render();
         void init_font();
         Menu();

@@ -12,7 +12,7 @@ float Game::scale_x=1;
 float Game::scale_y=1;
 GameState Game::State=GameState::MENU;
 std::vector<FireZone>* Game::fireZones = nullptr;
-bool init(SDL_Window **window, SDL_Renderer **renderer)
+bool init(SDL_Window **window, SDL_Renderer **renderer) // initializing the main SDL components for game interface
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -37,10 +37,9 @@ bool init(SDL_Window **window, SDL_Renderer **renderer)
         return true;
     }
         
-    SDL_SetRenderDrawColor(*renderer, 0, 0, 0, 255);
-    SDL_RenderClear(*renderer);
+    SDL_SetRenderDrawColor(*renderer, 0, 0, 0, 255); // Black screen as base
+    SDL_RenderClear(*renderer); 
     SDL_RenderPresent(*renderer);
-    SDL_Delay(10);
     return false;
 }
 SDL_Texture *loadTexture(const char *filePath, SDL_Renderer *renderer)
@@ -73,21 +72,21 @@ Game::Game(){
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
             SDL_RenderClear(renderer);
             SDL_RenderPresent(renderer);
-            SDL_ShowWindow(window); // to not shdow blinking at the initialization
+            SDL_ShowWindow(window); // to not shdow blinking at the initialization (bug i think)
             
             SDL_GetWindowSize(window,&window_width,&window_height);
             
             initial_window_width=window_width;
             initial_window_height=window_height;
             fireZones = new std::vector<FireZone>();
-            // std::cout<<"!"<<initial_window_width<<"!"<<window_width;
+            
             }
         }
-SDL_Renderer* Game::getRenderer(){
+SDL_Renderer* Game::getRenderer()const{
     return renderer;
 }
 
-SDL_Window* Game::getWindow(){
+SDL_Window* Game::getWindow()const{
     return window;
 }
 /*void Game::scaleEntity(SDL_Rect &position)
@@ -128,7 +127,7 @@ void Game::pushFireZone(SDL_Rect rect,double time,bool isEnemy){
     FireZone fire;
     fire.zone=rect;
     fire.isActive=true;
-    fire.activationTime=std::chrono::steady_clock::now();
+    fire.activationTime=std::chrono::steady_clock::now(); 
     fire.howLong=time;
     fire.isEnemy=isEnemy;
     fireZones->push_back(fire);
@@ -136,10 +135,7 @@ void Game::pushFireZone(SDL_Rect rect,double time,bool isEnemy){
 std::vector<FireZone>& Game::getFireZones(){
     return *fireZones;
 }
-void Game::resetScales(){
-    scale_x=1;
-    scale_y=1;
-}
+
 GameState Game::getGameState(){
     return State;
 }

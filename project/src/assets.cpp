@@ -2,10 +2,10 @@
 #include <algorithm>
 void StatusBars::render(Player &player)
 {
-    int max_hp = player.getHealth(), current_hp = player.getCurrentHealth(); // health
-    int max_energy = player.getEnergy(), current_energy = player.getCurrentEnergy();
+    int max_hp = player.getHealth(), current_hp = player.getCurrentHealth(); // Player's health to render the correct amount of hearts
+    int max_energy = player.getEnergy(), current_energy = player.getCurrentEnergy(); // ^ same but with energy
     int i = 5;
-    if (window)
+    if (window) // This is for updatig the sizing of the status bars in function of window size
         SDL_GetWindowSize(window, &window_width, &window_height);
     else
     {
@@ -18,31 +18,31 @@ void StatusBars::render(Player &player)
     position.h = window_height * 0.035;
     position.y = window_height - 2 * position.h;
     // std::cout<<window_height<<std::endl<<window_width<<std::endl;
-    while (i <= current_hp)
+    while (i <= current_hp) // Rendering health bar 
     {
         SDL_RenderCopy(renderer, health_bar, nullptr, &position);
         i += 5;
         position.x += position.w;
     }
-    while (i <= max_hp)
+    while (i <= max_hp) // Also show empty hearts based on players max HP
     {
         SDL_RenderCopy(renderer, broken_health, nullptr, &position);
         position.x += position.w;
         i += 5;
     }
 
-    position.x = 0; // reset position
-    position.y += position.h;
+    position.x = 0; // Reset X axis position
+    position.y += position.h; // Energy bar is directly under the health bar
     // position.x=50;
     // position.y=100;
     i = 5;
-    while (i <= current_energy)
+    while (i <= current_energy) // Rendering energy bar 
     {
         SDL_RenderCopy(renderer, energy_bar, nullptr, &position);
         i += 5;
         position.x += position.w;
     }
-    while (i <= max_energy)
+    while (i <= max_energy) // Also show empty energy sprites based on players max energy
     {
         SDL_RenderCopy(renderer, broken_energy, nullptr, &position);
         position.x += position.w;
@@ -57,7 +57,7 @@ void Menu::handleEvent(SDL_Event &e)
     if(it!=isHovered.end()){
         index=std::distance(isHovered.begin(),it);
     }
-    if(!e.key.repeat && e.type==SDL_KEYUP){
+    if(!e.key.repeat && e.type==SDL_KEYUP){ // Logic for going through Menu and to highlight current selection
     switch (e.key.keysym.sym)
     {
     case SDLK_UP:
@@ -68,7 +68,7 @@ void Menu::handleEvent(SDL_Event &e)
         isHovered[index]=false;
         isHovered[(index==isHovered.size()-1) ? 0 : index+1]=true;
         break;
-    case SDLK_RETURN:
+    case SDLK_RETURN: // Logic for applying the current selection
         switch(index){
             case 0:
                 setGameState(GameState::GAME);
@@ -91,7 +91,7 @@ void Menu::handleEvent(SDL_Event &e)
         break;
     }
     }
-    for(int i=0;i<3;++i){
+    for(int i=0;i<3;++i){ // Coloring the text in funciton of current selection
         if(isHovered[i]==true){
             SDL_SetTextureColorMod(text[i].first,255,255,255);
         }
@@ -152,7 +152,7 @@ void Menu::render(){
 }
 Menu::Menu()
 {   isRunning=true;
-    textContent = {"PLAY", "CHANGE RESOLUTION", "EXIT"};
+    textContent = {"PLAY", "CHANGE RESOLUTION", "EXIT"}; // Menu tokens
     isHovered = std::vector<bool>(3, false);
     isHovered[0]=true;
     init_font();
