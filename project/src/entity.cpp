@@ -68,11 +68,11 @@ void Entity::setFilePath(const char *newPath)
 
 void Entity::setIsFlipped(bool flip)
 {
-    isFlipped = flip;
+    is_flipped = flip;
 }
 bool Entity::getIsFlipped()const
 {
-    return isFlipped;
+    return is_flipped;
 }
 int Entity::getCurrentHealth() const
 {
@@ -124,7 +124,7 @@ bool Entity::isValidMove(Direction dir)
 bool Entity::checkForObstacles(std::pair<int,int> layoutCoordinates,int i,int j,Direction dir) // i and j are room coordinates in the 5x6 matrix;
 {
     auto& layout= Room::getLayout();
-    SDL_Rect &helper=layout[layoutCoordinates.first][layoutCoordinates.second].roomSprites[i][j].position;
+    SDL_Rect &helper=layout[layoutCoordinates.first][layoutCoordinates.second].room_sprites[i][j].position;
     SDL_Rect hitbox=getPosition(); // Helper for entity hitbox
     float x,y;
     Room::spritesScale(x,y);
@@ -149,8 +149,8 @@ void Entity::takeDamage()
     auto currentTime = std::chrono::steady_clock::now();
     std::vector<FireZone> &fire = getFireZones();
     for (auto it = fire.begin(); it != fire.end();)
-    {   int passedTime=std::chrono::duration_cast<std::chrono::seconds>(currentTime - it->activationTime).count();
-        if ((passedTime) >= (it->howLong))
+    {   int passedTime=std::chrono::duration_cast<std::chrono::seconds>(currentTime - it->activation_time).count();
+        if ((passedTime) >= (it->how_long))
         {
             it=fire.erase(it);
             setIsHit(false);
@@ -167,14 +167,14 @@ void Entity::takeDamage()
             hitbox.h = static_cast<int>((hitbox.h - 90) * getScaleY());
 
             if (this->position.x != it->zone.x  // so it doesnt take damage from itself , maybe add another conditon for entityType or such.
-                && this->isEnemy != it->isEnemy // skeleton wont damage another skeleton
+                && this->is_enemy != it->is_enemy // skeleton wont damage another skeleton
                 && SDL_HasIntersection(&position, &hitbox)
                )
             {
                 Entity temp = *this + (-5);
                 this->setHealth(temp.getCurrentHealth()); // need to implement + overload somehow
                 setIsHit(true); // take damage only once per attack frame
-                // std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->isEnemy<<" "<<it->howLong<<" "<< std::endl;
+                // std::cout << "TAKING DAMAGE! " << getCurrentHealth() << " " <<it->is_enemy<<" "<<it->howLong<<" "<< std::endl;
                 
             }
             }
@@ -183,47 +183,47 @@ void Entity::takeDamage()
     }
 }
 void Entity::attack()
-{   if(static_cast<int>(timeSinceLastAttack)<=250) return; // 250 feels like the threhsold to make attacking be as active as the actual attacking animation frames
+{   if(static_cast<int>(time_since_last_attack)<=250) return; // 250 feels like the threhsold to make attacking be as active as the actual attacking animation frames
     SDL_Rect attack_range;
     attack_range = position;
-    int eFrames = isEnemy? 10 : 50; // Player has a bigger attack range than enemies, we dont want a hard game
-    eFrames=isFlipped ? -eFrames : eFrames;
+    int eFrames = is_enemy? 10 : 50; // Player has a bigger attack range than enemies, we dont want a hard game
+    eFrames=is_flipped ? -eFrames : eFrames;
     attack_range.x = static_cast<int>((attack_range.x + eFrames) * getScaleX()); // Scaling in function of window size;
     attack_range.y = static_cast<int>(attack_range.y * getScaleY());
-    pushFireZone(attack_range, 1, isEnemy);
-    timeSinceLastAttack=0; // Reset the timer
+    pushFireZone(attack_range, 1, is_enemy);
+    time_since_last_attack=0; // Reset the timer
 
 }
 void Entity::setIsHit(bool isHit)
 {
-    alreadyHit = isHit;
+    already_hit = isHit;
 }
 bool Entity::getIsHit()const
 {
-    return alreadyHit;
+    return already_hit;
 }
 void Entity::animation(bool isMoving, int index) // Logic for animating 
 {
-    std::string prefix = isEnemy ? "res/ENEMY/SKELETON/": "res/PLAYER/";
-    if(isEnemy){
-        if(alreadyHit) {
+    std::string prefix = is_enemy ? "res/ENEMY/SKELETON/": "res/PLAYER/";
+    if(is_enemy){
+        if(already_hit) {
             isMoving=false;
             setIsAttacking(false);
             }
-        else prefix+=isAttacking ? "ANIMATION/" : isMoving ? "ANIMATION/MOVING/" : "";
+        else prefix+=is_attacking ? "ANIMATION/" : isMoving ? "ANIMATION/MOVING/" : "";
     }
-    prefix = prefix + (alreadyHit ? "" : isAttacking ? "ATTACK/" : "") + (isFlipped ? "FLIPPED/" : "") ; 
-    std::vector<std::string> suffix = isEnemy ? alreadyHit ? 
+    prefix = prefix + (already_hit ? "" : is_attacking ? "ATTACK/" : "") + (is_flipped ? "FLIPPED/" : "") ; 
+    std::vector<std::string> suffix = is_enemy ? already_hit ? 
     std::vector<std::string>{"SKELETON","SKELETON_HIT","SKELETON"} 
-    : isAttacking ? 
+    : is_attacking ? 
     std::vector<std::string>{"SKELETON", "SKELETON1", "SKELETON2", "SKELETON3","SKELETON","SKELETON5","SKELETON6","SKELETON7","SKELETON8","SKELETON9"} : 
     isMoving ? 
     std::vector<std::string>{"SKELETON1", "SKELETON2", "SKELETON3", "SKELETON4", "SKELETON5", "SKELETON6"} 
     : std::vector<std::string>{"SKELETON", "SKELETON", "SKELETON", "SKELETON"}
     :
-    alreadyHit ? 
+    already_hit ? 
     std::vector<std::string>{"player","PLAYER_HIT","player","PLAYER_HIT"} 
-    : isAttacking ? 
+    : is_attacking ? 
     std::vector<std::string>{"player", "ATTACK1", "ATTACK2", "ATTACK3"} : 
     isMoving ? 
     std::vector<std::string>{"player", "run1", "run2", "run3", "run4", "run5", "run6"} 
@@ -240,18 +240,18 @@ void Entity::animation(bool isMoving, int index) // Logic for animating
     changeAppearence(filePath.c_str());                     // change from std::string to const char*
 }
 void Entity::setIsAttacking(bool attk){
-    isAttacking=attk;
+    is_attacking=attk;
 }
 bool Entity::getIsAttacking()const{
-    return isAttacking;
+    return is_attacking;
 }
 std::pair<int, int> Entity::getRoomCoordinates()const
 {
-    return currentRoom_Position;
+    return current_room_position;
 }
 void Entity::setRoomCoordinates(std::pair<int, int> coordinates)
 {
-    currentRoom_Position=coordinates;
+    current_room_position=coordinates;
 }
 std::pair<int,int> Entity::getIndexesInRoomMatrix()const {
      float x,y;

@@ -8,7 +8,7 @@ const int moveDelay = 11;
 const int stayingDelay = 151;
 const int attackDelay = 51;
 const int getDamagedDelay = 5000;
-static int animFrameCounter = 0;
+static int anim_frame_counter = 0;
 Player::Player(const char *filePath)
     : Entity(filePath)
 {
@@ -16,31 +16,31 @@ Player::Player(const char *filePath)
     setRoomCoordinates({2, 2});
     setPosition(175, 330);
     setSize(115,70);
-    isEnemy = false;
+    is_enemy = false;
     setHealth(20);
     setMaxHealth(30);
     energy = 40;
     current_energy = 20;
-    keyBindings[SDLK_w] = &Player::_moveUp;
-    keyBindings[SDLK_s] = &Player::_moveDown;
-    keyBindings[SDLK_a] = &Player::_moveLeft;
-    keyBindings[SDLK_d] = &Player::_moveRight;
-    keyBindings[SDLK_SPACE] = &Player::_enterRoom;
-    keyBindings[SDLK_f] = &Entity::attack;
+    key_bindings[SDLK_w] = &Player::_moveUp;
+    key_bindings[SDLK_s] = &Player::_moveDown;
+    key_bindings[SDLK_a] = &Player::_moveLeft;
+    key_bindings[SDLK_d] = &Player::_moveRight;
+    key_bindings[SDLK_SPACE] = &Player::_enterRoom;
+    key_bindings[SDLK_f] = &Entity::attack;
 
-    keyStates[SDLK_w] = false;
-    keyStates[SDLK_s] = false;
-    keyStates[SDLK_a] = false;
-    keyStates[SDLK_d] = false;
-    keyStates[SDLK_f] = false;
-    keyStates[SDLK_SPACE] = false;
+    key_states[SDLK_w] = false;
+    key_states[SDLK_s] = false;
+    key_states[SDLK_a] = false;
+    key_states[SDLK_d] = false;
+    key_states[SDLK_f] = false;
+    key_states[SDLK_SPACE] = false;
 
-    keyToDirection[SDLK_w] = UP;
-    keyToDirection[SDLK_s] = DOWN;
-    keyToDirection[SDLK_a] = LEFT;
-    keyToDirection[SDLK_d] = RIGHT;
-    keyToDirection[SDLK_f] = NONE;
-    keyToDirection[SDLK_SPACE] = NONE;
+    key_to_direction[SDLK_w] = UP;
+    key_to_direction[SDLK_s] = DOWN;
+    key_to_direction[SDLK_a] = LEFT;
+    key_to_direction[SDLK_d] = RIGHT;
+    key_to_direction[SDLK_f] = NONE;
+    key_to_direction[SDLK_SPACE] = NONE;
 }
 
 void Player::handleEvent(SDL_Event &event)
@@ -50,21 +50,21 @@ void Player::handleEvent(SDL_Event &event)
 
         if(event.key.keysym.sym==SDLK_ESCAPE){ //for pausing the game
             setGameState(GameState::PAUSE);
-            for(auto it:keyStates)
-                keyStates[it.first]=false;
+            for(auto it:key_states)
+                key_states[it.first]=false;
          
         }
         if(event.key.keysym.sym==SDLK_SPACE && !event.key.repeat){ //changing rooms or levels
-            keyStates[event.key.keysym.sym] = true;
+            key_states[event.key.keysym.sym] = true;
             
         }
         else{
-        keyStates[event.key.keysym.sym] = true;
+        key_states[event.key.keysym.sym] = true;
         // logic for attacking only once per whole attack motion ( used to be pushing too many elements into the fireZones vector instakilling anything)
-        if (event.key.keysym.sym == SDLK_f && !getIsAttacking() && attackFrameCounter % 5 == 0 && getCurrentEnergy()>0) 
+        if (event.key.keysym.sym == SDLK_f && !getIsAttacking() && attack_frame_counter % 5 == 0 && getCurrentEnergy()>0) 
         {
             setIsAttacking(true);
-            attackFrameCounter = 0;
+            attack_frame_counter = 0;
         }
          }
         if (getIsFlipped() == false && event.key.keysym.sym == SDLK_a) // flips the character in function of the direction
@@ -75,7 +75,7 @@ void Player::handleEvent(SDL_Event &event)
     }
     else if (event.type == SDL_KEYUP)
     {
-        keyStates[event.key.keysym.sym] = false;
+        key_states[event.key.keysym.sym] = false;
     }
     else if (event.type == SDL_WINDOWEVENT) // logic for scaling all the textures when resizing the window
     {
@@ -112,52 +112,52 @@ void Player::handleEvent(SDL_Event &event)
 void Player::update()
 {
     bool moving = false;
-    frameCounter++;
-    animFrameCounter++;
+    frame_counter++;
+    anim_frame_counter++;
 
-    if (frameCounter % 11 == 0)
+    if (frame_counter % 11 == 0)
     {    
-        if(frameCounter%22000==0){ //Health regeneration every 22k frames ig
+        if(frame_counter%22000==0){ //Health regeneration every 22k frames ig
             setHealth(getHealth()>getCurrentHealth() ? getCurrentHealth()+5 : getHealth());
                 // Player temp=*this;
             // this->setHealth(temp.getHealth()>temp.getCurrentHealth() ? (temp+5).getCurrentHealth() : temp.getHealth()); // sat and looked at this for 10 seconds then started laughing 
             //                                                                                                             // why do i have to implement + overload man
         
         }
-        timeSinceLastAttack++;
-        if (frameCounter % 3003 == 0)
+        time_since_last_attack++;
+        if (frame_counter % 3003 == 0)
         {   setEnergy(getCurrentEnergy()<getEnergy() ? getCurrentEnergy()+5 : getEnergy());
             setIsHit(false);
             takeDamage(); //function that checks if a player is inside a firezone and take damage only once per attack
         }
-        attackFrameCounter++;
+        attack_frame_counter++;
         if (getIsAttacking())
         {
-            if (attackFrameCounter % attackDelay == 0)
+            if (attack_frame_counter % attackDelay == 0)
             {
-                int currentFrame = (attackFrameCounter / attackDelay) % 4;
-                if (attackFrameCounter % attackDelay == 0)
+                int currentFrame = (attack_frame_counter / attackDelay) % 4;
+                if (attack_frame_counter % attackDelay == 0)
                     animation(false, currentFrame);
 
                 // if last frame is reached, stop attack animation
                 if (currentFrame == 3)
                 {
-                    attackFrameCounter = 0;
-                    if (keyStates[SDLK_f] == false)
-                        setIsAttacking(false); // setting keyStates to false makes the animation smoother and lets the player attack whilst moving
+                    attack_frame_counter = 0;
+                    if (key_states[SDLK_f] == false)
+                        setIsAttacking(false); // setting key_states to false makes the animation smoother and lets the player attack whilst moving
                     setEnergy(getCurrentEnergy()-5);
                 }
             }
         }
         else
-            attackFrameCounter = 0;
+            attack_frame_counter = 0;
 
-        for (const auto &pair : keyBindings) //looping through the keybindings and call every function associated with it
+        for (const auto &pair : key_bindings) //looping through the key_bindings and call every function associated with it
         {
-            if (keyStates[pair.first])
+            if (key_states[pair.first])
             {
-                moving = keyToDirection[pair.first] != NONE;
-                if (isValidMove(keyToDirection[pair.first]))
+                moving = key_to_direction[pair.first] != NONE;
+                if (isValidMove(key_to_direction[pair.first]))
                 {   
                     if(pair.first==SDLK_f && getCurrentEnergy()!=0){
                         (this->*pair.second)();
@@ -166,22 +166,22 @@ void Player::update()
                     else (this->*pair.second)();
                 }
                 // std::cerr<<getIsAttacking()<<std::endl;
-                // action = keyToDirection[pair.first]==NONE;
+                // action = key_to_direction[pair.first]==NONE;
             }
         }
         if (getIsHit()) //calling animation for being hit
         {
-            if ((animFrameCounter % 32) == 0)
+            if ((anim_frame_counter % 32) == 0)
             {
-                animation(false, animFrameCounter % 3);
+                animation(false, anim_frame_counter % 3);
             }
         }
         else //calling animation for movement or idle position
         {
             int frameModulo = moving ? 7 : 4; // 7 frames for moving, 4 for staying
-            if ((animFrameCounter % (moving ? animDelay : stayingDelay)) == 0) 
+            if ((anim_frame_counter % (moving ? animDelay : stayingDelay)) == 0) 
             {
-                animation(moving, animFrameCounter % frameModulo);
+                animation(moving, anim_frame_counter % frameModulo);
             }
         }
     }
@@ -229,7 +229,7 @@ int Player::getCurrentEnergy()
 void Player::_enterRoom(){
     
     auto [x,y]=getRoomCoordinates();
-    auto helper=Room::layout[x][y].roomSprites;
+    auto helper=Room::layout[x][y].room_sprites;
     scale();
     float scaledX,scaledY;
     Room::spritesScale(scaledX,scaledY);
@@ -269,7 +269,7 @@ void Player::_enterRoom(){
 }
 bool Player::checkNearDoor(SDL_Rect doorPosition) const{ //helper function for changing rooms, verifying 
     SDL_Rect playerPosition=getPosition();
-    float x,y;
+float x,y;
     Room::spritesScale(x,y);
     doorPosition.h=static_cast<int>(50*y);
     return SDL_HasIntersection(&playerPosition,&doorPosition);

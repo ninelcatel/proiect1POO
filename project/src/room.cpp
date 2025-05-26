@@ -17,7 +17,7 @@ Room::Room()
     {
         for (auto &y : x)
         {
-            for (auto &row : y.roomSprites)
+            for (auto &row : y.room_sprites)
             {
                 std::fill(std::begin(row), std::end(row), Tiles{NOTHING, SDL_Rect{}, SDL_Rect{}, nullptr, false, {}});
             }
@@ -28,14 +28,14 @@ Room::Room()
     layout[2][3].exists = true;
     layout[1][2].exists = true;
     layout[3][2].exists = true;
-    layout[2][2].roomSprites[0][3].filePaths.push_back("res/ROOM/DOORS/DOOR_UP.png"); // main room
-    layout[2][2].roomSprites[6][3].filePaths.push_back("res/ROOM/DOORS/DOOR_DOWN.png");
-    layout[2][2].roomSprites[3][0].filePaths.push_back("res/ROOM/DOORS/DOOR_LEFT.png");
-    layout[2][2].roomSprites[3][7].filePaths.push_back("res/ROOM/DOORS/DOOR_RIGHT.png");
-    layout[2][2].roomSprites[0][3].sprite = DOOR;
-    layout[2][2].roomSprites[6][3].sprite = DOOR;
-    layout[2][2].roomSprites[3][0].sprite = DOOR;
-    layout[2][2].roomSprites[3][7].sprite = DOOR;
+    layout[2][2].room_sprites[0][3].file_paths.push_back("res/ROOM/DOORS/DOOR_UP.png"); // main room
+    layout[2][2].room_sprites[6][3].file_paths.push_back("res/ROOM/DOORS/DOOR_DOWN.png");
+    layout[2][2].room_sprites[3][0].file_paths.push_back("res/ROOM/DOORS/DOOR_LEFT.png");
+    layout[2][2].room_sprites[3][7].file_paths.push_back("res/ROOM/DOORS/DOOR_RIGHT.png");
+    layout[2][2].room_sprites[0][3].sprite = DOOR;
+    layout[2][2].room_sprites[6][3].sprite = DOOR;
+    layout[2][2].room_sprites[3][0].sprite = DOOR;
+    layout[2][2].room_sprites[3][7].sprite = DOOR;
 
     generateLevel();
     loadSpriteTextures();
@@ -53,7 +53,7 @@ void Room::render(Player &player)
         for (int j = 0; j < 8; ++j)
         {
 
-            Tiles &helper = layout[x][y].roomSprites[i][j];
+            Tiles &helper = layout[x][y].room_sprites[i][j];
 
             float scaleX, scaleY;
             spritesScale(scaleX, scaleY);
@@ -61,18 +61,18 @@ void Room::render(Player &player)
             if (helper.sprite == DOOR)
             {
 
-                helper.position.h = static_cast<int>(scaleY * helper.basePosition.h);
-                helper.position.y = static_cast<int>(scaleY * helper.basePosition.y);
-                helper.position.x = static_cast<int>(helper.basePosition.x * scaleX);
-                helper.position.w = static_cast<int>(scaleX * helper.basePosition.w);
+                helper.position.h = static_cast<int>(scaleY * helper.base_position.h);
+                helper.position.y = static_cast<int>(scaleY * helper.base_position.y);
+                helper.position.x = static_cast<int>(helper.base_position.x * scaleX);
+                helper.position.w = static_cast<int>(scaleX * helper.base_position.w);
                 SDL_RenderCopy(renderer, helper.texture, nullptr, &helper.position);
             }
             else
             {
-                helper.position.h = static_cast<int>(scaleY * helper.basePosition.h);
-                helper.position.y = static_cast<int>(scaleY * (helper.basePosition.y) + (i - 1) * helper.position.h);
-                helper.position.w = static_cast<int>(scaleX * helper.basePosition.w);
-                helper.position.x = static_cast<int>(scaleX * (helper.basePosition.x) + (j - 1) * helper.position.w);
+                helper.position.h = static_cast<int>(scaleY * helper.base_position.h);
+                helper.position.y = static_cast<int>(scaleY * (helper.base_position.y) + (i - 1) * helper.position.h);
+                helper.position.w = static_cast<int>(scaleX * helper.base_position.w);
+                helper.position.x = static_cast<int>(scaleX * (helper.base_position.x) + (j - 1) * helper.position.w);
 
                 SDL_RenderCopy(renderer, helper.texture, nullptr, &helper.position);
             }
@@ -140,11 +140,11 @@ void Room::generateLevel()
                 auto [nx, ny] = x == i  ? y < j ? std::make_pair(3, 7) : std::make_pair(3, 0)
                                  : x < i ? std::make_pair(6, 3)
                                         : std::make_pair(0, 3);
-                layout[x][y].roomSprites[nx][ny].sprite = DOOR;
+                layout[x][y].room_sprites[nx][ny].sprite = DOOR;
                 std::string suffix = nx == 3 ? ny != 0 ? "RIGHT" : "LEFT" : nx != 0 ? "DOWN"
                                                                                     : "UP";
                 std::string fullPath = pathPrefix + suffix + ".png";
-                layout[x][y].roomSprites[nx][ny].filePaths.push_back(fullPath);
+                layout[x][y].room_sprites[nx][ny].file_paths.push_back(fullPath);
               
  
             }
@@ -162,7 +162,7 @@ void Room::generateLevel()
             std::unordered_map<Sprites, int> spritesMap; // what sprites and how many of them;
             std::random_shuffle(sprites.begin(), sprites.end());
             int howMany = (rand() % 13) + 1;
-            y.enemyCount = howMany % 4 + 1; // max 4 mobs per room
+            y.enemy_count = howMany % 4 + 1; // max 4 mobs per room
             while (howMany)
             {
                 int randIndex = (rand() % 3) + 1; // 4 sprites
@@ -229,7 +229,7 @@ void Room::generateLevel()
                         (randPlacingX == 5 && (randPlacingY == 3 || randPlacingY == 4));
                     if (inBounds and !notBlockingDoors)
                     { // checking for bounds
-                        Sprites &helper = y.roomSprites[randPlacingX][randPlacingY].sprite;
+                        Sprites &helper = y.room_sprites[randPlacingX][randPlacingY].sprite;
                         if (helper == NOTHING)
                         {
                             helper = spriteType;
@@ -255,7 +255,7 @@ void Room::generateLevel()
     while(true){ // searching for an empty space in the layout[randx][randy] to create an unique HOLE sprite to generate levels again making the game session be played as much as you want
           int randomX = rand() % 5 + 1; // where does the generation start;
             int randomY = rand() % 6 + 1;
-            Sprites &helper = layout[randx][randy].roomSprites[randomX][randomY].sprite;
+            Sprites &helper = layout[randx][randy].room_sprites[randomX][randomY].sprite;
             if (helper==NOTHING) {
                 helper=HOLE;
                 
@@ -268,7 +268,7 @@ void Room::generateLevel()
         for (auto &y : x)
         { // generating enemies;
             std::vector<std::pair<int, int>> remainingAvailablePositions; // Makes the enemies not spawn in obstacles 
-            const auto &helper = y.roomSprites;
+            const auto &helper = y.room_sprites;
             for (int i = 1; i < 6; ++i)
             {
                 for (int j = 1; j < 7; ++j)
@@ -282,7 +282,7 @@ void Room::generateLevel()
                 }
             }
             std::random_shuffle(remainingAvailablePositions.begin(), remainingAvailablePositions.end());
-            while (y.enemyCount) 
+            while (y.enemy_count) 
             {
                 const auto [i, j] = remainingAvailablePositions[rand() % remainingAvailablePositions.size()];
                 Enemy *enemy = new Enemy("res/ENEMY/SKELETON/SKELETON.png");
@@ -297,7 +297,7 @@ void Room::generateLevel()
                 enemy->setSize(width, height);
                 enemy->setPosition(posX, posY);
                 y.enemies.push_back(enemy);
-                y.enemyCount--;
+                y.enemy_count--;
             }
         }
     }
@@ -329,7 +329,7 @@ std::vector<std::pair<int, int>> Room::checkForNeighbour(int i, int j) //logic f
 
     return tuplesList;
 }
-void Room::loadSpriteTextures()  // After randomly generating the layout and roomSprites we have to load the textures and assign base positions
+void Room::loadSpriteTextures()  // After randomly generating the layout and room_sprites we have to load the textures and assign base positions
 {
     for (int i = 0; i < 5; ++i) // no idea why auto doesnt work
     {
@@ -341,25 +341,25 @@ void Room::loadSpriteTextures()  // After randomly generating the layout and roo
                 {
                     for (int col = 0; col < 8; ++col)
                     {
-                        if (layout[i][j].roomSprites[row][col].sprite == DOOR && !layout[i][j].roomSprites[row][col].filePaths.empty())
+                        if (layout[i][j].room_sprites[row][col].sprite == DOOR && !layout[i][j].room_sprites[row][col].file_paths.empty())
                         {
-                            layout[i][j].roomSprites[row][col].texture = loadTexture(layout[i][j].roomSprites[row][col].filePaths[0].c_str(), renderer);
+                            layout[i][j].room_sprites[row][col].texture = loadTexture(layout[i][j].room_sprites[row][col].file_paths[0].c_str(), renderer);
 
                             switch (row)
                             {
                             case 0:
-                                layout[i][j].roomSprites[row][col].basePosition = {420, 80, 200, 125};
+                                layout[i][j].room_sprites[row][col].base_position = {420, 80, 200, 125};
                                 break;
                             case 6:
-                                layout[i][j].roomSprites[row][col].basePosition = {420, 580, 200, 75};
+                                layout[i][j].room_sprites[row][col].base_position = {420, 580, 200, 75};
                             case 3:
                                 switch (col)
                                 {
                                 case 0:
-                                    layout[i][j].roomSprites[row][col].basePosition = {100, 325, 75, 100};
+                                    layout[i][j].room_sprites[row][col].base_position = {100, 325, 75, 100};
                                     break;
                                 case 7:
-                                    layout[i][j].roomSprites[row][col].basePosition = {850, 325, 75, 100};
+                                    layout[i][j].room_sprites[row][col].base_position = {850, 325, 75, 100};
                                 default:
                                     break;
                                 }
@@ -369,7 +369,7 @@ void Room::loadSpriteTextures()  // After randomly generating the layout and roo
                         }
                         else
                         {
-                            auto &tile = layout[i][j].roomSprites[row][col];
+                            auto &tile = layout[i][j].room_sprites[row][col];
                             if (tile.sprite != NOTHING) // creating the path to the sprites
                             {
                                 std::string spritePrefix = "res/ROOM/";
@@ -406,9 +406,9 @@ void Room::loadSpriteTextures()  // After randomly generating the layout and roo
                                     }
                                 }
                                 std::string fullPath = spritePrefix + spriteSuffix + ".png";
-                                tile.filePaths.push_back(fullPath);
+                                tile.file_paths.push_back(fullPath);
                                 tile.texture = loadTexture(fullPath.c_str(), renderer);
-                                tile.basePosition = {175, 230, 115, 70}; // where the first tile appears, then it's actual position is processed in function of the rooms layout indexes
+                                tile.base_position = {175, 230, 115, 70}; // where the first tile appears, then it's actual position is processed in function of the rooms layout indexes
                             }
                         }
                     }

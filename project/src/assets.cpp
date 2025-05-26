@@ -52,21 +52,21 @@ void StatusBars::render(Player &player)
 void Menu::handleEvent(SDL_Event &e)
 {
   
-    auto it=std::find(isHovered.begin(),isHovered.end(),true);
+    auto it=std::find(is_hovered.begin(),is_hovered.end(),true);
     int index;
-    if(it!=isHovered.end()){
-        index=std::distance(isHovered.begin(),it);
+    if(it!=is_hovered.end()){
+        index=std::distance(is_hovered.begin(),it);
     }
     if(!e.key.repeat && e.type==SDL_KEYUP){ // Logic for going through Menu and to highlight current selection
     switch (e.key.keysym.sym)
     {
     case SDLK_UP:
-        isHovered[index]=false;
-        isHovered[index==0 ? (isHovered.size()-1) : (index-1)]=true;
+        is_hovered[index]=false;
+        is_hovered[index==0 ? (is_hovered.size()-1) : (index-1)]=true;
         break;
     case SDLK_DOWN:
-        isHovered[index]=false;
-        isHovered[(index==isHovered.size()-1) ? 0 : index+1]=true;
+        is_hovered[index]=false;
+        is_hovered[(index==is_hovered.size()-1) ? 0 : index+1]=true;
         break;
     case SDLK_RETURN: // Logic for applying the current selection
         switch(index){
@@ -81,7 +81,7 @@ void Menu::handleEvent(SDL_Event &e)
                 {
                     SDL_DestroyTexture(t.first);
                 }
-                isRunning=false;
+                is_running=false;
                 break;
             default:
                 break;
@@ -92,7 +92,7 @@ void Menu::handleEvent(SDL_Event &e)
     }
     }
     for(int i=0;i<3;++i){ // Coloring the text in funciton of current selection
-        if(isHovered[i]==true){
+        if(is_hovered[i]==true){
             SDL_SetTextureColorMod(text[i].first,255,255,255);
         }
         else{
@@ -100,7 +100,7 @@ void Menu::handleEvent(SDL_Event &e)
         }
     }
 }
-void Menu::init_font(){
+void Menu::initFont(){
     if (TTF_Init() == -1)
     {
         std::cerr << "failed to initialize font!: " << TTF_GetError() << std::endl;
@@ -118,20 +118,20 @@ void Menu::init_font(){
     SDL_GetWindowSize(window, &width, &height);
 
     int yAxis = rect.y;
-    for (int i = 0; i < textContent.size(); ++i)
+    for (int i = 0; i < text_content.size(); ++i)
     {
-        if (TTF_SizeText(font, textContent[i].c_str(), &rect.w, &rect.h) != 0)
+        if (TTF_SizeText(font, text_content[i].c_str(), &rect.w, &rect.h) != 0)
         {
             std::cerr << "Failed to get text size: " << TTF_GetError() << std::endl;
         }
         rect.x = (width - rect.w) / 2;
         rect.y = (height - rect.h) / 2 + i * rect.h;
-        SDL_Surface *surface = TTF_RenderText_Solid(font, textContent[i].c_str(), color);
+        SDL_Surface *surface = TTF_RenderText_Solid(font, text_content[i].c_str(), color);
         SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
         text.push_back({texture, rect});
         if (!text[i].first)
         {
-            std::cerr << "failed to create textContent texture! " << SDL_GetError() << " " << TTF_GetError() << std::endl;
+            std::cerr << "failed to create text_content texture! " << SDL_GetError() << " " << TTF_GetError() << std::endl;
             return;
         }
         SDL_FreeSurface(surface); // Not freeing causes memory leaks
@@ -151,11 +151,11 @@ void Menu::render(){
     }
 }
 Menu::Menu()
-{   isRunning=true;
-    textContent = {"PLAY", "CHANGE RESOLUTION", "EXIT"}; // Menu tokens
-    isHovered = std::vector<bool>(3, false);
-    isHovered[0]=true;
-    init_font();
+{   is_running=true;
+    text_content = {"PLAY", "CHANGE RESOLUTION", "EXIT"}; // Menu tokens
+    is_hovered = std::vector<bool>(3, false);
+    is_hovered[0]=true;
+    initFont();
 }
 Menu::~Menu()
 {

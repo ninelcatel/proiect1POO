@@ -4,18 +4,18 @@
 class Entity : public Game,public GameComponent
 {
 private:
-    std::pair<int,int> currentRoom_Position;
+    std::pair<int,int> current_room_position;
     SDL_Rect position;
     SDL_Texture *texture;
     const char *filePath;
     int hp,current_hp;
-    bool alreadyHit=false;
-    bool isFlipped=false;
-    bool isAttacking=false;
+    bool already_hit=false;
+    bool is_flipped=false;
+    bool is_attacking=false;
 protected:
-    float timeSinceLastAttack=0;
+    float time_since_last_attack=0;
 public:
-    bool isEnemy;
+    bool is_enemy;
     Entity(const char *filePath=NULL)
     { 
         texture = loadTexture(filePath, renderer);

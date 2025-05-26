@@ -20,17 +20,17 @@ class StatusBars : public Game
 class Menu : public Game{
     private:
         std::vector<std::pair<SDL_Texture *,SDL_Rect>> text; // Vector used for rendering the text, the pair.first is made from TTF via textContent elements
-        std::vector<std::string> textContent; 
-        std::vector<bool> isHovered; // Used to highlight and acces current selection
+        std::vector<std::string> text_content; 
+        std::vector<bool> is_hovered; // Used to highlight and acces current selection
         TTF_Font* font;
-        bool isRunning=true;;
+        bool is_running=true;;
     public:
         void handleEvent(SDL_Event& e); // Handles going through menu tokens and accesing them
         void render();
-        void init_font();
+        void initFont();
         Menu();
         bool getIsRunning() const{
-            return isRunning;
+            return is_running;
         }
         ~Menu();
 };

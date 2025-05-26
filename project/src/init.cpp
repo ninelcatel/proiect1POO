@@ -7,11 +7,11 @@ int Game::initial_window_height=720;
 int Game::initial_window_width=1024;
 int Game::window_height=720;
 int Game::window_width=1024;
-int Game::frameCounter=0;
+int Game::frame_counter=0;
 float Game::scale_x=1;
 float Game::scale_y=1;
 GameState Game::State=GameState::MENU;
-std::vector<FireZone>* Game::fireZones = nullptr;
+std::vector<FireZone>* Game::fire_zones = nullptr;
 bool init(SDL_Window **window, SDL_Renderer **renderer) // initializing the main SDL components for game interface
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -78,7 +78,7 @@ Game::Game(){
             
             initial_window_width=window_width;
             initial_window_height=window_height;
-            fireZones = new std::vector<FireZone>();
+            fire_zones = new std::vector<FireZone>();
             
             }
         }
@@ -126,14 +126,14 @@ void Game::scale(){        //use x and y via static_cast<int>(rect.x*x) or sth t
 void Game::pushFireZone(SDL_Rect rect,double time,bool isEnemy){
     FireZone fire;
     fire.zone=rect;
-    fire.isActive=true;
-    fire.activationTime=std::chrono::steady_clock::now(); 
-    fire.howLong=time;
-    fire.isEnemy=isEnemy;
-    fireZones->push_back(fire);
+    fire.is_active=true;
+    fire.activation_time=std::chrono::steady_clock::now(); 
+    fire.how_long=time;
+    fire.is_enemy=isEnemy;
+    fire_zones->push_back(fire);
 }
 std::vector<FireZone>& Game::getFireZones(){
-    return *fireZones;
+    return *fire_zones;
 }
 
 GameState Game::getGameState(){

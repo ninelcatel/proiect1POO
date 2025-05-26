@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/main.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/main.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/main.cpp",
+  "output": "CMakeFiles/Game.dir/main.cpp.o"
+},
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/entity.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/entity.cpp",
+  "output": "CMakeFiles/Game.dir/src/entity.cpp.o"
+},
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/init.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/init.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/init.cpp",
+  "output": "CMakeFiles/Game.dir/src/init.cpp.o"
+},
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/player.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/player.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/player.cpp",
+  "output": "CMakeFiles/Game.dir/src/player.cpp.o"
+},
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/assets.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/assets.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/assets.cpp",
+  "output": "CMakeFiles/Game.dir/src/assets.cpp.o"
+},
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/gamemanager.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/gamemanager.cpp",
+  "output": "CMakeFiles/Game.dir/src/gamemanager.cpp.o"
+},
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/room.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/room.cpp",
+  "output": "CMakeFiles/Game.dir/src/room.cpp.o"
+},
+{
+  "directory": "/home/ninel/facultate/poo/proiect1/proiect1/project/build",
+  "command": "/sbin/g++  -isystem /usr/include/SDL2  -fsanitize=address -g -g -std=gnu++17 -o CMakeFiles/Game.dir/src/enemy.cpp.o -c /home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.cpp",
+  "file": "/home/ninel/facultate/poo/proiect1/proiect1/project/src/enemy.cpp",
+  "output": "CMakeFiles/Game.dir/src/enemy.cpp.o"
+}
+]

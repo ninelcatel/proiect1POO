@@ -6,10 +6,10 @@ const int ANIM_DELAY = 15;
 Enemy::Enemy(const char *filePath) : Entity(filePath)
 {
     setHealth(30);
-    timeSinceLastAttack=0;
-    animFrameCounter=0;
-    attackFrameCounter=0;
-    isEnemy = true;
+    time_since_last_attack=0;
+    anim_frame_counter=0;
+    attack_frame_counter=0;
+    is_enemy = true;
     moving=false;
 }
 void Enemy::update(Player &player)
@@ -26,16 +26,16 @@ void Enemy::update(Player &player)
     setPosition(position.x, position.y);
     SDL_Rect enemyRect = getPosition(); 
     SDL_Rect playerRect = player.getPosition();
-    if (frameCounter % 4003 == 0) // take damage every 4 seconds
+    if (frame_counter % 4003 == 0) // take damage every 4 seconds
     {
         setIsHit(false);
         takeDamage();
     }
 
-    if (frameCounter % 60 == 0)
+    if (frame_counter % 60 == 0)
     {   
-        timeSinceLastAttack+=1.35f;
-        animFrameCounter++;
+        time_since_last_attack+=1.35f;
+        anim_frame_counter++;
         auto [lx, ly] = player.getRoomCoordinates();
         auto [ex, ey] = this->getIndexesInRoomMatrix();
         auto [px, py] = player.getIndexesInRoomMatrix();
@@ -44,21 +44,21 @@ void Enemy::update(Player &player)
         {   
             moving=false;
             // Recalculate path only if needed
-            path = aStar(ex, ey, px, py, Room::layout[lx][ly].roomSprites);
-            currentWaypointIndex = 0; // Start from beginning of new path
+            path = aStar(ex, ey, px, py, Room::layout[lx][ly].room_sprites);
+            current_waypoint_index = 0; // Start from beginning of new path
         }
 
         // If there are enough steps in the path, move towards the next position
-        if (path.size() > currentWaypointIndex)
+        if (path.size() > current_waypoint_index)
         {   moving=true;
-            if (ex == path[currentWaypointIndex].first && ey == path[currentWaypointIndex].second)
+            if (ex == path[current_waypoint_index].first && ey == path[current_waypoint_index].second)
             {
-                currentWaypointIndex++;
+                current_waypoint_index++;
             }
             // If we have more waypoints, move toward the next one
-            if (path.size() > currentWaypointIndex)
+            if (path.size() > current_waypoint_index)
             {
-                auto [nextY, nextX] = path[currentWaypointIndex];       // rows are based on Y in pixels...
+                auto [nextY, nextX] = path[current_waypoint_index];       // rows are based on Y in pixels...
                 int targetX = static_cast<int>(nextX * (Room::getTileSize().first));
                 int targetY = static_cast<int>(nextY * (Room::getTileSize().second));
 
@@ -76,7 +76,7 @@ void Enemy::update(Player &player)
                 // If we've reached this waypoint, move to the next one
                 if (reachedX && reachedY)
                 {
-                    currentWaypointIndex++;
+                    current_waypoint_index++;
                     // Set exact position to avoid drift
                     setPosition(targetX, targetY);
                     std::cout<<enemyRect.x<<" "<<enemyRect.y<<" Player: "<<playerRect.x<<" "<<playerRect.y<<std::endl;
@@ -114,13 +114,13 @@ void Enemy::update(Player &player)
             setIsAttacking(true);
             this->attack();
           }
-          if(getIsHit() && animFrameCounter%5==0) animation(moving,animFrameCounter%3); // Animation for taking damage (pulsating red)
-        else if(getIsAttacking() && animFrameCounter%10==0) { // Animation for attacking
-            animation(moving,attackFrameCounter%10);
-            attackFrameCounter++;
-            if(attackFrameCounter%10==0) setIsAttacking(false);
+          if(getIsHit() && anim_frame_counter%5==0) animation(moving,anim_frame_counter%3); // Animation for taking damage (pulsating red)
+        else if(getIsAttacking() && anim_frame_counter%10==0) { // Animation for attacking
+            animation(moving,attack_frame_counter%10);
+            attack_frame_counter++;
+            if(attack_frame_counter%10==0) setIsAttacking(false);
             }
-        else if(animFrameCounter%ANIM_DELAY==0)animation(moving, (animFrameCounter) % 7);  // Animation for moving 
+        else if(anim_frame_counter%ANIM_DELAY==0)animation(moving, (anim_frame_counter) % 7);  // Animation for moving 
 
         
     }
